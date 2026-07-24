@@ -1,0 +1,11 @@
+server.py
+server.js
+server.js~
+start.bat
+start.vbs
+index.html
+deploy/
+.workbuddy/
+*.pyc
+__pycache__/
+.DS_Store

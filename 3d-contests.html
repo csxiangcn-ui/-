@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>3D 模型网站比赛汇总</title>
+<style>
+[data-theme="light"] {
+  --bg: #f5f7fa; --bg2: #edf2f7; --card-bg: #ffffff; --text: #1a202c; --text-muted: #718096;
+  --border: #e2e8f0; --shadow: 0 1px 3px rgba(0,0,0,0.04),0 4px 12px rgba(0,0,0,0.05);
+  --shadow-hover: 0 4px 8px rgba(0,0,0,0.06),0 12px 24px rgba(0,0,0,0.08);
+  --accent: #4299e1; --ongoing: #38a169; --upcoming: #3182ce; --judging: #dd6b20; --ended: #a0aec0;
+  --soon: #e53e3e; --star-default: #cbd5e0; --star-active: #f6e05e; --star-hover: #ecc94b;
+  --tooltip-bg: #1a202c; --tooltip-text: #fff; --banner-bg: #fff5f5; --banner-border: #fed7d7;
+  --banner-warn-bg: #fffaf0; --banner-warn-border: #feebc8; --cal-today-bg: #ebf8ff; --cal-day-bg: #f7fafc;
+  --list-stripe: #f7fafc; --hdr-btn-bg: transparent; --hdr-btn-border: #e2e8f0; --hdr-btn-text: #4a5568;
+  --view-btn-bg: transparent; --view-btn-border: #e2e8f0;
+}
+[data-theme="dark"] {
+  --bg: #1a202c; --bg2: #2d3748; --card-bg: #2d3748; --text: #e2e8f0; --text-muted: #a0aec0;
+  --border: #4a5568; --shadow: 0 1px 3px rgba(0,0,0,0.2),0 4px 12px rgba(0,0,0,0.3);
+  --shadow-hover: 0 4px 8px rgba(0,0,0,0.3),0 12px 24px rgba(0,0,0,0.4);
+  --accent: #63b3ed; --ongoing: #68d391; --upcoming: #63b3ed; --judging: #ed8936; --ended: #718096;
+  --soon: #fc8181; --star-default: #4a5568; --star-active: #f6e05e; --star-hover: #ecc94b;
+  --tooltip-bg: #e2e8f0; --tooltip-text: #1a202c; --banner-bg: #2c1a1a; --banner-border: #5a2e2e;
+  --banner-warn-bg: #2d2a1a; --banner-warn-border: #5a4e2e; --cal-today-bg: #1a2e3c; --cal-day-bg: #2d3748;
+  --list-stripe: #323b4a; --hdr-btn-bg: transparent; --hdr-btn-border: #4a5568; --hdr-btn-text: #a0aec0;
+  --view-btn-bg: transparent; --view-btn-border: #4a5568;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; min-height: 100vh; transition: background .2s,color .2s; }
+.container { max-width: 1320px; margin: 0 auto; padding: 20px 20px 80px; }
+/* Header */
+header { margin-bottom: 16px; }
+.title-row { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 4px; }
+h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+.hdr-right { display: flex; gap: 8px; align-items: center; }
+.hdr-btn { background: var(--hdr-btn-bg); border: 1px solid var(--hdr-btn-border); color: var(--hdr-btn-text); width: 34px; height: 34px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 16px; transition: all .15s; }
+.hdr-btn:hover { background: var(--bg2); }
+.update-info { font-size: 12px; color: var(--text-muted); }
+.update-info strong { color: var(--text); }
+.subtitle { color: var(--text-muted); font-size: 13px; }
+/* Banner */
+.banner { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+.banner-item { flex: 1; min-width: 180px; padding: 10px 14px; border-radius: 8px; border: 1px solid var(--banner-border); cursor: pointer; transition: all .15s; text-decoration: none; color: inherit; }
+.banner-item:hover { transform: translateY(-1px); box-shadow: var(--shadow); }
+.banner-urgent { background: var(--banner-bg); border-color: var(--banner-border); }
+.banner-warn { background: var(--banner-warn-bg); border-color: var(--banner-warn-border); }
+.banner-star { background: #fffff0; border-color: #faf089; }
+[data-theme="dark"] .banner-star { background: #2d2c1a; border-color: #5a552e; }
+.banner-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .04em; }
+.banner-count { font-size: 22px; font-weight: 700; margin: 2px 0; }
+.banner-count.urgent { color: var(--soon); }
+.banner-count.warn { color: var(--judging); }
+.banner-count.star { color: #d69e2e; }
+.banner-sub { font-size: 11px; color: var(--text-muted); }
+/* Stats */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 16px; }
+.stat { background: var(--card-bg); padding: 12px 14px; border-radius: 10px; box-shadow: var(--shadow); border: 1px solid var(--border); cursor: pointer; transition: all .15s; }
+.stat:hover { box-shadow: var(--shadow-hover); }
+.stat.active { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .04em; }
+.stat-value { font-size: 20px; font-weight: 700; }
+.stat-value.ongoing { color: var(--ongoing); }
+.stat-value.upcoming { color: var(--upcoming); }
+.stat-value.judging { color: var(--judging); }
+.stat-value.ended { color: var(--ended); }
+/* Toolbar */
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 14px; background: var(--card-bg); padding: 10px 14px; border-radius: 10px; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.filter-tabs { display: flex; gap: 4px; flex-wrap: wrap; }
+.tab { background: transparent; border: 1px solid var(--border); color: var(--text-muted); padding: 5px 12px; border-radius: 7px; font-size: 12px; cursor: pointer; transition: all .15s; font-family: inherit; }
+.tab:hover { background: var(--bg2); }
+.tab.active { background: var(--text); color: var(--card-bg); border-color: var(--text); }
+.tab-spacer { width: 8px; }
+.view-switch { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 7px; overflow: hidden; margin-left: auto; }
+.view-btn { background: var(--view-btn-bg); border: none; border-right: 1px solid var(--border); color: var(--text-muted); padding: 5px 12px; font-size: 13px; cursor: pointer; transition: all .15s; font-family: inherit; }
+.view-btn:last-child { border-right: none; }
+.view-btn.active { background: var(--text); color: var(--card-bg); }
+.search { padding: 6px 12px; border: 1px solid var(--border); border-radius: 7px; font-size: 13px; outline: none; width: 160px; font-family: inherit; background: var(--card-bg); color: var(--text); }
+.search:focus { border-color: var(--accent); }
+/* Site legend */
+.sites { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 14px; align-items: center; }
+.site-chip { display: inline-flex; align-items: center; gap: 5px; padding: 4px 11px; background: var(--card-bg); border: 2px solid var(--border); border-radius: 999px; font-size: 11px; color: var(--text-muted); cursor: pointer; transition: all .15s; user-select: none; font-family: inherit; }
+.site-chip:hover { background: var(--bg2); border-color: #cbd5e0; }
+.site-chip.active { border-color: var(--site-chip-color,#000); color: var(--site-chip-color,#000); font-weight: 600; box-shadow: 0 0 0 1px var(--site-chip-color,#000); }
+.site-dot { width: 7px; height: 7px; border-radius: 50%; }
+/* Calendar section */
+.cal-wrap { display: none; margin-bottom: 14px; }
+.cal-wrap.open { display: flex; flex-wrap: wrap; gap: 14px; }
+.cal-month { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; padding: 12px; box-shadow: var(--shadow); flex: 1; min-width: 260px; max-width: 360px; }
+.cal-month-title { text-align: center; font-size: 13px; font-weight: 600; margin-bottom: 8px; }
+.cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
+.cal-hd { font-size: 10px; color: var(--text-muted); text-align: center; padding: 2px 0; }
+.cal-day { aspect-ratio: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; border-radius: 6px; font-size: 11px; cursor: default; position: relative; color: var(--text-muted); }
+.cal-day.has-contest { cursor: pointer; background: var(--cal-day-bg); color: var(--text); font-weight: 500; }
+.cal-day.has-contest:hover { background: var(--bg2); }
+.cal-day.today { background: var(--cal-today-bg); font-weight: 700; }
+.cal-day.selected { background: var(--accent); color: #fff; }
+.cal-dots { display: flex; gap: 1px; margin-top: 1px; flex-wrap: wrap; justify-content: center; max-width: 100%; }
+.cal-dot { width: 5px; height: 5px; border-radius: 50%; }
+.cal-more { font-size: 8px; color: var(--text-muted); }
+/* Date filter indicator */
+.date-filter-bar { display: none; margin-bottom: 10px; padding: 6px 12px; background: var(--card-bg); border: 1px solid var(--accent); border-radius: 7px; font-size: 12px; align-items: center; gap: 8px; }
+.date-filter-bar.active { display: flex; }
+.date-filter-bar .clear-date { cursor: pointer; color: var(--accent); font-weight: 600; border: none; background: none; font-size: 12px; font-family: inherit; }
+/* Timeline */
+.timeline { margin-bottom: 16px; padding: 12px 14px; background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; box-shadow: var(--shadow); }
+.timeline-title { font-size: 13px; font-weight: 600; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.timeline-scroll { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 4px; }
+.timeline-day { flex: 0 0 200px; }
+.timeline-date { font-size: 11px; color: var(--text-muted); margin-bottom: 4px; font-weight: 500; }
+.timeline-item { font-size: 11px; padding: 5px 8px; border-radius: 5px; background: var(--bg); margin-bottom: 3px; border-left: 3px solid var(--accent); cursor: pointer; transition: all .12s; }
+.timeline-item:hover { background: var(--bg2); }
+.timeline-item .tl-site { font-size: 10px; color: var(--text-muted); }
+/* Card grid */
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 14px; }
+.card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 11px; padding: 16px; box-shadow: var(--shadow); transition: all .18s; display: flex; flex-direction: column; position: relative; overflow: hidden; }
+.card:hover { box-shadow: var(--shadow-hover); transform: translateY(-2px); }
+.card::before { content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--site-color,var(--accent)); }
+.card.ended { opacity: .5; }
+.card.ended::before { background: var(--ended)!important; }
+.card-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
+.site-name { font-size: 11px; font-weight: 600; color: var(--site-color,var(--accent)); display: inline-flex; align-items: center; gap: 5px; }
+.badge { display: inline-block; padding: 2px 7px; border-radius: 999px; font-size: 10px; font-weight: 600; flex-shrink: 0; }
+.badge-ongoing { background: #c6f6d5; color: #22543d; }
+.badge-upcoming { background: #bee3f8; color: #2a4365; }
+.badge-judging { background: #feebc8; color: #7b341e; }
+.badge-ended { background: var(--bg2); color: var(--text-muted); }
+.contest-title { font-size: 15px; font-weight: 600; margin-bottom: 6px; line-height: 1.4; }
+.contest-desc { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; flex: 1; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.contest-meta { font-size: 11px; color: var(--text-muted); display: flex; flex-direction: column; gap: 3px; margin-bottom: 12px; padding-top: 10px; border-top: 1px dashed var(--border); }
+.meta-row { display: flex; justify-content: space-between; align-items: center; }
+.meta-label { color: var(--text-muted); }
+.meta-value { font-weight: 500; }
+.countdown { color: var(--ongoing); font-weight: 600; }
+.countdown.urgent { color: var(--soon); }
+.countdown.soon { color: var(--judging); }
+.card-footer { display: flex; gap: 6px; align-items: center; }
+.btn { flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 7px 10px; border-radius: 7px; text-decoration: none; font-size: 12px; font-weight: 500; transition: all .15s; cursor: pointer; border: 1px solid transparent; font-family: inherit; }
+.btn-primary { background: var(--text); color: var(--card-bg); }
+.btn-primary:hover { opacity: .85; }
+.btn-secondary { background: transparent; border-color: var(--border); color: var(--text); }
+.btn-secondary:hover { background: var(--bg2); }
+.star-btn { background: none; border: none; cursor: pointer; font-size: 18px; line-height: 1; padding: 4px 6px; color: var(--star-default); transition: all .15s; flex: 0; }
+.star-btn:hover { color: var(--star-hover); transform: scale(1.15); }
+.star-btn.starred { color: var(--star-active); }
+/* List view */
+.list { display: none; }
+.list.open { display: block; }
+.grid.open { display: grid; }
+.grid:not(.open) { display: none; }
+.list-table { width: 100%; border-collapse: collapse; font-size: 12px; background: var(--card-bg); border-radius: 10px; overflow: hidden; box-shadow: var(--shadow); border: 1px solid var(--border); }
+.list-table th { background: var(--bg2); padding: 10px 12px; text-align: left; font-weight: 600; font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .03em; border-bottom: 2px solid var(--border); cursor: pointer; user-select: none; white-space: nowrap; }
+.list-table th:hover { color: var(--text); }
+.list-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+.list-table tr:nth-child(even) { background: var(--list-stripe); }
+.list-table tr { cursor: pointer; transition: background .1s; }
+.list-table tr:hover { background: var(--bg2); }
+.list-table tr.ended { opacity: .4; }
+.list-badge { display: inline-block; padding: 1px 6px; border-radius: 999px; font-size: 10px; font-weight: 600; }
+.list-site-color { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 4px; vertical-align: middle; }
+.list-link { color: var(--accent); text-decoration: none; font-size: 11px; }
+.list-link:hover { text-decoration: underline; }
+/* Tooltip */
+.tooltip { position: fixed; z-index: 9999; background: var(--tooltip-bg); color: var(--tooltip-text); padding: 8px 12px; border-radius: 8px; font-size: 12px; pointer-events: none; box-shadow: 0 2px 12px rgba(0,0,0,0.2); max-width: 280px; line-height: 1.6; opacity: 0; transition: opacity .1s; }
+.tooltip.show { opacity: 1; }
+/* Empty & Footer */
+.empty { text-align: center; padding: 60px 20px; color: var(--text-muted); grid-column: 1/-1; }
+.footer-note { margin-top: 28px; padding: 14px 18px; background: var(--card-bg); border-radius: 10px; border: 1px solid var(--border); font-size: 12px; color: var(--text-muted); line-height: 1.7; }
+.footer-note strong { color: var(--text); }
+/* Toast */
+.toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); background: var(--text); color: var(--card-bg); padding: 10px 20px; border-radius: 10px; font-size: 13px; z-index: 9999; opacity: 0; transition: opacity .3s; pointer-events: none; }
+.toast.show { opacity: 1; }
+.toast.error { background: var(--soon); }
+/* File input */
+.file-btn { background: none; border: 1px solid var(--hdr-btn-border); color: var(--hdr-btn-text); width: 34px; height: 34px; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; font-size: 14px; transition: all .15s; }
+.file-btn:hover { background: var(--bg2); }
+@media (max-width: 640px) {
+  h1 { font-size: 20px; }
+  .grid { grid-template-columns: 1fr; }
+  .search { width: 100%; }
+  .toolbar { padding: 8px 10px; }
+  .cal-wrap { flex-direction: column; }
+  .cal-month { max-width: 100%; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="title-row">
+    <h1>3D 模型网站比赛汇总</h1>
+    <div class="hdr-right">
+      <input type="file" id="file-input" accept=".json" style="display:none">
+      <button class="file-btn" id="file-btn" title="导入 contests.json 更新数据">📂</button>
+      <button class="hdr-btn" id="cal-toggle" title="日历视图">📅</button>
+      <button class="hdr-btn" id="theme-toggle" title="暗色模式">🌙</button>
+      <span class="update-info" id="update-info">数据: <strong>2026-07-24 16:02</strong></span>
+    </div>
+  </div>
+  <p class="subtitle">聚合 9 个 3D 打印模型平台比赛信息</p>
+</header>
+
+<div class="banner" id="banner"></div>
+
+<div class="stats" id="stats"></div>
+
+<div class="toolbar">
+  <div class="filter-tabs" id="filter-tabs">
+    <button class="tab active" data-status="all">全部</button>
+    <button class="tab" data-status="starred">⭐ 关注</button>
+    <button class="tab" data-status="ongoing">进行中</button>
+    <button class="tab" data-status="upcoming">待开始</button>
+    <button class="tab" data-status="judging">评审中</button>
+    <button class="tab" data-status="ended">已结束</button>
+  </div>
+  <span class="tab-spacer"></span>
+  <div class="view-switch" id="view-switch">
+    <button class="view-btn active" data-view="card">卡片</button>
+    <button class="view-btn" data-view="list">列表</button>
+  </div>
+  <input type="text" class="search" id="search" placeholder="搜索比赛/主题…">
+</div>
+
+<div class="sites" id="sites-legend"></div>
+<div class="cal-wrap" id="cal-wrap"></div>
+<div class="date-filter-bar" id="date-filter-bar">
+  正在筛选 <span id="date-filter-label"></span> 截止的比赛
+  <button class="clear-date" id="clear-date">✕ 清除</button>
+</div>
+<div class="timeline" id="timeline"></div>
+<div class="grid open" id="grid"></div>
+<div class="list" id="list"></div>
+
+<div class="footer-note">
+  <strong>便携版：</strong> 这是一个独立 HTML 文件，复制到 U 盘即可在任何电脑上双击打开。<br>
+  <strong>更新数据：</strong> 点标题栏 📂 按钮选择 <code>contests.json</code> 即可刷新比赛数据（无需 Python）。<br>
+  <strong>收藏：</strong> 点 ⭐ 关注感兴趣的比赛，数据存于本地浏览器。
+</div>
+</div>
+
+<div class="tooltip" id="tooltip"></div>
+
+<script>
+const SITES = {"creality-cn": {"name": "创想云国内", "url": "https://www.crealitycloud.cn/contest", "color": "#FF6B35"}, "creality-intl": {"name": "创想云国际", "url": "https://www.crealitycloud.com/zh/contest", "color": "#FF8C42"}, "makeronline": {"name": "纵维立方", "url": "https://www.makeronline.com/zh/contestList", "color": "#4ECDC4"}, "makerworld-cn": {"name": "拓竹国内", "url": "https://makerworld.com.cn/zh/contests", "color": "#FF6F61"}, "makerworld-intl": {"name": "拓竹国际", "url": "https://makerworld.com/zh/contests", "color": "#E55B5B"}, "jlc": {"name": "嘉立创", "url": "https://model.jlc-3dp.cn/race", "color": "#5B9BD5"}, "makeroad": {"name": "三绿 (MakerRoad)", "url": "https://www.makeroad.com/zh/contests", "color": "#52C41A"}, "snapmaker": {"name": "快造 (Snapmaker)", "url": "https://models.snapmaker.com/contest", "color": "#722ED1"}, "nexprint": {"name": "爱乐酷 (Nexprint)", "url": "https://www.nexprint.com/zh/contests", "color": "#EB2F96"}};
+const CONTESTS = [{"site": "creality-cn", "name": "工位摆件模型征集大赛", "desc": "小小工位，大大创意。为打工人的桌面注入创意！最高可得2100元京东E卡。", "start": "2026-07-11", "end": "2026-08-16", "status": "ongoing", "url": "https://www.crealitycloud.cn/contest/Desk-decor"}, {"site": "creality-cn", "name": "创意手机支架模型设计大赛", "desc": "设计兼具实用性、创意性与美观性的3D打印手机支架模型。最高可得2100元京东E卡。", "start": "2026-06-25", "end": "2026-08-02", "status": "ongoing", "url": "https://www.crealitycloud.cn/contest/Creative-Phone-Stand"}, {"site": "creality-intl", "name": "Credit Card Wand Design Contest", "desc": "Who says paying has to be boring? Turn every purchase into a magical moment.", "start": "2026-07-23", "end": "2026-08-23", "status": "ongoing", "url": "https://www.crealitycloud.com/zh/contest/Credit-Card-Wand"}, {"site": "creality-intl", "name": "Headphone Stand Design Contest", "desc": "Create an original headphone stand that showcases your personal style.", "start": "2026-07-17", "end": "2026-08-23", "status": "ongoing", "url": "https://www.crealitycloud.com/zh/contest/Headphone-Stand"}, {"site": "creality-intl", "name": "Dragon Design Contest", "desc": "Design a majestic display model, articulated dragon, desktop companion, or wearable dragon-themed accessory.", "start": "2026-07-08", "end": "2026-08-09", "status": "ongoing", "url": "https://www.crealitycloud.com/zh/contest/Dragon"}, {"site": "creality-intl", "name": "Creative Stationery Design Contest", "desc": "Reimagine everyday stationery with the power of 3D printing.", "start": "2026-06-24", "end": "2026-08-09", "status": "ongoing", "url": "https://www.crealitycloud.com/zh/contest/Creative-Stationery"}, {"site": "creality-intl", "name": "KitCard Design Contest", "desc": "Design the next great KitCard.", "start": "2026-07-24", "end": "2026-08-30", "status": "ongoing", "url": "https://www.crealitycloud.com/zh/contest/KitCard"}, {"site": "makeronline", "name": "实验器材设计大赛", "desc": "让我们一起创造赋能科学实践学习的工具吧！", "start": "2026-07-17", "end": "2026-08-14", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E5%AE%9E%E9%AA%8C%E5%99%A8%E6%9D%90%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/195.html"}, {"site": "makeronline", "name": "书立创意设计大赛", "desc": "打造你的书架奇境，赢取最高 $350 奖励！", "start": "2026-07-10", "end": "2026-08-07", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E4%B9%A6%E7%AB%8B%E5%88%9B%E6%84%8F%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/194.html"}, {"site": "makeronline", "name": "让物理看得见设计大赛", "desc": "从看不见的物理，到可见的学习体验，赢取 1250 美元奖金！", "start": "2026-07-03", "end": "2026-07-31", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E8%AE%A9%E7%89%A9%E7%90%86%E7%9C%8B%E5%BE%97%E8%A7%81%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/193.html"}, {"site": "makeronline", "name": "学习工具与教具设计大赛", "desc": "让我们创造下一代学习工具与教具！", "start": "2026-06-26", "end": "2026-07-24", "status": "judging", "url": "https://www.makeronline.com/zh/contest/%E5%AD%A6%E4%B9%A0%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%95%99%E5%85%B7%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/192.html"}, {"site": "makerworld-cn", "name": "非遗新造模型设计竞赛", "desc": "老手艺，新打法！用3D打印让非遗文化焕发新生。", "start": "2026-07-22", "end": "2026-08-23", "status": "ongoing", "url": "https://makerworld.com.cn/zh/contests/81"}, {"site": "makerworld-cn", "name": "动物世界之海洋王国模型设计大赛", "desc": "打造你的水族馆，海洋生物主题设计。", "start": "2026-07-17", "end": "2026-08-16", "status": "ongoing", "url": "https://makerworld.com.cn/zh/contests/79"}, {"site": "makerworld-cn", "name": "Let's Make It: 拓竹 MakerWorld × 影石Insta360 Luna Ultra 创意挑战赛", "desc": "Think bold. Print bold. 与 Insta360 Luna Ultra 合作的创意挑战。", "start": "2026-07-10", "end": "2026-08-09", "status": "ongoing", "url": "https://makerworld.com.cn/zh/contests/80"}, {"site": "makerworld-cn", "name": "大师挑战赛: 太空探索", "desc": "ufo长啥样，你说了算。太空探索主题设计竞赛。", "start": "2026-06-22", "end": "2026-07-26", "status": "ongoing", "url": "https://makerworld.com.cn/zh/contests/78"}, {"site": "makerworld-cn", "name": "创作者挑战赛: @天门计划 国防装备设计竞赛", "desc": "国防装备主题设计竞赛。", "start": "2026-07-29", "end": "2026-08-29", "status": "upcoming", "url": "https://makerworld.com.cn/zh/contests"}, {"site": "makerworld-intl", "name": "Hosted By Creator: @Ozarkexpeditions - PlayGrid Board Games Design Contest", "desc": "One Grid. Many Worlds. Design Your Game Today.", "start": "2026-07-22", "end": "2026-08-26", "status": "ongoing", "url": "https://makerworld.com/en/contests/155"}, {"site": "makerworld-intl", "name": "Homer's Epics Design Contest", "desc": "Giving Shape to the Unseen Songs — 荷马史诗主题设计竞赛。", "start": "2026-07-17", "end": "2026-08-23", "status": "ongoing", "url": "https://makerworld.com/en/contests/154"}, {"site": "makerworld-intl", "name": "Let's Make It: MakerWorld × Insta360 Luna Ultra Design Challenge", "desc": "Think bold. Print bold.", "start": "2026-07-10", "end": "2026-08-09", "status": "ongoing", "url": "https://makerworld.com/en/contests/153"}, {"site": "makerworld-intl", "name": "Hosted By Creator: @MeshBear — Exoskeleton & Articulated Mechanism Challenge", "desc": "Bring Motion to Wearable Mechanics — 外骨骼与铰链机构设计。", "start": "2026-07-06", "end": "2026-08-08", "status": "ongoing", "url": "https://makerworld.com/en/contests/152"}, {"site": "makerworld-intl", "name": "Hosted By Creator: @Bavaria_3D Tanks — T-34 Evolution Remix", "desc": "Swap Armor, Remix War, Build Your Power!", "start": "2026-06-18", "end": "2026-08-03", "status": "ongoing", "url": "https://makerworld.com/en/contests/151"}, {"site": "makerworld-intl", "name": "Hosted By Creator: @michelem Basecamp Anywhere Travel & Outdoor Setup Kit", "desc": "Travel & Outdoor Setup Kit theme contest.", "start": "2026-07-27", "end": "2026-08-27", "status": "upcoming", "url": "https://makerworld.com/zh/contests"}, {"site": "makerworld-intl", "name": "RoboDog Mod Challenge Hosted by @itsboyinspace × @Plastic3D × @Sam Prentice", "desc": "RoboDog modification challenge.", "start": "2026-08-03", "end": "2026-09-03", "status": "upcoming", "url": "https://makerworld.com/zh/contests"}, {"site": "jlc", "name": "点亮桌面灵感 | 桌面好物设计比赛", "desc": "点亮桌面灵感，装点方寸好物。", "start": "2026-06-30", "end": "2026-08-10", "status": "ongoing", "url": "https://model.jlc-3dp.cn/raceDetail?id=d9ac22cc25274e6387c46eaf5306a150"}, {"site": "makeroad", "name": "Summer Maker Fest – 3D Print & Play Outdoor Challenge", "desc": "夏季户外3D打印创意：水上奇观、花园派对、露营装备、海滩必备。", "start": "2026-07-15", "end": "2026-08-21", "status": "ongoing", "url": "https://www.makeroad.com/contests/56"}, {"site": "makeroad", "name": "「Green Pitch Imagination」 2026世界杯主题3D模型竞赛", "desc": "2026 世界杯主题3D模型竞赛。", "start": "2026-06-12", "end": "2026-07-21", "status": "judging", "url": "https://www.makeroad.com/contests/55"}, {"site": "snapmaker", "name": "Beyond One Material — 多材料融合设计竞赛", "desc": "Desktop 3D printing enters the era of multi-material design. 用两种以上材料组合设计，展现单一材料做不到的功能。", "start": "2026-07-07", "end": "2026-08-04", "status": "ongoing", "url": "https://models.snapmaker.com/contest/2"}, {"site": "snapmaker", "name": "Make Something Colorful — 模型设计竞赛", "desc": "Snapmaker Model Design Contest — 多色模型设计。", "start": "2026-05-10", "end": "2026-06-16", "status": "ended", "url": "https://models.snapmaker.com/contest/1"}, {"site": "nexprint", "name": "派对打印计划", "desc": "给聚会加点儿料 — 派对主题 3D 模型设计。", "start": "2026-07-15", "end": "2026-08-16", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests"}, {"site": "nexprint", "name": "电子产品爆改计划", "desc": "专治各种「原厂不服」 — 电子产品改造设计。", "start": "2026-07-10", "end": "2026-08-11", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests"}, {"site": "nexprint", "name": "套卡建模大赛", "desc": "把 3D 世界拍扁，再立体重生！套卡建模主题。", "start": "2026-06-25", "end": "2026-07-25", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests"}, {"site": "nexprint", "name": "搞定咖啡角", "desc": "咖啡角主题设计竞赛。", "start": "2026-07-16", "end": "2026-07-31", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests"}, {"site": "nexprint", "name": "游戏之夜・玩家装备", "desc": "游戏装备主题设计竞赛。", "start": "2026-07-11", "end": "2026-07-26", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests"}];
+const STATUS_LABEL = {"ongoing": "进行中", "upcoming": "待开始", "judging": "评审中", "ended": "已结束"};
+const STATUS_ORDER = { ongoing: 0, upcoming: 1, judging: 2, ended: 3 };
+
+// ===== State =====
+let currentStatus = "all", currentSite = "all", currentKeyword = "", currentDate = null, viewMode = "card";
+let starred = new Set(JSON.parse(localStorage.getItem("contest-starred")||"[]"));
+let isDark = localStorage.getItem("contest-theme")==="dark";
+let showCalendar = localStorage.getItem("contest-cal")==="1";
+
+// ===== Init =====
+if (isDark) { document.documentElement.setAttribute("data-theme","dark"); document.getElementById("theme-toggle").textContent="☀️"; }
+if (showCalendar) document.getElementById("cal-wrap").classList.add("open");
+updateDateFilterBar();
+
+// ===== Helpers =====
+function daysBetween(d) { if(!d)return null; return Math.ceil((new Date(d+"T23:59:59")-new Date())/86400000); }
+function fmtDate(s) { return s?(new Date(s)).toLocaleDateString("zh-CN",{year:"numeric",month:"2-digit",day:"2-digit"}):"-"; }
+function fmtDateShort(s) { const d=new Date(s); return (d.getMonth()+1)+"/"+d.getDate(); }
+function esc(s) { return String(s).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch])); }
+function favKey(c) { return c.site + "::" + c.name; }
+function saveStarred() { localStorage.setItem("contest-starred",JSON.stringify([...starred])); }
+
+// ===== Render: Banner =====
+function renderBanner() {
+  const now = new Date(); const d3=[], d7=[], fs=[];
+  CONTESTS.forEach((c,i)=>{ if(c.status==="ended"||!c.end)return; const d=daysBetween(c.end); if(d!==null&&d>=0){if(d<=3)d3.push(i); if(d<=7)d7.push(i);} if(starred.has(favKey(c)))fs.push(i); });
+  document.getElementById("banner").innerHTML = `
+    <div class="banner-item banner-urgent${d3.length?'':' style=opacity:0.4'}" ${d3.length?`onclick="filterDeadline(3)"`:''}>
+      <div class="banner-label">⚠ 3天内截止</div>
+      <div class="banner-count urgent">${d3.length} 场</div>
+      <div class="banner-sub">${d3.length?d3.map(i=>esc(CONTESTS[i].name)).join(" / ").slice(0,40)+"…":"暂无"}</div>
+    </div>
+    <div class="banner-item banner-warn${d7.length?'':' style=opacity:0.4'}" ${d7.length?`onclick="filterDeadline(7)"`:''}>
+      <div class="banner-label">🔶 7天内截止</div>
+      <div class="banner-count warn">${d7.length} 场</div>
+      <div class="banner-sub">${d7.length?d7.map(i=>esc(CONTESTS[i].name)).join(" / ").slice(0,40)+"…":"暂无"}</div>
+    </div>
+    <div class="banner-item banner-star" onclick="document.querySelector('#filter-tabs .tab[data-status=starred]').click()">
+      <div class="banner-label">⭐ 我的关注</div>
+      <div class="banner-count star">${fs.length} 场</div>
+      <div class="banner-sub">${fs.length?fs.map(i=>esc(CONTESTS[i].name)).join(" / ").slice(0,40)+"…":"点击收藏比赛"}</div>
+    </div>`;
+}
+function filterDeadline(n) {
+  currentStatus="all"; currentSite="all"; currentDate=null;
+  const ids=[]; CONTESTS.forEach((c,i)=>{ if(c.status!=="ended"&&c.end){const d=daysBetween(c.end); if(d!==null&&d<=n&&d>=0)ids.push(favKey(c));}});
+  if(ids.length>0){ currentKeyword=""; resetTabs(); document.getElementById("search").value=""; renderAll(true); }
+}
+
+// ===== Render: Stats =====
+function renderStats() {
+  const counts={total:CONTESTS.length,ongoing:0,upcoming:0,judging:0,ended:0};
+  CONTESTS.forEach(c=>{ if(counts[c.status]!==undefined)counts[c.status]++; });
+  const el=document.getElementById("stats");
+  el.innerHTML = Object.entries({total:"总计",ongoing:"进行中",upcoming:"待开始",judging:"评审中",ended:"已结束"}).map(([k,v])=>{
+    const act=currentStatus===k?' active':'';
+    return `<div class="stat${act}" data-status="${k}">
+      <div class="stat-label">${v}</div>
+      <div class="stat-value ${k}">${counts[k]}</div>
+    </div>`;
+  }).join("");
+  el.querySelectorAll(".stat[data-status]").forEach(s=>{ s.addEventListener("click",()=>{
+    const st=s.dataset.status;
+    currentStatus=st; currentSite="all"; currentDate=null; currentKeyword="";
+    document.getElementById("search").value="";
+    resetTabs(st); updateDateFilterBar(); renderAll(true);
+  });});
+}
+
+// ===== Render: Calendar =====
+function renderCalendar() {
+  const wrap=document.getElementById("cal-wrap");
+  if(!showCalendar){ wrap.classList.remove("open"); return; }
+  wrap.classList.add("open");
+  const now=new Date(); const yr=now.getFullYear(), mo=now.getMonth();
+  const months=[{y:yr,m:mo},{y:yr,m:mo+1}]; if(months[1].m>11){months[1].y++;months[1].m-=12;}
+  let html="";
+  months.forEach(({y,m})=>{
+    const first=new Date(y,m,1), last=new Date(y,m+1,0);
+    const startDow=first.getDay();
+    const todayStr=now.toISOString().slice(0,10);
+    const daysByDate={};
+    CONTESTS.forEach((c,i)=>{ if(!c.end)return; if(!daysByDate[c.end])daysByDate[c.end]=[]; daysByDate[c.end].push(i); });
+    html+=`<div class="cal-month"><div class="cal-month-title">${y}年${m+1}月</div><div class="cal-grid">`;
+    ["日","一","二","三","四","五","六"].forEach(d=>html+=`<div class="cal-hd">${d}</div>`);
+    for(let i=0;i<startDow;i++)html+=`<div class="cal-day"></div>`;
+    for(let d=1;d<=last.getDate();d++){
+      const ds=`${y}-${String(m+1).padStart(2,"0")}-${String(d).padStart(2,"0")}`;
+      const idxs=daysByDate[ds]||[];
+      const isSel=currentDate===ds, isToday=ds===todayStr;
+      let cls="cal-day";
+      if(idxs.length)cls+=" has-contest";
+      if(isSel)cls+=" selected";
+      if(isToday)cls+=" today";
+      const dots=idxs.slice(0,4).map(i=>`<span class="cal-dot" style="background:${SITES[CONTESTS[i].site].color}"></span>`).join("");
+      const more=idxs.length>4?`<span class="cal-more">+${idxs.length-4}</span>`:"";
+      const title=idxs.map(i=>CONTESTS[i].name).join(" | ");
+      html+=`<div class="${cls}" data-date="${ds}" title="${esc(title)}" data-tooltip="${esc(idxs.map(i=>SITES[CONTESTS[i].site].name+" · "+CONTESTS[i].name).join("\n"))}">
+        ${d}<div class="cal-dots">${dots}${more}</div></div>`;
+    }
+    html+=`</div></div>`;
+  });
+  wrap.innerHTML=html;
+  wrap.querySelectorAll(".cal-day.has-contest").forEach(el=>{
+    el.addEventListener("click",()=>{ currentDate=el.dataset.date; updateDateFilterBar(); renderAll(false); });
+    el.addEventListener("mouseenter",e=>showTooltip(e,el.dataset.tooltip));
+    el.addEventListener("mouseleave",hideTooltip);
+  });
+}
+
+function updateDateFilterBar() {
+  const bar=document.getElementById("date-filter-bar"), lbl=document.getElementById("date-filter-label");
+  if(currentDate){ bar.classList.add("active"); lbl.textContent=fmtDate(currentDate); }
+  else bar.classList.remove("active");
+}
+
+// ===== Render: Timeline =====
+function renderTimeline() {
+  const now=new Date(); const days=[]; const maxDays=7;
+  const upcoming=CONTESTS.map((c,i)=>({...c,_i:i})).filter(c=>c.status!=="ended"&&c.end&&daysBetween(c.end)!==null&&daysBetween(c.end)<=maxDays&&daysBetween(c.end)>=0).sort((a,b)=>new Date(a.end)-new Date(b.end));
+  if(!upcoming.length){ document.getElementById("timeline").style.display="none"; return; }
+  document.getElementById("timeline").style.display="block";
+  const byDate={};
+  upcoming.forEach(c=>{ if(!byDate[c.end])byDate[c.end]=[]; byDate[c.end].push(c); });
+  let html=`<div class="timeline-title">📆 即将截止</div><div class="timeline-scroll">`;
+  Object.entries(byDate).sort(([a],[b])=>new Date(a)-new Date(b)).forEach(([date,cs])=>{
+    const d=daysBetween(date);
+    html+=`<div class="timeline-day"><div class="timeline-date">${fmtDate(date)} · ${d===0?"今天":d+"天后"}</div>`;
+    cs.forEach(c=>{
+      html+=`<div class="timeline-item" style="border-left-color:${SITES[c.site].color}" onclick="window.open('${esc(c.url)}','_blank')">
+        <div class="tl-site" style="color:${SITES[c.site].color}">${SITES[c.site].name}</div>
+        <div>${esc(c.name)}</div></div>`;
+    });
+    html+=`</div>`;
+  });
+  html+=`</div>`;
+  document.getElementById("timeline").innerHTML=html;
+}
+
+// ===== Render: Site Legend =====
+function renderLegend() {
+  const el=document.getElementById("sites-legend");
+  el.innerHTML = `<button class="site-chip${currentSite==='all'?' active':''}" data-site="all" style="--site-chip-color:#4a5568"><span class="site-dot" style="background:#4a5568"></span>全部</button>`+
+    Object.entries(SITES).map(([k,s])=>`<button class="site-chip${currentSite===k?' active':''}" data-site="${k}" style="--site-chip-color:${s.color}"><span class="site-dot" style="background:${s.color}"></span>${s.name}</button>`).join("");
+  el.querySelectorAll(".site-chip").forEach(chip=>{ chip.addEventListener("click",()=>{
+    currentSite=chip.dataset.site; currentDate=null; updateDateFilterBar(); renderAll(true);
+  });});
+}
+
+// ===== Filtering =====
+function filtered() {
+  let list=[...CONTESTS];
+  if(currentStatus==="starred") list=list.filter(c=>starred.has(favKey(c)));
+  else if(currentStatus!=="all") list=list.filter(c=>c.status===currentStatus);
+  if(currentSite!=="all") list=list.filter(c=>c.site===currentSite);
+  if(currentDate) list=list.filter(c=>c.end===currentDate);
+  if(currentKeyword){ const k=currentKeyword.toLowerCase(); list=list.filter(c=>c.name.toLowerCase().includes(k)||(c.desc||"").toLowerCase().includes(k)||(SITES[c.site]?.name||"").toLowerCase().includes(k)); }
+  list.sort((a,b)=>{ const ds=STATUS_ORDER[a.status]-STATUS_ORDER[b.status]; return ds!==0?ds:(new Date(a.end)-new Date(b.end)); });
+  return list;
+}
+
+// ===== Render: Card View =====
+function renderCard(list) {
+  const grid=document.getElementById("grid"), lst=document.getElementById("list");
+  grid.classList.add("open"); lst.classList.remove("open");
+  if(!list.length){ grid.innerHTML=`<div class="empty">没有匹配的比赛</div>`; return; }
+  grid.innerHTML=list.map((c,i)=>{
+    const site=SITES[c.site]||{name:c.site,color:"#888",url:"#"};
+    const days=daysBetween(c.end); let cdText="",cdClass="countdown"; const noDate=!c.end;
+    if(noDate){ cdText="请查看官网"; cdClass=""; }
+    else if(c.status==="ended"){ cdText=`已结束 ${Math.abs(days)}天前`; cdClass=""; }
+    else if(c.status==="upcoming"){ cdText=`${days}天后开始`; cdClass="soon"; }
+    else if(c.status==="judging"){ cdText="评审中"; cdClass="soon"; }
+    else{ cdText=`剩余 ${days} 天`; if(days<=3)cdClass+=" urgent"; else if(days<=7)cdClass+=" soon"; }
+    const fk=favKey(c); const isStarred=starred.has(fk);
+    return `<div class="card ${c.status}" style="--site-color:${site.color}">
+      <div class="card-head">
+        <span class="site-name"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:${site.color}"></span>${site.name}</span>
+        <span class="badge badge-${c.status}">${STATUS_LABEL[c.status]}</span>
+      </div>
+      <div class="contest-title">${esc(c.name)}</div>
+      <div class="contest-desc">${esc(c.desc||"")}</div>
+      <div class="contest-meta">
+        <div class="meta-row"><span class="meta-label">开始</span><span class="meta-value">${fmtDate(c.start)}</span></div>
+        <div class="meta-row"><span class="meta-label">截止</span><span class="meta-value">${fmtDate(c.end)}</span></div>
+        <div class="meta-row"><span class="meta-label">倒计时</span><span class="meta-value ${cdClass}">${cdText}</span></div>
+      </div>
+      <div class="card-footer">
+        <button class="star-btn${isStarred?' starred':''}" data-fk="${esc(fk)}" title="收藏">${isStarred?'⭐':'☆'}</button>
+        <a class="btn btn-primary" href="${esc(c.url)}" target="_blank" rel="noopener">前往比赛 →</a>
+        <a class="btn btn-secondary" href="${esc(site.url)}" target="_blank" rel="noopener">${site.name}</a>
+      </div></div>`;
+  }).join("");
+  bindStars();
+}
+
+// ===== Render: List View =====
+function renderList(list) {
+  const grid=document.getElementById("grid"), lst=document.getElementById("list");
+  grid.classList.remove("open"); lst.classList.add("open");
+  if(!list.length){ lst.innerHTML=`<div class="empty">没有匹配的比赛</div>`; return; }
+  let html=`<table class="list-table"><thead><tr>
+    <th>平台</th><th>比赛</th><th>主题</th><th>开始</th><th>截止</th><th>倒计时</th><th>状态</th><th>关注</th><th>链接</th></tr></thead><tbody>`;
+  list.forEach((c,i)=>{
+    const site=SITES[c.site]||{name:c.site,color:"#888",url:"#"};
+    const days=daysBetween(c.end); let cdText="",cdClass="countdown"; const noDate=!c.end;
+    if(noDate){ cdText="查看官网"; cdClass=""; }
+    else if(c.status==="ended"){ cdText=`${Math.abs(days)}天前`; cdClass=""; }
+    else if(c.status==="upcoming"){ cdText=`${days}天后`; cdClass="soon"; }
+    else if(c.status==="judging"){ cdText="评审中"; cdClass="soon"; }
+    else{ cdText=`${days}天`; if(days<=3)cdClass+=" urgent"; else if(days<=7)cdClass+=" soon"; }
+    const fk=favKey(c), isStarred=starred.has(fk);
+    html+=`<tr class="${c.status}" onclick="window.open('${esc(c.url)}','_blank')">
+      <td><span class="list-site-color" style="background:${site.color}"></span>${site.name}</td>
+      <td style="font-weight:500">${esc(c.name)}</td>
+      <td style="color:var(--text-muted);max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${esc(c.desc||"")}</td>
+      <td>${fmtDate(c.start)}</td>
+      <td>${fmtDate(c.end)}</td>
+      <td class="${cdClass}" style="font-weight:600">${cdText}</td>
+      <td><span class="list-badge badge-${c.status}">${STATUS_LABEL[c.status]}</span></td>
+      <td onclick="event.stopPropagation()"><button class="star-btn${isStarred?' starred':''}" data-fk="${esc(fk)}" style="font-size:16px">${isStarred?'⭐':'☆'}</button></td>
+      <td><a class="list-link" href="${esc(c.url)}" target="_blank" onclick="event.stopPropagation()">前往 →</a></td></tr>`;
+  });
+  html+=`</tbody></table>`;
+  lst.innerHTML=html;
+  bindStars();
+}
+
+// ===== Star binding =====
+function bindStars() {
+  document.querySelectorAll(".star-btn[data-fk]").forEach(btn=>{
+    btn.addEventListener("click",e=>{
+      e.stopPropagation(); const fk=btn.dataset.fk;
+      if(starred.has(fk)){ starred.delete(fk); }else{ starred.add(fk); }
+      saveStarred(); renderAll(false);
+    });
+  });
+}
+
+// ===== Tab & view switch =====
+function resetTabs(status) {
+  status=status||currentStatus;
+  document.querySelectorAll("#filter-tabs .tab").forEach(t=>{ t.classList.toggle("active",t.dataset.status===status); });
+  document.querySelectorAll("#stats .stat").forEach(s=>{ s.classList.toggle("active",s.dataset.status===status); });
+}
+function updateViewBtns() {
+  document.querySelectorAll("#view-switch .view-btn").forEach(b=>{ b.classList.toggle("active",b.dataset.view===viewMode); });
+}
+
+// ===== Main render =====
+let _renderPending=false;
+function renderAll(rebuild) {
+  if(_renderPending)return; _renderPending=true;
+  requestAnimationFrame(()=>{
+    if(rebuild){ renderBanner(); renderStats(); renderLegend(); renderCalendar(); renderTimeline(); }
+    const list=filtered();
+    if(viewMode==="card")renderCard(list); else renderList(list);
+    updateViewBtns();
+    _renderPending=false;
+  });
+}
+
+// ===== Tooltip =====
+const tooltipEl=document.getElementById("tooltip");
+function showTooltip(e,text){
+  tooltipEl.textContent=text; tooltipEl.classList.add("show");
+  let x=e.clientX+12,y=e.clientY-8;
+  if(x+tooltipEl.offsetWidth>window.innerWidth)x=e.clientX-tooltipEl.offsetWidth-12;
+  if(y+tooltipEl.offsetHeight>window.innerHeight)y=e.clientY-tooltipEl.offsetHeight-8;
+  tooltipEl.style.left=x+"px"; tooltipEl.style.top=y+"px";
+}
+function hideTooltip(){ tooltipEl.classList.remove("show"); }
+
+// ===== Event: dark mode =====
+document.getElementById("theme-toggle").addEventListener("click",()=>{
+  isDark=!isDark; localStorage.setItem("contest-theme",isDark?"dark":"light");
+  document.documentElement.setAttribute("data-theme",isDark?"dark":"light");
+  document.getElementById("theme-toggle").textContent=isDark?"☀️":"🌙";
+});
+
+// ===== Event: calendar toggle =====
+document.getElementById("cal-toggle").addEventListener("click",()=>{
+  showCalendar=!showCalendar; localStorage.setItem("contest-cal",showCalendar?"1":"0");
+  renderCalendar();
+});
+
+// ===== Event: date clear =====
+document.getElementById("clear-date").addEventListener("click",()=>{ currentDate=null; updateDateFilterBar(); renderAll(true); });
+
+// ===== Event: tabs =====
+document.querySelectorAll("#filter-tabs .tab").forEach(t=>{ t.addEventListener("click",()=>{
+  currentStatus=t.dataset.status; currentSite="all"; currentDate=null; currentKeyword="";
+  document.getElementById("search").value=""; updateDateFilterBar(); renderAll(true);
+});});
+
+// ===== Event: view switch =====
+document.querySelectorAll("#view-switch .view-btn").forEach(b=>{ b.addEventListener("click",()=>{
+  viewMode=b.dataset.view; renderAll(false);
+});});
+
+// ===== Event: search =====
+document.getElementById("search").addEventListener("input",e=>{ currentKeyword=e.target.value.trim(); renderAll(false); });
+
+// ===== Toast =====
+function toast(msg,isErr){ const t=document.createElement("div"); t.className="toast"+(isErr?" error":""); t.textContent=msg; document.body.appendChild(t); requestAnimationFrame(()=>t.classList.add("show")); setTimeout(()=>{t.classList.remove("show");setTimeout(()=>t.remove(),300);},2500); }
+
+// ===== File import =====
+document.getElementById("file-btn").addEventListener("click",()=>document.getElementById("file-input").click());
+document.getElementById("file-input").addEventListener("change",e=>{
+  const file=e.target.files[0]; if(!file)return;
+  const reader=new FileReader();
+  reader.onload=ev=>{
+    try{
+      const data=JSON.parse(ev.target.result);
+      if(!data.contests||!Array.isArray(data.contests))throw new Error("格式错误");
+      CONTESTS.length=0; Object.assign(CONTESTS,data.contests.map(c=>({...c,site:c.site||"unknown",name:c.name||"未命名",start:c.start||"",end:c.end||"",desc:c.desc||"",url:c.url||"#",status:c.status||"ongoing"})));
+      const upEl=document.querySelector(".update-info strong"); upEl.textContent=(data.last_update||file.name); const t=new Date().toISOString().slice(0,10); upEl.innerHTML=upEl.textContent+` | 🕐${t}`;
+      starred.clear(); (JSON.parse(localStorage.getItem("contest-starred")||"[]")).forEach(k=>{if(CONTESTS.some(c=>favKey(c)===k))starred.add(k);});
+      renderAll(true); toast(`已加载 ${CONTESTS.length} 场比赛（来自 ${file.name}）`);
+    }catch(err){ toast("JSON 格式不正确，请使用标准 contests.json 文件",true); }
+  };
+  reader.readAsText(file); e.target.value="";
+});
+
+// ===== Init =====
+(function(){
+  const el=document.getElementById("update-info");
+  const genStr=el.querySelector("strong").textContent;
+  const genDate=genStr.slice(0,10);
+  const today=new Date().toISOString().slice(0,10);
+  const days=Math.floor((new Date(today)-new Date(genDate))/86400000);
+  const stale=days>=1?` <span style="color:var(--soon);font-size:11px">（已过${days}天）</span>`:"";
+  el.querySelector("strong").innerHTML=genStr+` | 🕐${today}${stale}`;
+})();
+
+renderAll(true);
+setInterval(()=>{ renderBanner(); renderCalendar(); renderTimeline(); const list=filtered(); if(viewMode==="card")renderCard(list); else renderList(list); }, 60_000);
+</script>
+</body>
+</html>
