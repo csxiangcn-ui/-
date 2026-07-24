@@ -1,0 +1,378 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>3D模型比赛聚合</title>
+<hta:application
+  id="contestApp"
+  applicationname="3DContest"
+  border="dialog"
+  borderstyle="normal"
+  caption="yes"
+  maximizebutton="yes"
+  minimizebutton="yes"
+  scroll="no"
+  singleinstance="yes"
+  sysmenu="yes"
+  windowstate="normal"
+  innerborder="yes"
+  navigable="yes"
+  contextmenu="no"
+  selection="no"
+  version="1.0"
+/>
+<style>
+:root {
+  --bg: #f5f7fa; --bg2: #edf2f7; --card-bg: #ffffff; --text: #1a202c; --text-muted: #718096;
+  --border: #e2e8f0; --shadow: 0 1px 3px rgba(0,0,0,0.04),0 4px 12px rgba(0,0,0,0.05);
+  --accent: #4299e1; --ongoing: #38a169; --upcoming: #3182ce; --judging: #dd6b20; --ended: #a0aec0;
+  --soon: #e53e3e; --star-default: #cbd5e0; --star-active: #f6e05e;
+  --tooltip-bg: #1a202c; --tooltip-text: #fff;
+  --banner-bg: #fff5f5; --banner-border: #fed7d7;
+  --banner-warn-bg: #fffaf0; --banner-warn-border: #feebc8;
+  --cal-today-bg: #ebf8ff; --cal-day-bg: #f7fafc;
+  --list-stripe: #f7fafc;
+}
+* { box-sizing:border-box; margin:0; padding:0; }
+body { font-family: "Segoe UI","PingFang SC","Microsoft YaHei",sans-serif; background:var(--bg); color:var(--text); line-height:1.5; overflow-y:auto; }
+.container { max-width:1320px; margin:0 auto; padding:16px 20px 60px; }
+header { margin-bottom:14px; }
+.title-row { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+h1 { font-size:24px; font-weight:700; }
+.hdr-right { display:flex; gap:8px; align-items:center; }
+.hdr-btn { background:var(--card-bg); border:1px solid var(--border); color:var(--text-muted); padding:6px 14px; border-radius:7px; cursor:pointer; font-size:13px; font-family:inherit; transition:all .15s; }
+.hdr-btn:hover { background:var(--bg2); }
+.status-bar { font-size:12px; color:var(--text-muted); display:flex; gap:12px; align-items:center; }
+.status-dot { width:7px; height:7px; border-radius:50%; display:inline-block; }
+.status-dot.fresh { background:var(--ongoing); }
+.status-dot.stale { background:var(--judging); }
+.status-dot.offline { background:var(--ended); }
+.subtitle { color:var(--text-muted); font-size:13px; }
+.banner { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:14px; }
+.banner-item { flex:1; min-width:180px; padding:10px 14px; border-radius:8px; border:1px solid var(--banner-border); cursor:pointer; transition:all .15s; background:var(--card-bg); border-color:var(--border); }
+.banner-item:hover { transform:translateY(-1px); box-shadow:var(--shadow); }
+.banner-urgent { background:var(--banner-bg); border-color:var(--banner-border); }
+.banner-warn { background:var(--banner-warn-bg); border-color:var(--banner-warn-border); }
+.banner-star { background:#fffff0; border-color:#faf089; }
+.banner-count { font-size:22px; font-weight:700; margin:2px 0; }
+.banner-count.urgent { color:var(--soon); }
+.banner-count.warn { color:var(--judging); }
+.banner-count.star { color:#d69e2e; }
+.banner-sub { font-size:11px; color:var(--text-muted); overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.stats { display:grid; grid-template-columns:repeat(auto-fit, minmax(120px, 1fr)); gap:10px; margin-bottom:14px; }
+.stat { background:var(--card-bg); padding:11px 14px; border-radius:10px; box-shadow:var(--shadow); border:1px solid var(--border); cursor:pointer; transition:all .15s; }
+.stat:hover { box-shadow:0 4px 8px rgba(0,0,0,0.06),0 12px 24px rgba(0,0,0,0.08); }
+.stat.active { border-color:var(--accent); box-shadow:0 0 0 1px var(--accent); }
+.stat-label { font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:.04em; }
+.stat-value { font-size:20px; font-weight:700; }
+.stat-value.ongoing { color:var(--ongoing); }
+.stat-value.upcoming { color:var(--upcoming); }
+.stat-value.judging { color:var(--judging); }
+.stat-value.ended { color:var(--ended); }
+.toolbar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:12px; background:var(--card-bg); padding:10px 14px; border-radius:10px; box-shadow:var(--shadow); border:1px solid var(--border); }
+.filter-tabs { display:flex; gap:4px; flex-wrap:wrap; }
+.tab { background:transparent; border:1px solid var(--border); color:var(--text-muted); padding:5px 12px; border-radius:7px; font-size:12px; cursor:pointer; transition:all .15s; font-family:inherit; }
+.tab:hover { background:var(--bg2); }
+.tab.active { background:var(--text); color:var(--card-bg); border-color:var(--text); }
+.search { margin-left:auto; padding:6px 12px; border:1px solid var(--border); border-radius:7px; font-size:13px; outline:none; width:160px; font-family:inherit; background:var(--card-bg); color:var(--text); }
+.search:focus { border-color:var(--accent); }
+.sites { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:12px; align-items:center; }
+.site-chip { display:inline-flex; align-items:center; gap:5px; padding:4px 11px; background:var(--card-bg); border:2px solid var(--border); border-radius:999px; font-size:11px; color:var(--text-muted); cursor:pointer; transition:all .15s; user-select:none; font-family:inherit; }
+.site-chip:hover { background:var(--bg2); }
+.site-chip.active { border-color:var(--site-chip-color,#000); color:var(--site-chip-color,#000); font-weight:600; }
+.site-dot { width:7px; height:7px; border-radius:50%; }
+.timeline { margin-bottom:14px; padding:10px 14px; background:var(--card-bg); border:1px solid var(--border); border-radius:10px; box-shadow:var(--shadow); }
+.timeline-title { font-size:13px; font-weight:600; margin-bottom:8px; }
+.timeline-scroll { display:flex; gap:8px; overflow-x:auto; padding-bottom:4px; }
+.timeline-day { flex:0 0 190px; }
+.timeline-date { font-size:11px; color:var(--text-muted); margin-bottom:3px; font-weight:500; }
+.timeline-item { font-size:11px; padding:4px 7px; border-radius:5px; background:var(--bg); margin-bottom:2px; border-left:3px solid var(--accent); cursor:pointer; transition:all .12s; }
+.timeline-item:hover { background:var(--bg2); }
+.tl-site { font-size:10px; color:var(--text-muted); }
+.grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(340px, 1fr)); gap:14px; }
+.card { background:var(--card-bg); border:1px solid var(--border); border-radius:11px; padding:16px; box-shadow:var(--shadow); transition:all .18s; position:relative; overflow:hidden; }
+.card:hover { box-shadow:0 4px 8px rgba(0,0,0,0.06),0 12px 24px rgba(0,0,0,0.08); transform:translateY(-2px); }
+.card::before { content:""; position:absolute; top:0; left:0; width:4px; height:100%; background:var(--site-color,var(--accent)); }
+.card.ended { opacity:.5; }
+.card.ended::before { background:var(--ended)!important; }
+.card-head { display:flex; justify-content:space-between; align-items:flex-start; gap:8px; margin-bottom:8px; }
+.site-name { font-size:11px; font-weight:600; color:var(--site-color,var(--accent)); display:inline-flex; align-items:center; gap:5px; }
+.badge { display:inline-block; padding:2px 7px; border-radius:999px; font-size:10px; font-weight:600; flex-shrink:0; }
+.badge-ongoing { background:#c6f6d5; color:#22543d; }
+.badge-upcoming { background:#bee3f8; color:#2a4365; }
+.badge-judging { background:#feebc8; color:#7b341e; }
+.badge-ended { background:var(--bg2); color:var(--text-muted); }
+.contest-title { font-size:15px; font-weight:600; margin-bottom:6px; line-height:1.4; }
+.contest-desc { font-size:12px; color:var(--text-muted); margin-bottom:12px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.contest-meta { font-size:11px; color:var(--text-muted); display:flex; flex-direction:column; gap:3px; margin-bottom:12px; padding-top:10px; border-top:1px dashed var(--border); }
+.meta-row { display:flex; justify-content:space-between; align-items:center; }
+.meta-label { color:var(--text-muted); }
+.meta-value { font-weight:500; }
+.countdown { color:var(--ongoing); font-weight:600; }
+.countdown.urgent { color:var(--soon); }
+.countdown.soon { color:var(--judging); }
+.card-footer { display:flex; gap:6px; align-items:center; }
+.btn { flex:1; display:inline-flex; align-items:center; justify-content:center; gap:4px; padding:7px 10px; border-radius:7px; text-decoration:none; font-size:12px; font-weight:500; transition:all .15s; cursor:pointer; border:1px solid transparent; font-family:inherit; }
+.btn-primary { background:var(--text); color:var(--card-bg); }
+.btn-primary:hover { opacity:.85; }
+.btn-secondary { background:transparent; border-color:var(--border); color:var(--text); }
+.btn-secondary:hover { background:var(--bg2); }
+.star-btn { background:none; border:none; cursor:pointer; font-size:18px; line-height:1; padding:4px 6px; color:var(--star-default); transition:all .15s; flex:0; }
+.star-btn:hover { transform:scale(1.15); }
+.star-btn.starred { color:var(--star-active); }
+.empty { text-align:center; padding:60px 20px; color:var(--text-muted); grid-column:1/-1; }
+.footer-note { margin-top:20px; padding:12px 16px; background:var(--card-bg); border-radius:10px; border:1px solid var(--border); font-size:12px; color:var(--text-muted); }
+.footer-note strong { color:var(--text); }
+.toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--text); color:var(--card-bg); padding:8px 16px; border-radius:8px; font-size:12px; z-index:9999; opacity:0; transition:opacity .3s; pointer-events:none; }
+.toast.show { opacity:1; }
+@media (max-width:640px) {
+  h1 { font-size:18px; }
+  .grid { grid-template-columns:1fr; }
+  .search { width:100%; margin-left:0; }
+}
+</style>
+<script>
+var SITES = {creality_cn:{name:"创想云国内",url:"https://www.crealitycloud.cn/contest",color:"#FF6B35"},creality_intl:{name:"创想云国际",url:"https://www.crealitycloud.com/zh/contest",color:"#FF8C42"},makeronline:{name:"纵维立方",url:"https://www.makeronline.com/zh/contestList",color:"#4ECDC4"},makerworld_cn:{name:"拓竹国内",url:"https://makerworld.com.cn/zh/contests",color:"#FF6F61"},makerworld_intl:{name:"拓竹国际",url:"https://makerworld.com/zh/contests",color:"#E55B5B"},jlc:{name:"嘉立创",url:"https://model.jlc-3dp.cn/race",color:"#5B9BD5"},makeroad:{name:"三绿",url:"https://www.makeroad.com/zh/contests",color:"#52C41A"},snapmaker:{name:"快造",url:"https://models.snapmaker.com/contest",color:"#722ED1"},nexprint:{name:"爱乐酷",url:"https://www.nexprint.com/zh/contests",color:"#EB2F96"}};
+var STATUS_LABEL = {ongoing:"进行中",upcoming:"待开始",judging:"评审中",ended:"已结束"};
+var STATUS_ORDER = {ongoing:0,upcoming:1,judging:2,ended:3};
+
+// Embedded data (last known good snapshot)
+var EMBEDDED = [{"site":"creality_cn","name":"工位摆件模型征集大赛","desc":"小小工位，大大创意。为打工人的桌面注入创意！最高可得2100元京东E卡。","start":"2026-07-11","end":"2026-08-16","status":"ongoing","url":"https://www.crealitycloud.cn/contest/Desk-decor"},{"site":"creality_cn","name":"创意手机支架模型设计大赛","desc":"设计兼具实用性、创意性与美观性的3D打印手机支架模型。","start":"2026-06-25","end":"2026-08-02","status":"ongoing","url":"https://www.crealitycloud.cn/contest/Creative-Phone-Stand"},{"site":"creality_intl","name":"Credit Card Wand Design Contest","desc":"Who says paying has to be boring?","start":"2026-07-23","end":"2026-08-23","status":"ongoing","url":"https://www.crealitycloud.com/zh/contest/Credit-Card-Wand"},{"site":"creality_intl","name":"Headphone Stand Design Contest","desc":"Create an original headphone stand that showcases your personal style.","start":"2026-07-17","end":"2026-08-23","status":"ongoing","url":"https://www.crealitycloud.com/zh/contest/Headphone-Stand"},{"site":"creality_intl","name":"Dragon Design Contest","desc":"Design a majestic display model, articulated dragon.","start":"2026-07-08","end":"2026-08-09","status":"ongoing","url":"https://www.crealitycloud.com/zh/contest/Dragon"},{"site":"creality_intl","name":"Creative Stationery Design Contest","desc":"Reimagine everyday stationery with 3D printing.","start":"2026-06-24","end":"2026-08-09","status":"ongoing","url":"https://www.crealitycloud.com/zh/contest/Creative-Stationery"},{"site":"creality_intl","name":"KitCard Design Contest","desc":"Design the next great KitCard.","start":"2026-07-24","end":"2026-08-30","status":"upcoming","url":"https://www.crealitycloud.com/zh/contest/KitCard"},{"site":"makeronline","name":"实验器材设计大赛","desc":"让我们一起创造赋能科学实践学习的工具吧！","start":"2026-07-17","end":"2026-08-14","status":"ongoing","url":"https://www.makeronline.com/zh/contest/%E5%AE%9E%E9%AA%8C%E5%99%A8%E6%9D%90%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/195.html"},{"site":"makeronline","name":"书立创意设计大赛","desc":"打造你的书架奇境，赢取最高 $350 奖励！","start":"2026-07-10","end":"2026-08-07","status":"ongoing","url":"https://www.makeronline.com/zh/contest/%E4%B9%A6%E7%AB%8B%E5%88%9B%E6%84%8F%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/194.html"},{"site":"makeronline","name":"让物理看得见设计大赛","desc":"从看不见的物理，到可见的学习体验。","start":"2026-07-03","end":"2026-07-31","status":"ongoing","url":"https://www.makeronline.com/zh/contest/%E8%AE%A9%E7%89%A9%E7%90%86%E7%9C%8B%E5%BE%97%E8%A7%81%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/193.html"},{"site":"makeronline","name":"学习工具与教具设计大赛","desc":"让我们创造下一代学习工具与教具！","start":"2026-06-26","end":"2026-07-24","status":"judging","url":"https://www.makeronline.com/zh/contest/%E5%AD%A6%E4%B9%A0%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%95%99%E5%85%B7%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/192.html"},{"site":"makerworld_cn","name":"非遗新造模型设计竞赛","desc":"老手艺，新打法！用3D打印让非遗文化焕发新生。","start":"2026-07-22","end":"2026-08-23","status":"ongoing","url":"https://makerworld.com.cn/zh/contests/81"},{"site":"makerworld_cn","name":"动物世界之海洋王国模型设计大赛","desc":"打造你的水族馆，海洋生物主题设计。","start":"2026-07-17","end":"2026-08-16","status":"ongoing","url":"https://makerworld.com.cn/zh/contests/79"},{"site":"makerworld_cn","name":"MakerWorld x Insta360 Luna Ultra 创意挑战赛","desc":"Think bold. Print bold.","start":"2026-07-10","end":"2026-08-09","status":"ongoing","url":"https://makerworld.com.cn/zh/contests/80"},{"site":"makerworld_cn","name":"大师挑战赛: 太空探索","desc":"太空探索主题设计竞赛。","start":"2026-06-22","end":"2026-07-26","status":"ongoing","url":"https://makerworld.com.cn/zh/contests/78"},{"site":"makerworld_cn","name":"@天门计划 国防装备设计竞赛","desc":"国防装备主题设计竞赛。","start":"2026-07-29","end":"2026-08-29","status":"upcoming","url":"https://makerworld.com.cn/zh/contests"},{"site":"makerworld_intl","name":"Hosted: PlayGrid Board Games Design Contest","desc":"One Grid. Many Worlds.","start":"2026-07-22","end":"2026-08-26","status":"ongoing","url":"https://makerworld.com/en/contests/155"},{"site":"makerworld_intl","name":"Homer's Epics Design Contest","desc":"Giving Shape to the Unseen Songs.","start":"2026-07-17","end":"2026-08-23","status":"ongoing","url":"https://makerworld.com/en/contests/154"},{"site":"makerworld_intl","name":"MakerWorld x Insta360 Luna Ultra Design Challenge","desc":"Think bold. Print bold.","start":"2026-07-10","end":"2026-08-09","status":"ongoing","url":"https://makerworld.com/en/contests/153"},{"site":"makerworld_intl","name":"Hosted: Exoskeleton & Articulated Mechanism Challenge","desc":"Bring Motion to Wearable Mechanics.","start":"2026-07-06","end":"2026-08-08","status":"ongoing","url":"https://makerworld.com/en/contests/152"},{"site":"makerworld_intl","name":"Hosted: T-34 Evolution Remix","desc":"Swap Armor, Remix War, Build Your Power!","start":"2026-06-18","end":"2026-08-03","status":"ongoing","url":"https://makerworld.com/en/contests/151"},{"site":"makerworld_intl","name":"Hosted: Basecamp Anywhere","desc":"Travel & Outdoor Setup Kit.","start":"2026-07-27","end":"2026-08-27","status":"upcoming","url":"https://makerworld.com/zh/contests"},{"site":"makerworld_intl","name":"RoboDog Mod Challenge","desc":"RoboDog modification challenge.","start":"2026-08-03","end":"2026-09-03","status":"upcoming","url":"https://makerworld.com/zh/contests"},{"site":"jlc","name":"点亮桌面灵感 | 桌面好物设计比赛","desc":"点亮桌面灵感，装点方寸好物。","start":"2026-06-30","end":"2026-08-10","status":"ongoing","url":"https://model.jlc-3dp.cn/raceDetail?id=d9ac22cc25274e6387c46eaf5306a150"},{"site":"makeroad","name":"Summer Maker Fest - Outdoor Challenge","desc":"夏季户外3D打印创意。","start":"2026-07-15","end":"2026-08-21","status":"ongoing","url":"https://www.makeroad.com/contests/56"},{"site":"makeroad","name":"Green Pitch Imagination 2026世界杯","desc":"2026世界杯主题3D模型竞赛。","start":"2026-06-12","end":"2026-07-21","status":"judging","url":"https://www.makeroad.com/contests/55"},{"site":"snapmaker","name":"Beyond One Material - 多材料融合设计","desc":"Multi-material design contest.","start":"2026-07-07","end":"2026-08-04","status":"ongoing","url":"https://models.snapmaker.com/contest/2"},{"site":"snapmaker","name":"Make Something Colorful","desc":"Snapmaker Model Design Contest.","start":"2026-05-10","end":"2026-06-16","status":"ended","url":"https://models.snapmaker.com/contest/1"},{"site":"nexprint","name":"派对打印计划","desc":"给聚会加点儿料。","start":"2026-07-15","end":"2026-08-16","status":"ongoing","url":"https://www.nexprint.com/zh/contests"},{"site":"nexprint","name":"电子产品爆改计划","desc":"专治各种原厂不服。","start":"2026-07-10","end":"2026-08-11","status":"ongoing","url":"https://www.nexprint.com/zh/contests"},{"site":"nexprint","name":"套卡建模大赛","desc":"把3D世界拍扁，再立体重生！","start":"2026-06-25","end":"2026-07-25","status":"ongoing","url":"https://www.nexprint.com/zh/contests"},{"site":"nexprint","name":"搞定咖啡角","desc":"咖啡角主题设计竞赛。","start":"2026-07-16","end":"2026-07-31","status":"ongoing","url":"https://www.nexprint.com/zh/contests"},{"site":"nexprint","name":"游戏之夜 玩家装备","desc":"游戏装备主题设计竞赛。","start":"2026-07-11","end":"2026-07-26","status":"ongoing","url":"https://www.nexprint.com/zh/contests"}];
+
+var CONTESTS = EMBEDDED.slice();
+var currentStatus="all", currentSite="all", currentKeyword="";
+var starred=new Set(), dataStatus="offline";
+
+function daysBetween(d){ if(!d)return null; return Math.ceil((new Date(d+"T23:59:59")-new Date())/86400000); }
+function fmtDate(s){ return s?(new Date(s)).toLocaleDateString("zh-CN",{year:"numeric",month:"2-digit",day:"2-digit"}):"-"; }
+function esc(s){ return String(s).replace(/[&<>"']/g,function(ch){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]; }); }
+function favKey(c){ return c.site+"::"+c.name; }
+
+// Auto-fetch from cloud on startup
+function fetchCloud() {
+  try {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "https://09dc6b9ecd58469f881994eb70dfca36.app.codebuddy.work/data.json?_="+Date.now(), true);
+    xhr.timeout = 8000;
+    xhr.onreadystatechange = function() {
+      if (xhr.readyState === 4) {
+        if (xhr.status === 200) {
+          try {
+            var d = JSON.parse(xhr.responseText);
+            if (d.contests && d.contests.length > 0) {
+              CONTESTS = d.contests.map(function(c){ return {site:c.site||"unknown",name:c.name||"",start:c.start||"",end:c.end||"",desc:c.desc||"",url:c.url||"#",status:c.status||"ongoing"}; });
+              dataStatus = "fresh";
+              document.getElementById("data-status").innerHTML = '<span class="status-dot fresh"></span>数据已更新';
+              document.getElementById("data-status").title = "云端数据: " + (d.last_update || "未知");
+            }
+          } catch(e) { dataStatus = "stale"; }
+        }
+        renderAll(true);
+      }
+    };
+    xhr.onerror = function(){ dataStatus = "stale"; renderAll(true); };
+    xhr.ontimeout = function(){ dataStatus = "stale"; renderAll(true); };
+    xhr.send();
+  } catch(e) { dataStatus = "stale"; renderAll(true); }
+}
+
+function renderBanner() {
+  var d3=[], d7=[], fs=[];
+  CONTESTS.forEach(function(c,i){
+    if(c.status==="ended"||!c.end)return;
+    var d=daysBetween(c.end);
+    if(d!==null&&d>=0){ if(d<=3)d3.push(i); if(d<=7)d7.push(i); }
+    if(starred.has(favKey(c)))fs.push(i);
+  });
+  document.getElementById("banner").innerHTML =
+    '<div class="banner-item banner-urgent"'+((d3.length)?' onclick="filterDeadline(3)"':' style="opacity:0.4"')+'>'+
+      '<div style="font-size:11px;color:var(--text-muted);margin-bottom:2px">3天内截止</div>'+
+      '<div class="banner-count urgent">'+d3.length+' 场</div>'+
+      '<div class="banner-sub">'+(d3.length?d3.map(function(i){return esc(CONTESTS[i].name);}).join(" / "):"暂无")+'</div>'+
+    '</div>'+
+    '<div class="banner-item banner-warn"'+((d7.length)?' onclick="filterDeadline(7)"':' style="opacity:0.4"')+'>'+
+      '<div style="font-size:11px;color:var(--text-muted);margin-bottom:2px">7天内截止</div>'+
+      '<div class="banner-count warn">'+d7.length+' 场</div>'+
+      '<div class="banner-sub">'+(d7.length?d7.map(function(i){return esc(CONTESTS[i].name);}).join(" / "):"暂无")+'</div>'+
+    '</div>'+
+    '<div class="banner-item banner-star" onclick="document.getElementById(\'filter-tabs\').querySelector(\'[data-status=starred]\').click()">'+
+      '<div style="font-size:11px;color:var(--text-muted);margin-bottom:2px">我的关注</div>'+
+      '<div class="banner-count star">'+fs.length+' 场</div>'+
+      '<div class="banner-sub">'+(fs.length?fs.map(function(i){return esc(CONTESTS[i].name);}).join(" / "):"点击收藏比赛")+'</div>'+
+    '</div>';
+}
+function filterDeadline(n) {
+  currentStatus="all"; currentSite="all"; currentKeyword="";
+  document.getElementById("search").value=""; resetTabs(); renderAll(true);
+}
+function renderStats() {
+  var counts={total:CONTESTS.length,ongoing:0,upcoming:0,judging:0,ended:0};
+  CONTESTS.forEach(function(c){ if(counts[c.status]!==undefined)counts[c.status]++; });
+  document.getElementById("stats").innerHTML =
+    '<div class="stat'+(currentStatus==="total"?" active":"")+'" data-status="total"><div class="stat-label">总计</div><div class="stat-value">'+counts.total+'</div></div>'+
+    '<div class="stat'+(currentStatus==="ongoing"?" active":"")+'" data-status="ongoing"><div class="stat-label">进行中</div><div class="stat-value ongoing">'+counts.ongoing+'</div></div>'+
+    '<div class="stat'+(currentStatus==="upcoming"?" active":"")+'" data-status="upcoming"><div class="stat-label">待开始</div><div class="stat-value upcoming">'+counts.upcoming+'</div></div>'+
+    '<div class="stat'+(currentStatus==="judging"?" active":"")+'" data-status="judging"><div class="stat-label">评审中</div><div class="stat-value judging">'+counts.judging+'</div></div>'+
+    '<div class="stat'+(currentStatus==="ended"?" active":"")+'" data-status="ended"><div class="stat-label">已结束</div><div class="stat-value ended">'+counts.ended+'</div></div>';
+  var stats = document.getElementById("stats").querySelectorAll(".stat[data-status]");
+  for (var i=0; i<stats.length; i++) {
+    stats[i].addEventListener("click", function(){
+      currentStatus = this.dataset.status;
+      currentSite = "all"; currentKeyword = "";
+      document.getElementById("search").value = "";
+      resetTabs(currentStatus); renderAll(true);
+    });
+  }
+}
+function renderTimeline() {
+  var maxDays=7;
+  var upcoming=CONTESTS.filter(function(c){ return c.status!=="ended"&&c.end&&daysBetween(c.end)!==null&&daysBetween(c.end)<=maxDays&&daysBetween(c.end)>=0; }).sort(function(a,b){ return new Date(a.end)-new Date(b.end); });
+  if(!upcoming.length){ document.getElementById("timeline").style.display="none"; return; }
+  document.getElementById("timeline").style.display="block";
+  var byDate={};
+  upcoming.forEach(function(c){ if(!byDate[c.end])byDate[c.end]=[]; byDate[c.end].push(c); });
+  var html='<div class="timeline-title">即将截止</div><div class="timeline-scroll">';
+  var dates=Object.keys(byDate).sort();
+  for(var i=0;i<dates.length;i++){
+    var date=dates[i], cs=byDate[date], d=daysBetween(date);
+    html+='<div class="timeline-day"><div class="timeline-date">'+fmtDate(date)+' '+ (d===0?"今天":d+"天后")+'</div>';
+    for(var j=0;j<cs.length;j++){
+      html+='<div class="timeline-item" style="border-left-color:'+(SITES[cs[j].site]?SITES[cs[j].site].color:"#888")+'" onclick="window.open(\''+esc(cs[j].url)+'\')">'+
+        '<div class="tl-site" style="color:'+(SITES[cs[j].site]?SITES[cs[j].site].color:"#888")+'">'+(SITES[cs[j].site]?SITES[cs[j].site].name:cs[j].site)+'</div>'+
+        '<div>'+esc(cs[j].name)+'</div></div>';
+    }
+    html+='</div>';
+  }
+  document.getElementById("timeline").innerHTML=html+'</div>';
+}
+function renderLegend() {
+  var el=document.getElementById("sites-legend");
+  var html='<button class="site-chip'+(currentSite==="all"?" active":"")+'" data-site="all" style="--site-chip-color:#4a5568"><span class="site-dot" style="background:#4a5568"></span>全部</button>';
+  var keys=Object.keys(SITES);
+  for(var i=0;i<keys.length;i++){
+    var k=keys[i], s=SITES[k];
+    html+='<button class="site-chip'+(currentSite===k?" active":"")+'" data-site="'+k+'" style="--site-chip-color:'+s.color+'"><span class="site-dot" style="background:'+s.color+'"></span>'+s.name+'</button>';
+  }
+  el.innerHTML=html;
+  var chips=el.querySelectorAll(".site-chip");
+  for(var j=0;j<chips.length;j++){ chips[j].addEventListener("click",function(){ currentSite=this.dataset.site; renderLegend(); renderAll(false); }); }
+}
+function filtered() {
+  var list=CONTESTS.slice();
+  if(currentStatus==="starred") list=list.filter(function(c){ return starred.has(favKey(c)); });
+  else if(currentStatus!=="all") list=list.filter(function(c){ return c.status===currentStatus; });
+  if(currentSite!=="all") list=list.filter(function(c){ return c.site===currentSite; });
+  if(currentKeyword){ var k=currentKeyword.toLowerCase(); list=list.filter(function(c){ return c.name.toLowerCase().indexOf(k)>=0||(c.desc||"").toLowerCase().indexOf(k)>=0||((SITES[c.site]||{}).name||"").toLowerCase().indexOf(k)>=0; }); }
+  list.sort(function(a,b){ var ds=STATUS_ORDER[a.status]-STATUS_ORDER[b.status]; return ds!==0?ds:(new Date(a.end)-new Date(b.end)); });
+  return list;
+}
+function renderCard(list) {
+  var grid=document.getElementById("grid");
+  if(!list.length){ grid.innerHTML='<div class="empty">没有匹配的比赛</div>'; return; }
+  grid.innerHTML=list.map(function(c){
+    var site=SITES[c.site]||{name:c.site,color:"#888",url:"#"};
+    var days=daysBetween(c.end), cdText="", cdClass="countdown", noDate=!c.end;
+    if(noDate){ cdText="查看官网"; cdClass=""; }
+    else if(c.status==="ended"){ cdText="已结束 "+Math.abs(days)+"天前"; cdClass=""; }
+    else if(c.status==="upcoming"){ cdText=days+"天后开始"; cdClass="soon"; }
+    else if(c.status==="judging"){ cdText="评审中"; cdClass="soon"; }
+    else{ cdText="剩余 "+days+" 天"; if(days<=3)cdClass+=" urgent"; else if(days<=7)cdClass+=" soon"; }
+    var fk=favKey(c), isStarred=starred.has(fk);
+    return '<div class="card '+c.status+'" style="--site-color:'+site.color+'">'+
+      '<div class="card-head"><span class="site-name"><span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:'+site.color+'"></span>'+site.name+'</span><span class="badge badge-'+c.status+'">'+STATUS_LABEL[c.status]+'</span></div>'+
+      '<div class="contest-title">'+esc(c.name)+'</div><div class="contest-desc">'+esc(c.desc||"")+'</div>'+
+      '<div class="contest-meta"><div class="meta-row"><span class="meta-label">开始</span><span class="meta-value">'+fmtDate(c.start)+'</span></div><div class="meta-row"><span class="meta-label">截止</span><span class="meta-value">'+fmtDate(c.end)+'</span></div><div class="meta-row"><span class="meta-label">倒计时</span><span class="meta-value '+cdClass+'">'+cdText+'</span></div></div>'+
+      '<div class="card-footer"><button class="star-btn'+(isStarred?" starred":"")+'" data-fk="'+esc(fk)+'">'+(isStarred?"★":"☆")+'</button><a class="btn btn-primary" href="'+esc(c.url)+'" target="_blank">前往比赛</a><a class="btn btn-secondary" href="'+esc(site.url)+'" target="_blank">'+site.name+'</a></div></div>';
+  }).join("");
+  bindStars();
+}
+function bindStars() {
+  var btns=document.querySelectorAll(".star-btn[data-fk]");
+  for(var i=0;i<btns.length;i++){ btns[i].addEventListener("click",function(e){ e.stopPropagation(); var fk=this.dataset.fk; if(starred.has(fk)){starred.delete(fk);}else{starred.add(fk);} var arr=[]; starred.forEach(function(x){arr.push(x);}); localStorage.setItem("contest-starred",JSON.stringify(arr)); renderAll(false); }); }
+}
+function resetTabs(status) {
+  var tabs=document.querySelectorAll("#filter-tabs .tab");
+  for(var i=0;i<tabs.length;i++){ tabs[i].classList.toggle("active",tabs[i].dataset.status===(status||currentStatus)); }
+}
+var _pending=false;
+function renderAll(rebuild) {
+  if(_pending)return; _pending=true;
+  setTimeout(function(){
+    if(rebuild){ renderBanner(); renderStats(); renderLegend(); renderTimeline(); }
+    renderCard(filtered());
+    _pending=false;
+  },0);
+}
+function toast(msg) {
+  var t=document.createElement("div"); t.className="toast"; t.textContent=msg;
+  document.body.appendChild(t); setTimeout(function(){t.classList.add("show");},10);
+  setTimeout(function(){t.classList.remove("show");setTimeout(function(){t.remove();},300);},2000);
+}
+
+// Init
+try {
+  var saved=JSON.parse(localStorage.getItem("contest-starred")||"[]");
+  saved.forEach(function(k){ starred.add(k); });
+} catch(e){}
+
+[].forEach.call(document.getElementById("filter-tabs").querySelectorAll(".tab"), function(t){
+  t.addEventListener("click",function(){
+    currentStatus=this.dataset.status; currentSite="all"; currentKeyword="";
+    document.getElementById("search").value=""; renderAll(true);
+  });
+});
+document.getElementById("search").addEventListener("input",function(){ currentKeyword=this.value.trim(); renderAll(false); });
+document.getElementById("refresh-btn").addEventListener("click",function(){
+  var btn=this; btn.textContent="获取中..."; btn.disabled=true;
+  fetchCloud();
+  setTimeout(function(){ btn.textContent="刷新数据"; btn.disabled=false; },2000);
+});
+
+// Initial render with embedded data
+renderAll(true);
+// Then try cloud
+fetchCloud();
+setInterval(function(){ renderBanner(); renderTimeline(); renderCard(filtered()); },60000);
+
+// Resize window
+window.resizeTo(1280, 900);
+window.moveTo((screen.width-1280)/2, (screen.height-900)/2);
+</script>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="title-row">
+    <h1>3D模型比赛聚合</h1>
+    <div class="hdr-right">
+      <button class="hdr-btn" id="refresh-btn">刷新数据</button>
+      <span class="status-bar" id="data-status"><span class="status-dot offline"></span>本地数据</span>
+    </div>
+  </div>
+  <p class="subtitle">双击即用 · 聚合9个3D模型平台 · 自动云端更新</p>
+</header>
+
+<div class="banner" id="banner"></div>
+<div class="stats" id="stats"></div>
+
+<div class="toolbar">
+  <div class="filter-tabs" id="filter-tabs">
+    <button class="tab active" data-status="all">全部</button>
+    <button class="tab" data-status="starred">关注</button>
+    <button class="tab" data-status="ongoing">进行中</button>
+    <button class="tab" data-status="upcoming">待开始</button>
+    <button class="tab" data-status="judging">评审中</button>
+    <button class="tab" data-status="ended">已结束</button>
+  </div>
+  <input type="text" class="search" id="search" placeholder="搜索比赛/主题...">
+</div>
+
+<div class="sites" id="sites-legend"></div>
+<div class="timeline" id="timeline"></div>
+<div class="grid" id="grid"></div>
+
+<div class="footer-note">
+  <strong>HTA应用版</strong> · 双击打开即用，无需安装 · 数据每天8点自动更新 · 点"刷新数据"手动获取最新
+</div>
+</div>
+</body>
+</html>
