@@ -39,10 +39,10 @@
     { "site": "snapmaker", "name": "Beyond One Material — 多材料融合设计竞赛", "desc": "Desktop 3D printing enters the era of multi-material design. Use 2+ materials to create what single-material can't.", "start": "2026-07-07", "end": "2026-08-04", "status": "ongoing", "url": "https://models.snapmaker.com/contest/2" },
     { "site": "snapmaker", "name": "Make Something Colorful — 模型设计竞赛", "desc": "Snapmaker Model Design Contest — 多色模型设计。", "start": "2026-05-10", "end": "2026-06-17", "status": "ended", "url": "https://models.snapmaker.com/contest/1" },
 
-    { "site": "nexprint", "name": "派对打印计划", "desc": "给聚会加点儿料 — 派对主题 3D 模型设计。", "start": "2026-07-15", "end": "2026-08-15", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
-    { "site": "nexprint", "name": "电子产品爆改计划", "desc": "专治各种「原厂不服」 — 电子产品改造设计。", "start": "2026-07-10", "end": "2026-08-10", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
-    { "site": "nexprint", "name": "套卡建模大赛", "desc": "把 3D 世界拍扁，再立体重生！套卡建模主题。", "start": "2026-06-25", "end": "2026-07-24", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
-    { "site": "nexprint", "name": "搞定咖啡角", "desc": "咖啡角主题设计竞赛。", "start": "2026-07-16", "end": "2026-07-30", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
-    { "site": "nexprint", "name": "游戏之夜・玩家装备", "desc": "游戏装备主题设计竞赛。", "start": "2026-07-11", "end": "2026-07-25", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" }
+    { "site": "nexprint", "name": "派对打印计划", "desc": "给聚会加点儿料 — 派对主题 3D 模型设计。", "start": "2026-07-15", "end": "2026-08-16", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
+    { "site": "nexprint", "name": "电子产品爆改计划", "desc": "专治各种「原厂不服」 — 电子产品改造设计。", "start": "2026-07-10", "end": "2026-08-11", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
+    { "site": "nexprint", "name": "套卡建模大赛", "desc": "把 3D 世界拍扁，再立体重生！套卡建模主题。", "start": "2026-06-25", "end": "2026-07-25", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
+    { "site": "nexprint", "name": "搞定咖啡角", "desc": "咖啡角主题设计竞赛。", "start": "2026-07-16", "end": "2026-07-31", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
+    { "site": "nexprint", "name": "游戏之夜・玩家装备", "desc": "游戏装备主题设计竞赛。", "start": "2026-07-11", "end": "2026-07-26", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" }
   ]
 }
