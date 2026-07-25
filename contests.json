@@ -11,11 +11,11 @@
     { "site": "creality-intl", "name": "Creative Stationery Design Contest", "desc": "Reimagine everyday stationery with the power of 3D printing.", "start": "2026-06-24", "end": "2026-08-09", "status": "ongoing", "url": "https://www.crealitycloud.com/zh/contest/Creative-Stationery" },
     { "site": "creality-intl", "name": "KitCard Design Contest", "desc": "Design the next great KitCard.", "start": "2026-07-24", "end": "2026-08-30", "status": "upcoming", "url": "https://www.crealitycloud.com/zh/contest/KitCard" },
 
-    { "site": "makeronline", "name": "玩具火车世界设计大赛", "desc": "打造火车、模块化轨道和铁路场景，让想象成为现实。", "start": "2026-07-24", "end": "2026-08-21", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E7%8E%A9%E5%85%B7%E7%81%AB%E8%BD%A6%E4%B8%96%E7%95%8C%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/196.html" },
-    { "site": "makeronline", "name": "实验器材设计大赛", "desc": "让我们一起创造赋能科学实践学习的工具吧！", "start": "2026-07-17", "end": "2026-08-14", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E5%AE%9E%E9%AA%8C%E5%99%A8%E6%9D%90%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/195.html" },
-    { "site": "makeronline", "name": "书立创意设计大赛", "desc": "打造你的书架奇境，赢取最高 $350 奖励！", "start": "2026-07-10", "end": "2026-08-07", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E4%B9%A6%E7%AB%8B%E5%88%9B%E6%84%8F%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/194.html" },
-    { "site": "makeronline", "name": "让物理看得见设计大赛", "desc": "从看不见的物理，到可见的学习体验，赢取 1250 美元奖金！", "start": "2026-07-03", "end": "2026-07-31", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E8%AE%A9%E7%89%A9%E7%90%86%E7%9C%8B%E5%BE%97%E8%A7%81%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/193.html" },
-    { "site": "makeronline", "name": "学习工具与教具设计大赛", "desc": "让我们创造下一代学习工具与教具！", "start": "2026-06-26", "end": "2026-07-26", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E5%AD%A6%E4%B9%A0%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%95%99%E5%85%B7%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/192.html" },
+    { "site": "makeronline", "name": "玩具火车世界设计大赛", "desc": "打造火车、模块化轨道和铁路场景，让想象成为现实。", "start": "2026-07-24", "end": "2026-08-20", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E7%8E%A9%E5%85%B7%E7%81%AB%E8%BD%A6%E4%B8%96%E7%95%8C%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/196.html" },
+    { "site": "makeronline", "name": "实验器材设计大赛", "desc": "让我们一起创造赋能科学实践学习的工具吧！", "start": "2026-07-17", "end": "2026-08-13", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E5%AE%9E%E9%AA%8C%E5%99%A8%E6%9D%90%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/195.html" },
+    { "site": "makeronline", "name": "书立创意设计大赛", "desc": "打造你的书架奇境，赢取最高 $350 奖励！", "start": "2026-07-10", "end": "2026-08-06", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E4%B9%A6%E7%AB%8B%E5%88%9B%E6%84%8F%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/194.html" },
+    { "site": "makeronline", "name": "让物理看得见设计大赛", "desc": "从看不见的物理，到可见的学习体验，赢取 1250 美元奖金！", "start": "2026-07-03", "end": "2026-07-30", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E8%AE%A9%E7%89%A9%E7%90%86%E7%9C%8B%E5%BE%97%E8%A7%81%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/193.html" },
+    { "site": "makeronline", "name": "学习工具与教具设计大赛", "desc": "让我们创造下一代学习工具与教具！", "start": "2026-06-26", "end": "2026-07-25", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E5%AD%A6%E4%B9%A0%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%95%99%E5%85%B7%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/192.html" },
 
     { "site": "makerworld-cn", "name": "非遗新造模型设计竞赛", "desc": "老手艺，新打法！用3D打印让非遗文化焕发新生。", "start": "2026-07-22", "end": "2026-08-23", "status": "ongoing", "url": "https://makerworld.com.cn/zh/contests/81" },
     { "site": "makerworld-cn", "name": "动物世界之海洋王国模型设计大赛", "desc": "打造你的水族馆，海洋生物主题设计。", "start": "2026-07-17", "end": "2026-08-16", "status": "ongoing", "url": "https://makerworld.com.cn/zh/contests/79" },
@@ -39,10 +39,10 @@
     { "site": "snapmaker", "name": "Beyond One Material — 多材料融合设计竞赛", "desc": "Desktop 3D printing enters the era of multi-material design. Use 2+ materials to create what single-material can't.", "start": "2026-07-07", "end": "2026-08-04", "status": "ongoing", "url": "https://models.snapmaker.com/contest/2" },
     { "site": "snapmaker", "name": "Make Something Colorful — 模型设计竞赛", "desc": "Snapmaker Model Design Contest — 多色模型设计。", "start": "2026-05-10", "end": "2026-06-17", "status": "ended", "url": "https://models.snapmaker.com/contest/1" },
 
-    { "site": "nexprint", "name": "派对打印计划", "desc": "给聚会加点儿料 — 派对主题 3D 模型设计。", "start": "2026-07-15", "end": "2026-08-16", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
-    { "site": "nexprint", "name": "电子产品爆改计划", "desc": "专治各种「原厂不服」 — 电子产品改造设计。", "start": "2026-07-10", "end": "2026-08-11", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
-    { "site": "nexprint", "name": "套卡建模大赛", "desc": "把 3D 世界拍扁，再立体重生！套卡建模主题。", "start": "2026-06-25", "end": "2026-07-25", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
-    { "site": "nexprint", "name": "搞定咖啡角", "desc": "咖啡角主题设计竞赛。", "start": "2026-07-16", "end": "2026-07-31", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
-    { "site": "nexprint", "name": "游戏之夜・玩家装备", "desc": "游戏装备主题设计竞赛。", "start": "2026-07-11", "end": "2026-07-26", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" }
+    { "site": "nexprint", "name": "派对打印计划", "desc": "给聚会加点儿料 — 派对主题 3D 模型设计。", "start": "2026-07-15", "end": "2026-08-15", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
+    { "site": "nexprint", "name": "电子产品爆改计划", "desc": "专治各种「原厂不服」 — 电子产品改造设计。", "start": "2026-07-10", "end": "2026-08-10", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
+    { "site": "nexprint", "name": "套卡建模大赛", "desc": "把 3D 世界拍扁，再立体重生！套卡建模主题。", "start": "2026-06-25", "end": "2026-07-24", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
+    { "site": "nexprint", "name": "搞定咖啡角", "desc": "咖啡角主题设计竞赛。", "start": "2026-07-16", "end": "2026-07-30", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
+    { "site": "nexprint", "name": "游戏之夜・玩家装备", "desc": "游戏装备主题设计竞赛。", "start": "2026-07-11", "end": "2026-07-25", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" }
   ]
 }
