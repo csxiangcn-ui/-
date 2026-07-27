@@ -235,7 +235,8 @@ h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
 <div class="footer-note">
   <strong>便携版：</strong> 这是一个独立 HTML 文件，复制到 U 盘即可在任何电脑上双击打开。<br>
   <strong>更新数据：</strong> 点标题栏 📂 按钮选择 <code>contests.json</code> 即可刷新比赛数据（无需 Python）。<br>
-  <strong>收藏：</strong> 点 ⭐ 关注感兴趣的比赛，数据存于本地浏览器。
+  <strong>收藏：</strong> 点 ⭐ 关注感兴趣的比赛，数据存于本地浏览器。<br>
+  <span style="color:var(--text-muted);font-size:11px">Total <span id="busuanzi_value_site_pv">-</span> views · <span id="busuanzi_value_site_uv">-</span> visitors</span>
 </div>
 </div>
 
@@ -582,5 +583,6 @@ document.getElementById("file-input").addEventListener("change",e=>{
 renderAll(true);
 setInterval(()=>{ renderBanner(); renderCalendar(); renderTimeline(); const list=filtered(); if(viewMode==="card")renderCard(list); else renderList(list); }, 60_000);
 </script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 </body>
 </html>
