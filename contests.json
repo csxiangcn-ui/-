@@ -44,6 +44,7 @@
     { "site": "nexprint", "name": "电子产品爆改计划", "desc": "专治各种「原厂不服」 — 电子产品改造设计。", "start": "2026-07-10", "end": "2026-08-11", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
     { "site": "nexprint", "name": "套卡建模大赛", "desc": "把 3D 世界拍扁，再立体重生！套卡建模主题。", "start": "2026-06-25", "end": "2026-07-25", "status": "judging", "url": "https://www.nexprint.com/zh/contests" },
     { "site": "nexprint", "name": "搞定咖啡角", "desc": "咖啡角主题设计竞赛。", "start": "2026-07-16", "end": "2026-07-31", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
-    { "site": "nexprint", "name": "游戏之夜・玩家装备", "desc": "游戏装备主题设计竞赛。", "start": "2026-07-11", "end": "2026-07-26", "status": "judging", "url": "https://www.nexprint.com/zh/contests" }
+    { "site": "nexprint", "name": "游戏之夜・玩家装备", "desc": "游戏装备主题设计竞赛。", "start": "2026-07-11", "end": "2026-07-26", "status": "judging", "url": "https://www.nexprint.com/zh/contests" },
+    { "site": "nexprint", "name": "轻装出发", "desc": "旅行出行主题模型设计竞赛。", "start": "2026-07-03", "end": "2026-07-17", "status": "ended", "url": "https://www.nexprint.com/zh/contests" }
   ]
 }
