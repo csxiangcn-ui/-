@@ -371,7 +371,7 @@ function renderTimeline() {
   let html=`<div class="timeline-title">📆 即将截止</div><div class="timeline-scroll">`;
   Object.entries(byDate).sort(([a],[b])=>new Date(a)-new Date(b)).forEach(([date,cs])=>{
     const d=daysBetween(date);
-    html+=`<div class="timeline-day"><div class="timeline-date">${fmtDate(date)} · ${d===0?"今天":d+"天后"}</div>`;
+    html+=`<div class="timeline-day"><div class="timeline-date">${fmtDate(date)} · ${d===0?"今天":"剩"+d+"天"}</div>`;
     cs.forEach(c=>{
       html+=`<div class="timeline-item" style="border-left-color:${SITES[c.site].color}" onclick="window.open('${esc(c.url)}','_blank')">
         <div class="tl-site" style="color:${SITES[c.site].color}">${SITES[c.site].name}</div>
