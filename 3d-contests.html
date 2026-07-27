@@ -195,7 +195,7 @@ h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
       <button class="file-btn" id="file-btn" title="导入 contests.json 更新数据">📂</button>
       <button class="hdr-btn" id="cal-toggle" title="日历视图">📅</button>
       <button class="hdr-btn" id="theme-toggle" title="暗色模式">🌙</button>
-      <span class="update-info" id="update-info">数据: <strong>2026-07-27 10:27</strong></span>
+      <span class="update-info" id="update-info">数据: <strong>2026-07-27 10:35</strong></span>
     </div>
   </div>
   <p class="subtitle">聚合 9 个 3D 打印模型平台比赛信息</p>
@@ -259,7 +259,7 @@ if (showCalendar) document.getElementById("cal-wrap").classList.add("open");
 updateDateFilterBar();
 
 // ===== Helpers =====
-function daysBetween(d) { if(!d)return null; return Math.ceil((new Date(d+"T23:59:59")-new Date())/86400000); }
+function daysBetween(d) { if(!d)return null; const a=new Date();a.setHours(0,0,0,0);const b=new Date(d);b.setHours(0,0,0,0);return Math.round((b-a)/86400000); }
 function fmtDate(s) { return s?(new Date(s)).toLocaleDateString("zh-CN",{year:"numeric",month:"2-digit",day:"2-digit"}):"-"; }
 function fmtDateShort(s) { const d=new Date(s); return (d.getMonth()+1)+"/"+d.getDate(); }
 function esc(s) { return String(s).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch])); }

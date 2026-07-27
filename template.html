@@ -259,7 +259,7 @@ if (showCalendar) document.getElementById("cal-wrap").classList.add("open");
 updateDateFilterBar();
 
 // ===== Helpers =====
-function daysBetween(d) { if(!d)return null; return Math.ceil((new Date(d+"T23:59:59")-new Date())/86400000); }
+function daysBetween(d) { if(!d)return null; const a=new Date();a.setHours(0,0,0,0);const b=new Date(d);b.setHours(0,0,0,0);return Math.round((b-a)/86400000); }
 function fmtDate(s) { return s?(new Date(s)).toLocaleDateString("zh-CN",{year:"numeric",month:"2-digit",day:"2-digit"}):"-"; }
 function fmtDateShort(s) { const d=new Date(s); return (d.getMonth()+1)+"/"+d.getDate(); }
 function esc(s) { return String(s).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch])); }
