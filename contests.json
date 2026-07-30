@@ -1,6 +1,6 @@
 {
   "_comment": "3D模型网站比赛数据 - 自动抓取更新。status: ongoing|upcoming|judging|ended",
-  "last_update": "2026-07-30 08:50",
+  "last_update": "2026-07-30 09:14",
   "contests": [
     { "site": "creality-cn", "name": "和平精英：刺激之夜模型创作大赛", "desc": "玩家集结！超万元空投补给已就位！", "start": "2026-08-02", "end": "2026-09-08", "status": "upcoming", "url": "https://m.crealitycloud.cn/contest" },
     { "site": "creality-cn", "name": "抽屉把手模型创意大赛", "desc": "一个好看的把手，能让整面柜子活起来；一个有创意的把手，能让每次拉开的动作都多一分期待。", "start": "2026-07-25", "end": "2026-08-30", "status": "ongoing", "url": "https://www.crealitycloud.cn/contest/Drawer-Handle" },
