@@ -1,6 +1,6 @@
 {
   "_comment": "3D模型网站比赛数据 - 自动抓取更新。status: ongoing|upcoming|judging|ended",
-  "last_update": "2026-08-06 08:08",
+  "last_update": "2026-08-07 08:28",
   "contests": [
     { "site": "creality-cn", "name": "和平精英：刺激之夜模型创作大赛", "desc": "玩家集结！超万元空投补给已就位！", "start": "2026-08-02", "end": "2026-09-08", "status": "ongoing", "url": "https://m.crealitycloud.cn/contest" },
     { "site": "creality-cn", "name": "抽屉把手模型创意大赛", "desc": "一个好看的把手，能让整面柜子活起来；一个有创意的把手，能让每次拉开的动作都多一分期待。", "start": "2026-07-25", "end": "2026-08-30", "status": "ongoing", "url": "https://www.crealitycloud.cn/contest/Drawer-Handle" },
@@ -24,6 +24,7 @@
     { "site": "creality-intl", "name": "Camping Gear Design Contest", "desc": "Create innovative 3D-printed camping gear that blends practicality, creativity, and adventure.", "start": "2026-06-03", "end": "2026-07-05", "status": "ended", "url": "https://www.crealitycloud.com/zh/contest/Camping-Gear" },
     { "site": "creality-intl", "name": "All Things Football Design Contest", "desc": "2026 World Cup themed football model design contest — unleash your creativity and passion.", "start": "2026-05-16", "end": "2026-06-30", "status": "ended", "url": "https://www.crealitycloud.com/zh/contest/All-Things-Football" },
     { "site": "creality-intl", "name": "Box It Up: Storage Box Design Contest", "desc": "Practical and fun creative storage box designs — from hidden compartments to toy-inspired storage.", "start": "2026-05-26", "end": "2026-06-26", "status": "ended", "url": "https://www.crealitycloud.com/zh/contest/Box-It-Up" },
+    { "site": "creality-intl", "name": "Dancing Skeleton Design Contest", "desc": "Who says skeletons can't steal the spotlight? Dancing Skeletons have become one of the internet's favorite meme characters. Now it's your turn to bring the bones to life.", "start": "2026-08-06", "end": "2026-09-06", "status": "ongoing", "url": "https://www.crealitycloud.com/zh/contest/Dancing-Skeleton" },
 
     { "site": "makeronline", "name": "玩具火车世界设计大赛", "desc": "打造火车、模块化轨道和铁路场景，让想象成为现实。", "start": "2026-07-24", "end": "2026-08-20", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E7%8E%A9%E5%85%B7%E7%81%AB%E8%BD%A6%E4%B8%96%E7%95%8C%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/196.html" },
     { "site": "makeronline", "name": "实验器材设计大赛", "desc": "让我们一起创造赋能科学实践学习的工具吧！", "start": "2026-07-17", "end": "2026-08-13", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E5%AE%9E%E9%AA%8C%E5%99%A8%E6%9D%90%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/195.html" },
