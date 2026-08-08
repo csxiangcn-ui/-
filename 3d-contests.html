@@ -195,7 +195,7 @@ h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
       <button class="file-btn" id="file-btn" title="导入 contests.json 更新数据">📂</button>
       <button class="hdr-btn" id="cal-toggle" title="日历视图">📅</button>
       <button class="hdr-btn" id="theme-toggle" title="暗色模式">🌙</button>
-      <span class="update-info" id="update-info">数据: <strong>2026-08-08 08:39</strong></span>
+      <span class="update-info" id="update-info">数据: <strong>2026-08-08 08:50</strong></span>
     </div>
   </div>
   <p class="subtitle">聚合 9 个 3D 打印模型平台比赛信息</p>
@@ -206,14 +206,6 @@ h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
 <div class="stats" id="stats"></div>
 
 <div class="toolbar">
-  <div class="filter-tabs" id="filter-tabs">
-    <button class="tab active" data-status="all">全部</button>
-    <button class="tab" data-status="starred">⭐ 关注</button>
-    <button class="tab" data-status="ongoing">进行中</button>
-    <button class="tab" data-status="upcoming">待开始</button>
-    <button class="tab" data-status="judging">评审中</button>
-  </div>
-  <span class="tab-spacer"></span>
   <div class="view-switch" id="view-switch">
     <button class="view-btn active" data-view="card">卡片</button>
     <button class="view-btn" data-view="list">列表</button>
@@ -281,7 +273,7 @@ function renderBanner() {
       <div class="banner-count warn">${d7.length} 场</div>
       <div class="banner-sub">${d7.length?d7.map(i=>esc(CONTESTS[i].name)).join(" / ").slice(0,40)+"…":"暂无"}</div>
     </div>
-    <div class="banner-item banner-star" onclick="document.querySelector('#filter-tabs .tab[data-status=starred]').click()">
+    <div class="banner-item banner-star" onclick="document.querySelector('#stats .stat[data-status=starred]').click()">
       <div class="banner-label">⭐ 我的关注</div>
       <div class="banner-count star">${fs.length} 场</div>
       <div class="banner-sub">${fs.length?fs.map(i=>esc(CONTESTS[i].name)).join(" / ").slice(0,40)+"…":"点击收藏比赛"}</div>
@@ -295,10 +287,10 @@ function filterDeadline(n) {
 
 // ===== Render: Stats =====
 function renderStats() {
-  const counts={total:CONTESTS.length,ongoing:0,upcoming:0,judging:0};
+  const counts={total:CONTESTS.length,ongoing:0,upcoming:0,judging:0,starred:starred.size};
   CONTESTS.forEach(c=>{ if(counts[c.status]!==undefined)counts[c.status]++; });
   const el=document.getElementById("stats");
-  el.innerHTML = Object.entries({total:"总计",ongoing:"进行中",upcoming:"待开始",judging:"评审中"}).map(([k,v])=>{
+  el.innerHTML = Object.entries({total:"总计",ongoing:"进行中",upcoming:"待开始",judging:"评审中",starred:"⭐关注"}).map(([k,v])=>{
     const act=currentStatus===k?' active':'';
     return `<div class="stat${act}" data-status="${k}">
       <div class="stat-label">${v}</div>
@@ -486,7 +478,6 @@ function bindStars() {
 // ===== Tab & view switch =====
 function resetTabs(status) {
   status=status||currentStatus;
-  document.querySelectorAll("#filter-tabs .tab").forEach(t=>{ t.classList.toggle("active",t.dataset.status===status); });
   document.querySelectorAll("#stats .stat").forEach(s=>{ s.classList.toggle("active",s.dataset.status===status); });
 }
 function updateViewBtns() {
@@ -532,12 +523,6 @@ document.getElementById("cal-toggle").addEventListener("click",()=>{
 
 // ===== Event: date clear =====
 document.getElementById("clear-date").addEventListener("click",()=>{ currentDate=null; updateDateFilterBar(); renderAll(true); });
-
-// ===== Event: tabs =====
-document.querySelectorAll("#filter-tabs .tab").forEach(t=>{ t.addEventListener("click",()=>{
-  currentStatus=t.dataset.status; currentSite="all"; currentDate=null; currentKeyword="";
-  document.getElementById("search").value=""; updateDateFilterBar(); renderAll(true);
-});});
 
 // ===== Event: view switch =====
 document.querySelectorAll("#view-switch .view-btn").forEach(b=>{ b.addEventListener("click",()=>{
