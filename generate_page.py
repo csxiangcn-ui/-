@@ -71,7 +71,8 @@ def build_html(data: dict) -> str:
     for c in data["contests"]:
         c2 = dict(c)
         c2["status"] = auto_status(c, today)
-        contests.append(c2)
+        if c2["status"] != "ended":  # skip ended contests
+            contests.append(c2)
 
     sites_json = json.dumps(SITES, ensure_ascii=False)
     contests_json = json.dumps(contests, ensure_ascii=False)

@@ -212,7 +212,6 @@ h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
     <button class="tab" data-status="ongoing">进行中</button>
     <button class="tab" data-status="upcoming">待开始</button>
     <button class="tab" data-status="judging">评审中</button>
-    <button class="tab" data-status="ended">已结束</button>
   </div>
   <span class="tab-spacer"></span>
   <div class="view-switch" id="view-switch">
@@ -296,10 +295,10 @@ function filterDeadline(n) {
 
 // ===== Render: Stats =====
 function renderStats() {
-  const counts={total:CONTESTS.length,ongoing:0,upcoming:0,judging:0,ended:0};
+  const counts={total:CONTESTS.length,ongoing:0,upcoming:0,judging:0};
   CONTESTS.forEach(c=>{ if(counts[c.status]!==undefined)counts[c.status]++; });
   const el=document.getElementById("stats");
-  el.innerHTML = Object.entries({total:"总计",ongoing:"进行中",upcoming:"待开始",judging:"评审中",ended:"已结束"}).map(([k,v])=>{
+  el.innerHTML = Object.entries({total:"总计",ongoing:"进行中",upcoming:"待开始",judging:"评审中"}).map(([k,v])=>{
     const act=currentStatus===k?' active':'';
     return `<div class="stat${act}" data-status="${k}">
       <div class="stat-label">${v}</div>
