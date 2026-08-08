@@ -54,7 +54,14 @@ h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
 .banner-count.warn { color: var(--judging); }
 .banner-count.star { color: #d69e2e; }
 .banner-sub { font-size: 11px; color: var(--text-muted); }
-/* Stats */
+/* Toolbar (merged: stats + view-switch + search) */
+.toolbar-merged { display: flex; align-items: stretch; gap: 10px; margin-bottom: 14px; }
+.toolbar-merged .stats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; margin: 0; flex: 1; }
+.toolbar-merged .stat { padding: 8px 10px; }
+.toolbar-merged .stat-label { font-size: 10px; }
+.toolbar-merged .stat-value { font-size: 16px; }
+.toolbar-merged .view-switch, .toolbar-merged .search { align-self: center; flex-shrink: 0; }
+/* Stats (standalone fallback) */
 .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 16px; }
 .stat { background: var(--card-bg); padding: 12px 14px; border-radius: 10px; box-shadow: var(--shadow); border: 1px solid var(--border); cursor: pointer; transition: all .15s; }
 .stat:hover { box-shadow: var(--shadow-hover); }
@@ -203,9 +210,8 @@ h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
 
 <div class="banner" id="banner"></div>
 
-<div class="stats" id="stats"></div>
-
-<div class="toolbar">
+<div class="toolbar-merged">
+  <div class="stats" id="stats"></div>
   <div class="view-switch" id="view-switch">
     <button class="view-btn active" data-view="card">卡片</button>
     <button class="view-btn" data-view="list">列表</button>
