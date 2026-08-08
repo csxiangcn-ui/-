@@ -202,7 +202,7 @@ h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
       <button class="file-btn" id="file-btn" title="导入 contests.json 更新数据">📂</button>
       <button class="hdr-btn" id="cal-toggle" title="日历视图">📅</button>
       <button class="hdr-btn" id="theme-toggle" title="暗色模式">🌙</button>
-      <span class="update-info" id="update-info">数据: <strong>2026-08-08 08:56</strong></span>
+      <span class="update-info" id="update-info">数据: <strong>2026-08-08 09:02</strong></span>
     </div>
   </div>
   <p class="subtitle">聚合 9 个 3D 打印模型平台比赛信息</p>
@@ -293,10 +293,10 @@ function filterDeadline(n) {
 
 // ===== Render: Stats =====
 function renderStats() {
-  const counts={total:CONTESTS.length,ongoing:0,upcoming:0,judging:0,starred:starred.size};
+  const counts={all:CONTESTS.length,ongoing:0,upcoming:0,judging:0,starred:starred.size};
   CONTESTS.forEach(c=>{ if(counts[c.status]!==undefined)counts[c.status]++; });
   const el=document.getElementById("stats");
-  el.innerHTML = Object.entries({total:"总计",ongoing:"进行中",upcoming:"待开始",judging:"评审中",starred:"⭐关注"}).map(([k,v])=>{
+  el.innerHTML = Object.entries({all:"总计",ongoing:"进行中",upcoming:"待开始",judging:"评审中",starred:"⭐关注"}).map(([k,v])=>{
     const act=currentStatus===k?' active':'';
     return `<div class="stat${act}" data-status="${k}">
       <div class="stat-label">${v}</div>
