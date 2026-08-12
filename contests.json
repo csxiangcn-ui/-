@@ -1,6 +1,6 @@
 {
   "_comment": "3D模型网站比赛数据 - 自动抓取更新。status: ongoing|upcoming|judging|ended",
-  "last_update": "2026-08-11 08:50",
+  "last_update": "2026-08-12 08:50",
   "contests": [
     { "site": "creality-cn", "name": "和平精英：刺激之夜模型创作大赛", "desc": "玩家集结！超万元空投补给已就位！", "start": "2026-08-02", "end": "2026-09-08", "status": "ongoing", "url": "https://m.crealitycloud.cn/contest" },
     { "site": "creality-cn", "name": "抽屉把手模型创意大赛", "desc": "一个好看的把手，能让整面柜子活起来；一个有创意的把手，能让每次拉开的动作都多一分期待。", "start": "2026-07-25", "end": "2026-08-30", "status": "ongoing", "url": "https://www.crealitycloud.cn/contest/Drawer-Handle" },
@@ -58,7 +58,7 @@
     { "site": "makerworld-intl", "name": "Rethink Pet Feeding Design Contest", "desc": "Pet Feeder Design Contest — rethink pet feeding with creative 3D designs.", "start": "2026-06-22", "end": "2026-07-26", "status": "ended", "url": "https://makerworld.com/en/contests/149" },
     { "site": "makerworld-intl", "name": "Hosted By Creator: @everythingDND — 'The Breach' Design Contest", "desc": "Enter the War for the Ruined City.", "start": "2026-06-08", "end": "2026-07-12", "status": "ended", "url": "https://makerworld.com/en/contests/147" },
 
-    { "site": "jlc", "name": "点亮桌面灵感 | 桌面好物设计比赛", "desc": "点亮桌面灵感，装点方寸好物。", "start": "2026-06-30", "end": "2026-08-10", "status": "ongoing", "url": "https://model.jlc-3dp.cn/raceDetail?id=d9ac22cc25274e6387c46eaf5306a150" },
+    { "site": "jlc", "name": "点亮桌面灵感 | 桌面好物设计比赛", "desc": "点亮桌面灵感，装点方寸好物。", "start": "2026-06-30", "end": "2026-08-10", "status": "ended", "url": "https://model.jlc-3dp.cn/raceDetail?id=d9ac22cc25274e6387c46eaf5306a150" },
     { "site": "jlc", "name": "Spring Maker: 春日造物设计赛", "desc": "春日新生、创意赋能。", "start": "2026-03-25", "end": "2026-04-25", "status": "ended", "url": "https://model.jlc-3dp.cn/raceDetail?id=8905106915ee4704b4a2bda431922e84" },
     { "site": "jlc", "name": "2026马年新春模型创意大赛", "desc": "马年启新程，3D印年味。", "start": "2026-02-05", "end": "2026-03-19", "status": "ended", "url": "https://model.jlc-3dp.cn/raceDetail?id=76059332b2d442318ad72390ec3aa5db" },
     { "site": "jlc", "name": "趣味模型设计大赛", "desc": "趣味，由你定义！", "start": "2025-12-19", "end": "2026-01-25", "status": "ended", "url": "https://model.jlc-3dp.cn/raceDetail?id=2945e63407f34446965b187628b8c5c4" },
@@ -82,7 +82,7 @@
     { "site": "nexprint", "name": "料盘改造计划", "desc": "给空料盘第二次生命。Elegoo赞助：一等奖$300礼品卡。", "start": "2026-08-08", "end": "2026-09-06", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
     { "site": "nexprint", "name": "玩转音乐角", "desc": "音乐主题 3D 模型设计。优秀参与奖: $15×30人。", "start": "2026-07-31", "end": "2026-08-16", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
     { "site": "nexprint", "name": "派对打印计划", "desc": "给聚会加点儿料 — 派对主题 3D 模型设计。", "start": "2026-07-15", "end": "2026-08-16", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
-    { "site": "nexprint", "name": "电子产品爆改计划", "desc": "专治各种'原厂不服' — 电子产品改造设计。", "start": "2026-07-10", "end": "2026-08-11", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
-    { "site": "nexprint", "name": "套卡建模大赛", "desc": "把 3D 世界拍扁，再立体重生！套卡建模主题。", "start": "2026-06-25", "end": "2026-07-25", "status": "judging", "url": "https://www.nexprint.com/zh/contests" }
+    { "site": "nexprint", "name": "电子产品爆改计划", "desc": "专治各种'原厂不服' — 电子产品改造设计。", "start": "2026-07-10", "end": "2026-08-11", "status": "judging", "url": "https://www.nexprint.com/zh/contests" },
+    { "site": "nexprint", "name": "套卡建模大赛", "desc": "把 3D 世界拍扁，再立体重生！套卡建模主题。", "start": "2026-06-25", "end": "2026-07-25", "status": "ended", "url": "https://www.nexprint.com/zh/contests" }
   ]
 }
