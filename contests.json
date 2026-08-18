@@ -1,6 +1,6 @@
 {
   "_comment": "3D模型网站比赛数据 - 自动抓取更新。status: ongoing|upcoming|judging|ended",
-  "last_update": "2026-08-17 14:35",
+  "last_update": "2026-08-18 08:50",
   "contests": [
     { "site": "creality-cn", "name": "和平精英：刺激之夜模型创作大赛", "desc": "玩家集结！超万元空投补给已就位！", "start": "2026-08-02", "end": "2026-09-08", "status": "ongoing", "url": "https://m.crealitycloud.cn/contest" },
     { "site": "creality-cn", "name": "抽屉把手模型创意大赛", "desc": "一个好看的把手，能让整面柜子活起来；一个有创意的把手，能让每次拉开的动作都多一分期待。", "start": "2026-07-25", "end": "2026-08-30", "status": "ongoing", "url": "https://www.crealitycloud.cn/contest/Drawer-Handle" },
@@ -27,7 +27,7 @@
     { "site": "creality-intl", "name": "Dancing Skeleton Design Contest", "desc": "Who says skeletons can't steal the spotlight? Dancing Skeletons have become one of the internet's favorite meme characters. Now it's your turn to bring the bones to life.", "start": "2026-08-07", "end": "2026-09-06", "status": "ongoing", "url": "https://www.crealitycloud.com/zh/contest/Dancing-Skeleton" },
 
     { "site": "makeronline", "name": "玩具火车世界设计大赛", "desc": "打造火车、模块化轨道和铁路场景，让想象成为现实。", "start": "2026-07-24", "end": "2026-08-20", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E7%8E%A9%E5%85%B7%E7%81%AB%E8%BD%A6%E4%B8%96%E7%95%8C%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/196.html" },
-    { "site": "makeronline", "name": "实验器材设计大赛", "desc": "让我们一起创造赋能科学实践学习的工具吧！", "start": "2026-07-17", "end": "2026-08-17", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E5%AE%9E%E9%AA%8C%E5%99%A8%E6%9D%90%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/195.html" },
+    { "site": "makeronline", "name": "实验器材设计大赛", "desc": "让我们一起创造赋能科学实践学习的工具吧！", "start": "2026-07-17", "end": "2026-08-17", "status": "judging", "url": "https://www.makeronline.com/zh/contest/%E5%AE%9E%E9%AA%8C%E5%99%A8%E6%9D%90%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/195.html" },
     { "site": "makeronline", "name": "书立创意设计大赛", "desc": "打造你的书架奇境，赢取最高 $350 奖励！", "start": "2026-07-10", "end": "2026-08-09", "status": "ended", "url": "https://www.makeronline.com/zh/contest/%E4%B9%A6%E7%AB%8B%E5%88%9B%E6%84%8F%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/194.html" },
     { "site": "makeronline", "name": "像素世界设计大赛", "desc": "让像素灵感变为真实的艺术、玩具、手作与创意工具。", "start": "2026-08-14", "end": "2026-09-10", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E5%83%8F%E7%B4%A0%E4%B8%96%E7%95%8C%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/198.html" },
     { "site": "makeronline", "name": "数学之美设计大赛", "desc": "探索数学之美，开启无限可能！", "start": "2026-08-07", "end": "2026-09-03", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E6%95%B0%E5%AD%A6%E4%B9%8B%E7%BE%8E%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/197.html" },
@@ -48,8 +48,8 @@
     { "site": "makerworld-cn", "name": "Let's Make It: 拓竹 MakerWorld × 影石Insta360 Luna Ultra 创意挑战赛", "desc": "Think bold. Print bold. 与 Insta360 Luna Ultra 合作的创意挑战。", "start": "2026-07-10", "end": "2026-08-09", "status": "ended", "url": "https://makerworld.com.cn/zh/contests/80" },
     { "site": "makerworld-cn", "name": "大师挑战赛: 太空探索", "desc": "ufo长啥样，你说了算。太空探索主题设计竞赛。", "start": "2026-06-22", "end": "2026-07-26", "status": "ended", "url": "https://makerworld.com.cn/zh/contests/78" },
 
-    { "site": "makerworld-intl", "name": "Pool Party Design Contest", "desc": "Dive in, stay cool! Pool Party themed 3D design contest.", "start": "2026-08-10", "end": "2026-09-29", "status": "ongoing", "url": "https://makerworld.com/en/contests/158" },
-    { "site": "makerworld-intl", "name": "Bug Off Design Contest", "desc": "Bug Off themed 3D design contest.", "start": "2026-08-17", "end": "2026-09-17", "status": "upcoming", "url": "https://makerworld.com/en/contests" },
+    { "site": "makerworld-intl", "name": "Pool Party Design Contest", "desc": "Dive in, stay cool! Pool Party themed 3D design contest.", "start": "2026-08-10", "end": "2026-09-08", "status": "ongoing", "url": "https://makerworld.com/en/contests/158" },
+    { "site": "makerworld-intl", "name": "Bug Off Design Contest", "desc": "Smart Ideas for a Bug-Free Home.", "start": "2026-08-17", "end": "2026-09-30", "status": "ongoing", "url": "https://makerworld.com/en/contests/159" },
     { "site": "makerworld-intl", "name": "RoboDog Mod Challenge Hosted by @itsboyinspace × @Plastic3D × @Sam Prentice", "desc": "Cyber Awakening, Defined by You! RoboDog modification challenge.", "start": "2026-08-03", "end": "2026-09-28", "status": "ongoing", "url": "https://makerworld.com/en/contests/157" },
     { "site": "makerworld-intl", "name": "Hosted By Creator: @michelem — Basecamp Anywhere Travel & Outdoor Setup Kit", "desc": "Pack it. Set it. Own the space.", "start": "2026-07-27", "end": "2026-08-28", "status": "ongoing", "url": "https://makerworld.com/en/contests/156" },
     { "site": "makerworld-intl", "name": "Hosted By Creator: @Ozarkexpeditions — PlayGrid Board Games Design Contest", "desc": "One Grid. Many Worlds. Design Your Game Today.", "start": "2026-07-22", "end": "2026-08-26", "status": "ongoing", "url": "https://makerworld.com/en/contests/155" },
@@ -60,6 +60,7 @@
     { "site": "makerworld-intl", "name": "Hosted By Creator: @Pipin.World — BONBON Capsules Design Contest", "desc": "Mini Capsules, Big Surprises.", "start": "2026-07-01", "end": "2026-07-30", "status": "ended", "url": "https://makerworld.com/en/contests/150" },
     { "site": "makerworld-intl", "name": "Rethink Pet Feeding Design Contest", "desc": "Pet Feeder Design Contest — rethink pet feeding with creative 3D designs.", "start": "2026-06-22", "end": "2026-07-26", "status": "ended", "url": "https://makerworld.com/en/contests/149" },
     { "site": "makerworld-intl", "name": "Hosted By Creator: @everythingDND — 'The Breach' Design Contest", "desc": "Enter the War for the Ruined City.", "start": "2026-06-08", "end": "2026-07-12", "status": "ended", "url": "https://makerworld.com/en/contests/147" },
+    { "site": "makerworld-intl", "name": "Master Challenge: Amusement Park Design Contest", "desc": "竞赛预告，即将开始。", "start": "2026-08-21", "end": "2026-09-21", "status": "upcoming", "url": "https://makerworld.com/en/contests" },
 
     { "site": "jlc", "name": "点亮桌面灵感 | 桌面好物设计比赛", "desc": "点亮桌面灵感，装点方寸好物。", "start": "2026-06-30", "end": "2026-08-10", "status": "judging", "url": "https://model.jlc-3dp.cn/raceDetail?id=d9ac22cc25274e6387c46eaf5306a150" },
     { "site": "jlc", "name": "Spring Maker: 春日造物设计赛", "desc": "春日新生、创意赋能。", "start": "2026-03-25", "end": "2026-04-25", "status": "ended", "url": "https://model.jlc-3dp.cn/raceDetail?id=8905106915ee4704b4a2bda431922e84" },
