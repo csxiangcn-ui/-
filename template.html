@@ -91,6 +91,9 @@ h1 { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
 .site-chip:hover { background: var(--bg2); border-color: #cbd5e0; }
 .site-chip.active { border-color: var(--site-chip-color,#000); color: var(--site-chip-color,#000); font-weight: 600; box-shadow: 0 0 0 1px var(--site-chip-color,#000); }
 .site-dot { width: 7px; height: 7px; border-radius: 50%; }
+.site-count { display: inline-block; min-width: 18px; height: 16px; line-height: 16px; padding: 0 6px; background: var(--bg2); color: var(--text-muted); border-radius: 999px; font-size: 10px; font-weight: 600; margin-left: 3px; text-align: center; }
+.site-chip.active .site-count { background: rgba(255,255,255,.85); color: var(--site-chip-color,#000); }
+[data-theme="dark"] .site-chip.active .site-count { background: rgba(255,255,255,.12); }
 /* Calendar section */
 .cal-wrap { display: none; margin-bottom: 14px; }
 .cal-wrap.open { display: flex; flex-wrap: wrap; gap: 14px; }
@@ -384,8 +387,9 @@ function renderTimeline() {
 // ===== Render: Site Legend =====
 function renderLegend() {
   const el=document.getElementById("sites-legend");
-  el.innerHTML = `<button class="site-chip${currentSite==='all'?' active':''}" data-site="all" style="--site-chip-color:#4a5568"><span class="site-dot" style="background:#4a5568"></span>全部</button>`+
-    Object.entries(SITES).map(([k,s])=>`<button class="site-chip${currentSite===k?' active':''}" data-site="${k}" style="--site-chip-color:${s.color}"><span class="site-dot" style="background:${s.color}"></span>${s.name}</button>`).join("");
+  const counts={all:CONTESTS.length}; CONTESTS.forEach(c=>{ counts[c.site]=(counts[c.site]||0)+1; });
+  el.innerHTML = `<button class="site-chip${currentSite==='all'?' active':''}" data-site="all" style="--site-chip-color:#4a5568"><span class="site-dot" style="background:#4a5568"></span>全部<span class="site-count">${counts.all}</span></button>`+
+    Object.entries(SITES).map(([k,s])=>`<button class="site-chip${currentSite===k?' active':''}" data-site="${k}" style="--site-chip-color:${s.color}"><span class="site-dot" style="background:${s.color}"></span>${s.name}<span class="site-count">${counts[k]||0}</span></button>`).join("");
   el.querySelectorAll(".site-chip").forEach(chip=>{ chip.addEventListener("click",()=>{
     currentSite=chip.dataset.site; currentDate=null; updateDateFilterBar(); renderAll(true);
   });});
