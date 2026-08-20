@@ -9,3 +9,12 @@ deploy/
 *.pyc
 __pycache__/
 .DS_Store
+
+# 调试/临时产物（平台调查阶段产生，非仓库内容）
+*.test.html
+*_live.html
+probe*.js
+chunks_cn/
+jkchunks/
+nexchunks/
+nx/

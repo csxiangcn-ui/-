@@ -1,115 +1,906 @@
 {
   "_comment": "3D模型网站比赛数据 - 自动抓取更新。status: ongoing|upcoming|judging|ended",
-  "last_update": "2026-08-20 09:04",
+  "last_update": "2026-08-20 09:38",
   "contests": [
-    { "site": "creality-cn", "name": "和平精英：刺激之夜模型创作大赛", "desc": "玩家集结！超万元空投补给已就位！", "start": "2026-08-02", "end": "2026-09-08", "status": "ongoing", "url": "https://m.crealitycloud.cn/contest/game-for-peace" },
-    { "site": "creality-cn", "name": "夏季消暑小物·模型设计大赛", "desc": "从居家到户外，设计能消暑的夏季好物，让清凉不止停留在空调房。", "start": "2026-08-17", "end": "2026-08-30", "status": "ongoing", "url": "https://m.crealitycloud.cn/contest/Summer-Cooling-Items" },
-    { "site": "creality-cn", "name": "怀旧物件 · 模型设计大赛", "desc": "用3D设计重新诠释旧时光，让回忆变成可打印、可珍藏的3D模型。", "start": "2026-08-17", "end": "2026-09-16", "status": "ongoing", "url": "https://m.crealitycloud.cn/contest/VintageItems-3Dmodels" },
-    { "site": "creality-cn", "name": "开运好物 · 模型设计大赛", "desc": "将招财、纳福等美好寓意融入3D设计，打造兼具颜值与实用的开运好物。", "start": "2026-08-17", "end": "2026-09-16", "status": "ongoing", "url": "https://m.crealitycloud.cn/contest/LuckyCharms-3Dmodels" },
-    { "site": "creality-cn", "name": "网络热梗 · 模型设计大赛", "desc": "把网络热梗变成可打印、可把玩、可分享的创意模型。", "start": "2026-08-17", "end": "2026-09-16", "status": "ongoing", "url": "https://m.crealitycloud.cn/contest/InternetMemes-3Dmodels" },
-    { "site": "creality-cn", "name": "指尖解压玩具·模型设计大赛", "desc": "设计好握、好盘、好解压的指尖小物，让日常焦虑瞬间消散。", "start": "2026-08-17", "end": "2026-09-16", "status": "ongoing", "url": "https://m.crealitycloud.cn/contest/Finger-Relaxation-3Dmodels" },
-    { "site": "creality-cn", "name": "抽屉把手模型创意大赛", "desc": "一个好看的把手，能让整面柜子活起来；一个有创意的把手，能让每次拉开的动作都多一分期待。", "start": "2026-07-25", "end": "2026-08-30", "status": "ongoing", "url": "https://www.crealitycloud.cn/contest/Drawer-Handle" },
-    { "site": "creality-cn", "name": "工位摆件模型征集大赛", "desc": "小小工位，大大创意。为打工人的桌面注入创意！最高可得2100元京东E卡。", "start": "2026-07-11", "end": "2026-08-16", "status": "judging", "url": "https://www.crealitycloud.cn/contest/Desk-decor" },
-    { "site": "creality-cn", "name": "创意手机支架模型设计大赛", "desc": "设计兼具实用性、创意性与美观性的3D打印手机支架模型。最高可得2100元京东E卡。", "start": "2026-06-25", "end": "2026-08-02", "status": "ended", "url": "https://www.crealitycloud.cn/contest/Creative-Phone-Stand" },
-    { "site": "creality-cn", "name": "平板3D创意周边设计大赛", "desc": "平板3D周边创意大赛第二期 | 联想AI平板拯救者Y900", "start": "2026-05-27", "end": "2026-07-06", "status": "ended", "url": "https://www.crealitycloud.cn/contest/LenovoY900" },
-    { "site": "creality-cn", "name": "机器人3D打印外观设计大赛", "desc": "20W+奖品等你来拿！", "start": "2026-05-06", "end": "2026-06-10", "status": "ended", "url": "https://www.crealitycloud.cn/contest/Jiqiren" },
-    { "site": "creality-cn", "name": "平板3D创意周边大赛", "desc": "创想云&联想最新联动比赛来啦，万元大奖等你来拿！", "start": "2026-03-05", "end": "2026-04-09", "status": "ended", "url": "https://www.crealitycloud.cn/contest/pingban" },
-    { "site": "creality-cn", "name": "岁启贺马模型设计大赛", "desc": "2026马年新春，以3D打印为笔，绘就专属创意！", "start": "2026-01-16", "end": "2026-03-01", "status": "ended", "url": "https://www.crealitycloud.cn/contest/Horse" },
-    { "site": "creality-cn", "name": "创意装饰用品模型设计比赛", "desc": "在这个时代，每一个角落都渴望被艺术点亮。探索装饰艺术的边界，释放无限创意潜能！", "start": "2025-05-09", "end": "2025-06-08", "status": "ended", "url": "https://www.crealitycloud.cn/contest/Decoration-Model" },
-    { "site": "creality-cn", "name": "哪吒主题模型竞赛", "desc": "我命由我不由模！哪吒、敖丙、太乙真人等角色3D创作，均可参赛。", "start": "2025-02-18", "end": "2025-03-24", "status": "ended", "url": "https://www.crealitycloud.cn/contest/nezha-3Dprinting" },
-    { "site": "creality-cn", "name": "教师节祝福DIY·模型设计大赛", "desc": "一支粉笔写春秋，一份心意暖师恩。用3D打印亲手制作一份专属祝福。", "start": "2026-08-31", "end": "2026-09-13", "status": "upcoming", "url": "https://m.crealitycloud.cn/contest/Teachers-Day" },
-    { "site": "creality-cn", "name": "中秋灯饰·模型设计大赛", "desc": "中秋，点亮一盏月光，打印一份团圆。", "start": "2026-09-14", "end": "2026-09-27", "status": "upcoming", "url": "https://m.crealitycloud.cn/contest/Mid-Autumn-Festival-Lanterns" },
-    { "site": "creality-cn", "name": "开关装饰·模型设计大赛", "desc": "轻轻一按，点亮的不只是灯，还有生活的小惊喜。", "start": "2026-09-17", "end": "2026-10-16", "status": "upcoming", "url": "https://m.crealitycloud.cn/contest/SwitchDecorations-3Dmodels" },
-    { "site": "creality-cn", "name": "手办展示架·模型设计大赛", "desc": "每一个手办都承载着热爱和个性，它们也值得一个专属C位。", "start": "2026-09-17", "end": "2026-10-16", "status": "upcoming", "url": "https://m.crealitycloud.cn/contest/FigureDisplayStand-3Dmodels" },
-    { "site": "creality-cn", "name": "多巴胺花束·模型设计大赛", "desc": "一束花装饰生活的小角落，用3D设计赋予花束更多可能。", "start": "2026-09-17", "end": "2026-10-16", "status": "upcoming", "url": "https://m.crealitycloud.cn/contest/DopamineBouquet-3Dmodels" },
-    { "site": "creality-cn", "name": "收纳好物·模型设计大赛", "desc": "一个好设计，不仅能装下物品，更能装下生活的井井有条。", "start": "2026-09-17", "end": "2026-10-16", "status": "upcoming", "url": "https://m.crealitycloud.cn/contest/Storage-3Dmodels" },
-    { "site": "creality-cn", "name": "旅行神器·模型设计大赛", "desc": "一场说走就走的旅行，离不开贴心又实用的小设计。", "start": "2026-09-28", "end": "2026-10-11", "status": "upcoming", "url": "https://m.crealitycloud.cn/contest/Travel-Essentials" },
-    { "site": "creality-cn", "name": "拼豆工具·模型设计大赛", "desc": "一颗颗小小的拼豆，拼出的是脑洞，也是快乐。", "start": "2026-10-12", "end": "2026-10-25", "status": "upcoming", "url": "https://m.crealitycloud.cn/contest/Perler-Beads-Tools" },
-    { "site": "creality-cn", "name": "趣味卡套·模型设计大赛", "desc": "门禁卡、公交卡、工牌、校园卡……每天都会陪伴我们的卡片，也可以变得有趣又有个性。", "start": "2026-10-17", "end": "2026-11-16", "status": "upcoming", "url": "https://m.crealitycloud.cn/contest/Fun-CardHolders-3Dmodels" },
-    { "site": "creality-cn", "name": "原创笔筒·模型设计大赛", "desc": "一支笔的归处，也可以是一件艺术品。", "start": "2026-10-17", "end": "2026-11-16", "status": "upcoming", "url": "https://m.crealitycloud.cn/contest/PencilHolder-3Dmodels" },
-    { "site": "creality-cn", "name": "耳机支架·模型设计大赛", "desc": "给耳机一个专属的位置，也给桌面一份整洁。", "start": "2026-10-17", "end": "2026-11-16", "status": "upcoming", "url": "https://m.crealitycloud.cn/contest/HeadphoneStand-3Dmodels" },
-    { "site": "creality-cn", "name": "创意书签·模型设计大赛", "desc": "书签，不只是阅读的记号，更是藏在书页间的一份创意。", "start": "2026-10-17", "end": "2026-11-16", "status": "upcoming", "url": "https://m.crealitycloud.cn/contest/CreativeBookmarks-3Dmodels" },
-    { "site": "creality-cn", "name": "演唱会应援·模型设计大赛", "desc": "每一场演唱会，都是一次与热爱的双向奔赴。", "start": "2026-10-26", "end": "2026-11-08", "status": "upcoming", "url": "https://m.crealitycloud.cn/contest/Concert-Support-Items" },
-
-    { "site": "creality-intl", "name": "KitCard Design Contest", "desc": "Bigger Rewards, More Winners — Design the next great KitCard.", "start": "2026-07-25", "end": "2026-08-30", "status": "ongoing", "url": "https://www.crealitycloud.com/zh/contest/KitCard" },
-    { "site": "creality-intl", "name": "Credit Card Wand Design Contest", "desc": "Turn every purchase into a magical moment with a 3D-printed credit card wand.", "start": "2026-07-23", "end": "2026-08-23", "status": "ongoing", "url": "https://www.crealitycloud.com/zh/contest/Credit-Card-Wand" },
-    { "site": "creality-intl", "name": "Headphone Stand Design Contest", "desc": "Create an original headphone stand that showcases your personal style.", "start": "2026-07-18", "end": "2026-08-23", "status": "ongoing", "url": "https://www.crealitycloud.com/zh/contest/Headphone-Stand" },
-    { "site": "creality-intl", "name": "Dragon Design Contest", "desc": "Design a majestic display model, articulated dragon, desktop companion, or wearable dragon-themed accessory.", "start": "2026-07-09", "end": "2026-08-09", "status": "ended", "url": "https://www.crealitycloud.com/zh/contest/Dragon" },
-    { "site": "creality-intl", "name": "Creative Stationery Design Contest", "desc": "Reimagine everyday stationery with the power of 3D printing.", "start": "2026-06-25", "end": "2026-08-09", "status": "ended", "url": "https://www.crealitycloud.com/zh/contest/Creative-Stationery" },
-    { "site": "creality-intl", "name": "Car & Truck Accessories Design Contest", "desc": "Creative 3D printable car and truck accessories that make driving and traveling more convenient.", "start": "2026-06-19", "end": "2026-07-19", "status": "ended", "url": "https://www.crealitycloud.com/zh/contest/Car-Truck-Accessories" },
-    { "site": "creality-intl", "name": "Model Upload Challenge", "desc": "Share your brand-new designs, win rewards & 14-day Premium membership.", "start": "2026-06-25", "end": "2026-07-09", "status": "ended", "url": "https://www.crealitycloud.com/zh/contest/Model-Upload-Challenge" },
-    { "site": "creality-intl", "name": "Playful Cat Design Contest", "desc": "From wobbly cats to spring-loaded kitties — cat designs that are playful, creative, and impossible to ignore.", "start": "2026-06-12", "end": "2026-07-12", "status": "ended", "url": "https://www.crealitycloud.com/zh/contest/Playful-Cat" },
-    { "site": "creality-intl", "name": "Camping Gear Design Contest", "desc": "Create innovative 3D-printed camping gear that blends practicality, creativity, and adventure.", "start": "2026-06-03", "end": "2026-07-05", "status": "ended", "url": "https://www.crealitycloud.com/zh/contest/Camping-Gear" },
-    { "site": "creality-intl", "name": "All Things Football Design Contest", "desc": "2026 World Cup themed football model design contest — unleash your creativity and passion.", "start": "2026-05-16", "end": "2026-06-30", "status": "ended", "url": "https://www.crealitycloud.com/zh/contest/All-Things-Football" },
-    { "site": "creality-intl", "name": "Box It Up: Storage Box Design Contest", "desc": "Practical and fun creative storage box designs — from hidden compartments to toy-inspired storage.", "start": "2026-05-26", "end": "2026-06-26", "status": "ended", "url": "https://www.crealitycloud.com/zh/contest/Box-It-Up" },
-    { "site": "creality-intl", "name": "Dancing Skeleton Design Contest", "desc": "Who says skeletons can't steal the spotlight? Dancing Skeletons have become one of the internet's favorite meme characters. Now it's your turn to bring the bones to life.", "start": "2026-08-07", "end": "2026-09-06", "status": "ongoing", "url": "https://www.crealitycloud.com/zh/contest/Dancing-Skeleton" },
-
-    { "site": "makeronline", "name": "玩具火车世界设计大赛", "desc": "打造火车、模块化轨道和铁路场景，让想象成为现实。", "start": "2026-07-24", "end": "2026-08-27", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E7%8E%A9%E5%85%B7%E7%81%AB%E8%BD%A6%E4%B8%96%E7%95%8C%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/196.html" },
-    { "site": "makeronline", "name": "实验器材设计大赛", "desc": "让我们一起创造赋能科学实践学习的工具吧！", "start": "2026-07-17", "end": "2026-08-17", "status": "judging", "url": "https://www.makeronline.com/zh/contest/%E5%AE%9E%E9%AA%8C%E5%99%A8%E6%9D%90%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/195.html" },
-    { "site": "makeronline", "name": "书立创意设计大赛", "desc": "打造你的书架奇境，赢取最高 $350 奖励！", "start": "2026-07-10", "end": "2026-08-09", "status": "ended", "url": "https://www.makeronline.com/zh/contest/%E4%B9%A6%E7%AB%8B%E5%88%9B%E6%84%8F%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/194.html" },
-    { "site": "makeronline", "name": "像素世界设计大赛", "desc": "让像素灵感变为真实的艺术、玩具、手作与创意工具。", "start": "2026-08-14", "end": "2026-09-10", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E5%83%8F%E7%B4%A0%E4%B8%96%E7%95%8C%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/198.html" },
-    { "site": "makeronline", "name": "数学之美设计大赛", "desc": "探索数学之美，开启无限可能！", "start": "2026-08-07", "end": "2026-09-03", "status": "ongoing", "url": "https://www.makeronline.com/zh/contest/%E6%95%B0%E5%AD%A6%E4%B9%8B%E7%BE%8E%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/197.html" },
-    { "site": "makeronline", "name": "让物理看得见设计大赛", "desc": "从看不见的物理，到可见的学习体验，赢取 1400 美元奖金！", "start": "2026-07-03", "end": "2026-08-02", "status": "ended", "url": "https://www.makeronline.com/zh/contest/%E8%AE%A9%E7%89%A9%E7%90%86%E7%9C%8B%E5%BE%97%E8%A7%81%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/193.html" },
-    { "site": "makeronline", "name": "学习工具与教具设计大赛", "desc": "让我们创造下一代学习工具与教具！", "start": "2026-06-26", "end": "2026-07-25", "status": "ended", "url": "https://www.makeronline.com/zh/contest/%E5%AD%A6%E4%B9%A0%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%95%99%E5%85%B7%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/192.html" },
-    { "site": "makeronline", "name": "父亲实用设计与工具创新大赛", "desc": "为父亲设计实用工具，赢取最高2450元奖励！", "start": "2026-06-12", "end": "2026-07-09", "status": "ended", "url": "https://www.makeronline.com/zh/contest/%E7%88%B6%E4%BA%B2%E5%AE%9E%E7%94%A8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%B7%A5%E5%85%B7%E5%88%9B%E6%96%B0%E5%A4%A7%E8%B5%9B/191.html" },
-    { "site": "makeronline", "name": "儿童安全与益智成长设计大赛", "desc": "守护每一步成长，点亮每一份智慧", "start": "2026-05-29", "end": "2026-06-25", "status": "ended", "url": "https://www.makeronline.com/zh/contest/%E5%84%BF%E7%AB%A5%E5%AE%89%E5%85%A8%E4%B8%8E%E7%9B%8A%E6%99%BA%E6%88%90%E9%95%BF%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/190.html" },
-    { "site": "makeronline", "name": "旋转&机关模型设计大赛", "desc": "让我们一起做点'会动起来'的东西吧！", "start": "2026-05-15", "end": "2026-06-13", "status": "ended", "url": "https://www.makeronline.com/zh/contest/%E6%97%8B%E8%BD%AC%26%E6%9C%BA%E5%85%B3%E6%A8%A1%E5%9E%8B%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/189.html" },
-    { "site": "makeronline", "name": "轻户外模型设计大赛", "desc": "让户外生活更轻松，由你的设计实现！", "start": "2026-05-08", "end": "2026-06-05", "status": "ended", "url": "https://www.makeronline.com/zh/contest/%E8%BD%BB%E6%88%B7%E5%A4%96%E6%A8%A1%E5%9E%8B%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/188.html" },
-
-    { "site": "makerworld-cn", "name": "百变卡套模型设计竞赛", "desc": "卡面来打！百变卡套模型设计竞赛。", "start": "2026-08-05", "end": "2026-09-06", "status": "ongoing", "url": "https://makerworld.com.cn/zh/contests/83" },
-    { "site": "makerworld-cn", "name": "创作者挑战赛：@木白粽子 养鸟好物设计竞赛", "desc": "世界上最好的小鸡，值得用上最好的东西！", "start": "2026-08-13", "end": "2026-09-13", "status": "ongoing", "url": "https://makerworld.com.cn/zh/contests/84" },
-    { "site": "makerworld-cn", "name": "文物新生模型设计竞赛", "desc": "国宝首秀在MakerWorld！", "start": "2026-08-18", "end": "2026-09-20", "status": "ongoing", "url": "https://makerworld.com.cn/zh/contests/85" },
-    { "site": "makerworld-cn", "name": "骑行好物模型设计竞赛", "desc": "竞赛预告，即将开始。", "start": "2026-08-27", "end": "2026-09-27", "status": "upcoming", "url": "https://makerworld.com.cn/zh/contests" },
-    { "site": "makerworld-cn", "name": "创作者挑战赛: @天门计划 国防装备设计竞赛", "desc": "国防装备主题设计竞赛。笔尖绘国防，3D'印'铁甲。", "start": "2026-07-29", "end": "2026-08-30", "status": "ongoing", "url": "https://makerworld.com.cn/zh/contests/82" },
-    { "site": "makerworld-cn", "name": "非遗新造模型设计竞赛", "desc": "老手艺，新打法！用3D打印让非遗文化焕发新生。", "start": "2026-07-22", "end": "2026-08-23", "status": "ongoing", "url": "https://makerworld.com.cn/zh/contests/81" },
-    { "site": "makerworld-cn", "name": "动物世界之海洋王国模型设计大赛", "desc": "打造你的水族馆，海洋生物主题设计。", "start": "2026-07-17", "end": "2026-08-16", "status": "ended", "url": "https://makerworld.com.cn/zh/contests/79" },
-    { "site": "makerworld-cn", "name": "Let's Make It: 拓竹 MakerWorld × 影石Insta360 Luna Ultra 创意挑战赛", "desc": "Think bold. Print bold. 与 Insta360 Luna Ultra 合作的创意挑战。", "start": "2026-07-10", "end": "2026-08-09", "status": "ended", "url": "https://makerworld.com.cn/zh/contests/80" },
-    { "site": "makerworld-cn", "name": "大师挑战赛: 太空探索", "desc": "ufo长啥样，你说了算。太空探索主题设计竞赛。", "start": "2026-06-22", "end": "2026-07-26", "status": "ended", "url": "https://makerworld.com.cn/zh/contests/78" },
-
-    { "site": "makerworld-intl", "name": "Pool Party Design Contest", "desc": "Dive in, stay cool! Pool Party themed 3D design contest.", "start": "2026-08-10", "end": "2026-09-08", "status": "ongoing", "url": "https://makerworld.com/en/contests/158" },
-    { "site": "makerworld-intl", "name": "Bug Off Design Contest", "desc": "Smart Ideas for a Bug-Free Home.", "start": "2026-08-17", "end": "2026-09-30", "status": "ongoing", "url": "https://makerworld.com/en/contests/159" },
-    { "site": "makerworld-intl", "name": "RoboDog Mod Challenge Hosted by @itsboyinspace × @Plastic3D × @Sam Prentice", "desc": "Cyber Awakening, Defined by You! RoboDog modification challenge.", "start": "2026-08-03", "end": "2026-09-28", "status": "ongoing", "url": "https://makerworld.com/en/contests/157" },
-    { "site": "makerworld-intl", "name": "Hosted By Creator: @michelem — Basecamp Anywhere Travel & Outdoor Setup Kit", "desc": "Pack it. Set it. Own the space.", "start": "2026-07-27", "end": "2026-08-28", "status": "ongoing", "url": "https://makerworld.com/en/contests/156" },
-    { "site": "makerworld-intl", "name": "Hosted By Creator: @Ozarkexpeditions — PlayGrid Board Games Design Contest", "desc": "One Grid. Many Worlds. Design Your Game Today.", "start": "2026-07-22", "end": "2026-08-26", "status": "ongoing", "url": "https://makerworld.com/en/contests/155" },
-    { "site": "makerworld-intl", "name": "Homer's Epics Design Contest", "desc": "Giving Shape to the Unseen Songs.", "start": "2026-07-17", "end": "2026-08-23", "status": "ongoing", "url": "https://makerworld.com/en/contests/154" },
-    { "site": "makerworld-intl", "name": "Let's Make It: MakerWorld × Insta360 Luna Ultra Design Challenge", "desc": "Think bold. Print bold.", "start": "2026-07-10", "end": "2026-08-09", "status": "ended", "url": "https://makerworld.com/en/contests/153" },
-    { "site": "makerworld-intl", "name": "Hosted By Creator: @MeshBear — Exoskeleton & Articulated Mechanism Challenge", "desc": "Bring Motion to Wearable Mechanics.", "start": "2026-07-06", "end": "2026-08-08", "status": "ended", "url": "https://makerworld.com/en/contests/152" },
-    { "site": "makerworld-intl", "name": "Hosted By Creator: @Bavaria_3D Tanks — T-34 Evolution Remix", "desc": "Swap Armor, Remix War, Build Your Power!", "start": "2026-06-18", "end": "2026-08-03", "status": "ended", "url": "https://makerworld.com/en/contests/151" },
-    { "site": "makerworld-intl", "name": "Hosted By Creator: @Pipin.World — BONBON Capsules Design Contest", "desc": "Mini Capsules, Big Surprises.", "start": "2026-07-01", "end": "2026-07-30", "status": "ended", "url": "https://makerworld.com/en/contests/150" },
-    { "site": "makerworld-intl", "name": "Rethink Pet Feeding Design Contest", "desc": "Pet Feeder Design Contest — rethink pet feeding with creative 3D designs.", "start": "2026-06-22", "end": "2026-07-26", "status": "ended", "url": "https://makerworld.com/en/contests/149" },
-    { "site": "makerworld-intl", "name": "Hosted By Creator: @everythingDND — 'The Breach' Design Contest", "desc": "Enter the War for the Ruined City.", "start": "2026-06-08", "end": "2026-07-12", "status": "ended", "url": "https://makerworld.com/en/contests/147" },
-    { "site": "makerworld-intl", "name": "Master Challenge: Amusement Park Design Contest", "desc": "竞赛预告，即将开始。", "start": "2026-08-21", "end": "2026-09-21", "status": "upcoming", "url": "https://makerworld.com/en/contests" },
-
-    { "site": "jlc", "name": "点亮桌面灵感 | 桌面好物设计比赛", "desc": "点亮桌面灵感，装点方寸好物。", "start": "2026-06-30", "end": "2026-08-10", "status": "judging", "url": "https://model.jlc-3dp.cn/raceDetail?id=d9ac22cc25274e6387c46eaf5306a150" },
-    { "site": "jlc", "name": "Spring Maker: 春日造物设计赛", "desc": "春日新生、创意赋能。", "start": "2026-03-25", "end": "2026-04-25", "status": "ended", "url": "https://model.jlc-3dp.cn/raceDetail?id=8905106915ee4704b4a2bda431922e84" },
-    { "site": "jlc", "name": "2026马年新春模型创意大赛", "desc": "马年启新程，3D印年味。", "start": "2026-02-05", "end": "2026-03-19", "status": "ended", "url": "https://model.jlc-3dp.cn/raceDetail?id=76059332b2d442318ad72390ec3aa5db" },
-    { "site": "jlc", "name": "趣味模型设计大赛", "desc": "趣味，由你定义！", "start": "2025-12-19", "end": "2026-01-25", "status": "ended", "url": "https://model.jlc-3dp.cn/raceDetail?id=2945e63407f34446965b187628b8c5c4" },
-
-    { "site": "makeroad", "name": "Summer Maker Fest – 3D Print & Play Outdoor Challenge", "desc": "夏季户外3D打印创意：水上奇观、花园派对、露营装备、海滩必备。", "start": "2026-07-15", "end": "2026-08-21", "status": "ongoing", "url": "https://www.makeroad.com/contests/56" },
-    { "site": "makeroad", "name": "Green Pitch Imagination – 2026世界杯主题3D模型竞赛", "desc": "2026 世界杯主题3D模型竞赛。体育场助威道具、足球文化作品、水上足球装备。", "start": "2026-06-12", "end": "2026-07-21", "status": "ended", "url": "https://www.makeroad.com/contests/55" },
-    { "site": "makeroad", "name": "Silk Shine Creator Challenge", "desc": "丝绸光泽3D打印创作挑战赛，使用PLA/PETG丝绸耗材展现流光溢彩的视觉效果。", "start": "2026-05-17", "end": "2026-06-22", "status": "ended", "url": "https://www.makeroad.com/contests/54" },
-    { "site": "makeroad", "name": "Mother's Day Contest", "desc": "以爱的名义，用3D打印为妈妈设计独一无二的礼物。", "start": "2026-04-24", "end": "2026-05-17", "status": "ended", "url": "https://www.makeroad.com/contests/53" },
-    { "site": "makeroad", "name": "Easter Contest – Easter Egg Adventure", "desc": "用创意点亮复活节，让每个彩蛋都独一无二。", "start": "2026-03-30", "end": "2026-04-18", "status": "ended", "url": "https://www.makeroad.com/contests/52" },
-    { "site": "makeroad", "name": "MakerAI Series Contest 2: My Dream Car", "desc": "使用MakerAI重现梦想之车。速度美学赛车、童年经典、科幻概念车复刻。", "start": "2026-03-23", "end": "2026-04-21", "status": "ended", "url": "https://www.makeroad.com/contests/50" },
-    { "site": "makeroad", "name": "Innovate Your Digital Accessories", "desc": "重新定义电子设备用户体验：智能充电底座、多场景支架、模块化配件。", "start": "2026-03-16", "end": "2026-04-13", "status": "ended", "url": "https://www.makeroad.com/contests/49" },
-    { "site": "makeroad", "name": "MakerAI Series Contest 1: My City Coordinates", "desc": "从灵感到模型，用AI创作通过3D打印将城市记忆变为可触摸的作品。", "start": "2026-01-30", "end": "2026-02-28", "status": "ended", "url": "https://www.makeroad.com/contests/46" },
-    { "site": "makeroad", "name": "Chinese New Year Design Contest – The Colors of Home", "desc": "春节主题设计竞赛，用设计重新诠释新年的标志性色彩。", "start": "2026-01-05", "end": "2026-03-01", "status": "ended", "url": "https://www.makeroad.com/contests/45" },
-    { "site": "makeroad", "name": "Build Your Ideal Bathroom（卫浴空间站）", "desc": "卫浴空间设计竞赛：防滑安全、收纳结构、排水巧思、多功能设计。", "start": "2025-12-15", "end": "2026-01-04", "status": "ended", "url": "https://www.makeroad.com/contests/40" },
-
-    { "site": "snapmaker", "name": "Beyond One Material — 多材料融合设计竞赛", "desc": "Desktop 3D printing enters the era of multi-material design. Use 2+ materials to create what single-material cannot. Submission: Jul 7 - Aug 25. Review: Aug 26 - Sep 7. Winners: Sep 8.", "start": "2026-07-07", "end": "2026-08-25", "status": "ongoing", "url": "https://models.snapmaker.com/contest/2" },
-    { "site": "snapmaker", "name": "Make Something Colorful — 模型设计竞赛", "desc": "Snapmaker Model Design Contest — 多色模型设计。", "start": "2026-05-10", "end": "2026-06-17", "status": "ended", "url": "https://models.snapmaker.com/contest/1" },
-
-    { "site": "nexprint", "name": "打印好帮手 Vol.2", "desc": "3D 打印实用工具设计。优秀参与奖: $15×30人。", "start": "2026-08-05", "end": "2026-08-19", "status": "judging", "url": "https://www.nexprint.com/zh/contests" },
-    { "site": "nexprint", "name": "适我的卧室", "desc": "卧室主题 3D 模型设计。优秀参与奖: $15×30人。", "start": "2026-08-05", "end": "2026-08-20", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
-    { "site": "nexprint", "name": "一扇生风", "desc": "风扇主题 3D 模型设计。优秀参与奖: $15×30人。", "start": "2026-07-29", "end": "2026-08-14", "status": "judging", "url": "https://www.nexprint.com/zh/contests" },
-    { "site": "nexprint", "name": "料盘改造计划", "desc": "给空料盘第二次生命。Elegoo赞助：一等奖$300礼品卡。", "start": "2026-08-08", "end": "2026-09-06", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
-    { "site": "nexprint", "name": "玩转音乐角", "desc": "音乐主题 3D 模型设计。优秀参与奖: $15×30人。", "start": "2026-07-31", "end": "2026-08-16", "status": "judging", "url": "https://www.nexprint.com/zh/contests" },
-    { "site": "nexprint", "name": "派对打印计划", "desc": "给聚会加点儿料 — 派对主题 3D 模型设计。", "start": "2026-07-15", "end": "2026-08-16", "status": "judging", "url": "https://www.nexprint.com/zh/contests" },
-    { "site": "nexprint", "name": "开学必备", "desc": "用 3D 打印，搞定新学期的小需求。", "start": "2026-08-13", "end": "2026-09-15", "status": "ongoing", "url": "https://www.nexprint.com/zh/contests" },
-    { "site": "nexprint", "name": "电子产品爆改计划", "desc": "专治各种'原厂不服' — 电子产品改造设计。", "start": "2026-07-10", "end": "2026-08-11", "status": "judging", "url": "https://www.nexprint.com/zh/contests" },
-    { "site": "nexprint", "name": "套卡建模大赛", "desc": "把 3D 世界拍扁，再立体重生！套卡建模主题。", "start": "2026-06-25", "end": "2026-07-25", "status": "ended", "url": "https://www.nexprint.com/zh/contests" },
-
-    { "site": "joykings3d", "name": "「支」撑创意・架趣无限 3D打印手机支架设计征集大赛", "desc": "手机支架设计征集，奖金池 ¥8400。", "start": "2026-08-12", "end": "2026-08-29", "status": "ongoing", "url": "https://www.joykings3d.com/activitys/detail/21" },
-    { "site": "joykings3d", "name": "几何芯・粤造粤潮 3D 打印潮玩商业设计大赛", "desc": "3D 打印潮玩商业设计，奖金池 ¥55500。", "start": "2026-08-01", "end": "2026-09-29", "status": "ongoing", "url": "https://www.joykings3d.com/activitys/detail/19" }
+    {
+      "site": "makeronline",
+      "name": "玩具火车世界设计大赛",
+      "desc": "打造火车、模块化轨道和铁路场景，让想象成为现实。",
+      "start": "2026-07-24",
+      "end": "2026-08-27",
+      "status": "ongoing",
+      "url": "https://www.makeronline.com/zh/contest/%E7%8E%A9%E5%85%B7%E7%81%AB%E8%BD%A6%E4%B8%96%E7%95%8C%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/196.html"
+    },
+    {
+      "site": "makeronline",
+      "name": "实验器材设计大赛",
+      "desc": "让我们一起创造赋能科学实践学习的工具吧！",
+      "start": "2026-07-17",
+      "end": "2026-08-17",
+      "status": "judging",
+      "url": "https://www.makeronline.com/zh/contest/%E5%AE%9E%E9%AA%8C%E5%99%A8%E6%9D%90%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/195.html"
+    },
+    {
+      "site": "makeronline",
+      "name": "书立创意设计大赛",
+      "desc": "打造你的书架奇境，赢取最高 $350 奖励！",
+      "start": "2026-07-10",
+      "end": "2026-08-09",
+      "status": "ended",
+      "url": "https://www.makeronline.com/zh/contest/%E4%B9%A6%E7%AB%8B%E5%88%9B%E6%84%8F%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/194.html"
+    },
+    {
+      "site": "makeronline",
+      "name": "像素世界设计大赛",
+      "desc": "让像素灵感变为真实的艺术、玩具、手作与创意工具。",
+      "start": "2026-08-14",
+      "end": "2026-09-10",
+      "status": "ongoing",
+      "url": "https://www.makeronline.com/zh/contest/%E5%83%8F%E7%B4%A0%E4%B8%96%E7%95%8C%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/198.html"
+    },
+    {
+      "site": "makeronline",
+      "name": "数学之美设计大赛",
+      "desc": "探索数学之美，开启无限可能！",
+      "start": "2026-08-07",
+      "end": "2026-09-03",
+      "status": "ongoing",
+      "url": "https://www.makeronline.com/zh/contest/%E6%95%B0%E5%AD%A6%E4%B9%8B%E7%BE%8E%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/197.html"
+    },
+    {
+      "site": "makeronline",
+      "name": "让物理看得见设计大赛",
+      "desc": "从看不见的物理，到可见的学习体验，赢取 1400 美元奖金！",
+      "start": "2026-07-03",
+      "end": "2026-08-02",
+      "status": "ended",
+      "url": "https://www.makeronline.com/zh/contest/%E8%AE%A9%E7%89%A9%E7%90%86%E7%9C%8B%E5%BE%97%E8%A7%81%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/193.html"
+    },
+    {
+      "site": "makeronline",
+      "name": "学习工具与教具设计大赛",
+      "desc": "让我们创造下一代学习工具与教具！",
+      "start": "2026-06-26",
+      "end": "2026-07-25",
+      "status": "ended",
+      "url": "https://www.makeronline.com/zh/contest/%E5%AD%A6%E4%B9%A0%E5%B7%A5%E5%85%B7%E4%B8%8E%E6%95%99%E5%85%B7%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/192.html"
+    },
+    {
+      "site": "makeronline",
+      "name": "父亲实用设计与工具创新大赛",
+      "desc": "为父亲设计实用工具，赢取最高2450元奖励！",
+      "start": "2026-06-12",
+      "end": "2026-07-09",
+      "status": "ended",
+      "url": "https://www.makeronline.com/zh/contest/%E7%88%B6%E4%BA%B2%E5%AE%9E%E7%94%A8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%B7%A5%E5%85%B7%E5%88%9B%E6%96%B0%E5%A4%A7%E8%B5%9B/191.html"
+    },
+    {
+      "site": "makeronline",
+      "name": "儿童安全与益智成长设计大赛",
+      "desc": "守护每一步成长，点亮每一份智慧",
+      "start": "2026-05-29",
+      "end": "2026-06-25",
+      "status": "ended",
+      "url": "https://www.makeronline.com/zh/contest/%E5%84%BF%E7%AB%A5%E5%AE%89%E5%85%A8%E4%B8%8E%E7%9B%8A%E6%99%BA%E6%88%90%E9%95%BF%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/190.html"
+    },
+    {
+      "site": "makeronline",
+      "name": "旋转&机关模型设计大赛",
+      "desc": "让我们一起做点'会动起来'的东西吧！",
+      "start": "2026-05-15",
+      "end": "2026-06-13",
+      "status": "ended",
+      "url": "https://www.makeronline.com/zh/contest/%E6%97%8B%E8%BD%AC%26%E6%9C%BA%E5%85%B3%E6%A8%A1%E5%9E%8B%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/189.html"
+    },
+    {
+      "site": "makeronline",
+      "name": "轻户外模型设计大赛",
+      "desc": "让户外生活更轻松，由你的设计实现！",
+      "start": "2026-05-08",
+      "end": "2026-06-05",
+      "status": "ended",
+      "url": "https://www.makeronline.com/zh/contest/%E8%BD%BB%E6%88%B7%E5%A4%96%E6%A8%A1%E5%9E%8B%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/188.html"
+    },
+    {
+      "site": "makerworld-cn",
+      "name": "百变卡套模型设计竞赛",
+      "desc": "卡面来打！百变卡套模型设计竞赛。",
+      "start": "2026-08-05",
+      "end": "2026-09-06",
+      "status": "ongoing",
+      "url": "https://makerworld.com.cn/zh/contests/83"
+    },
+    {
+      "site": "makerworld-cn",
+      "name": "创作者挑战赛：@木白粽子 养鸟好物设计竞赛",
+      "desc": "世界上最好的小鸡，值得用上最好的东西！",
+      "start": "2026-08-13",
+      "end": "2026-09-13",
+      "status": "ongoing",
+      "url": "https://makerworld.com.cn/zh/contests/84"
+    },
+    {
+      "site": "makerworld-cn",
+      "name": "文物新生模型设计竞赛",
+      "desc": "国宝首秀在MakerWorld！",
+      "start": "2026-08-18",
+      "end": "2026-09-20",
+      "status": "ongoing",
+      "url": "https://makerworld.com.cn/zh/contests/85"
+    },
+    {
+      "site": "makerworld-cn",
+      "name": "骑行好物模型设计竞赛",
+      "desc": "竞赛预告，即将开始。",
+      "start": "2026-08-27",
+      "end": "2026-09-27",
+      "status": "upcoming",
+      "url": "https://makerworld.com.cn/zh/contests"
+    },
+    {
+      "site": "makerworld-cn",
+      "name": "创作者挑战赛: @天门计划 国防装备设计竞赛",
+      "desc": "国防装备主题设计竞赛。笔尖绘国防，3D'印'铁甲。",
+      "start": "2026-07-29",
+      "end": "2026-08-30",
+      "status": "ongoing",
+      "url": "https://makerworld.com.cn/zh/contests/82"
+    },
+    {
+      "site": "makerworld-cn",
+      "name": "非遗新造模型设计竞赛",
+      "desc": "老手艺，新打法！用3D打印让非遗文化焕发新生。",
+      "start": "2026-07-22",
+      "end": "2026-08-23",
+      "status": "ongoing",
+      "url": "https://makerworld.com.cn/zh/contests/81"
+    },
+    {
+      "site": "makerworld-cn",
+      "name": "动物世界之海洋王国模型设计大赛",
+      "desc": "打造你的水族馆，海洋生物主题设计。",
+      "start": "2026-07-17",
+      "end": "2026-08-16",
+      "status": "ended",
+      "url": "https://makerworld.com.cn/zh/contests/79"
+    },
+    {
+      "site": "makerworld-cn",
+      "name": "Let's Make It: 拓竹 MakerWorld × 影石Insta360 Luna Ultra 创意挑战赛",
+      "desc": "Think bold. Print bold. 与 Insta360 Luna Ultra 合作的创意挑战。",
+      "start": "2026-07-10",
+      "end": "2026-08-09",
+      "status": "ended",
+      "url": "https://makerworld.com.cn/zh/contests/80"
+    },
+    {
+      "site": "makerworld-cn",
+      "name": "大师挑战赛: 太空探索",
+      "desc": "ufo长啥样，你说了算。太空探索主题设计竞赛。",
+      "start": "2026-06-22",
+      "end": "2026-07-26",
+      "status": "ended",
+      "url": "https://makerworld.com.cn/zh/contests/78"
+    },
+    {
+      "site": "makerworld-intl",
+      "name": "Pool Party Design Contest",
+      "desc": "Dive in, stay cool! Pool Party themed 3D design contest.",
+      "start": "2026-08-10",
+      "end": "2026-09-08",
+      "status": "ongoing",
+      "url": "https://makerworld.com/en/contests/158"
+    },
+    {
+      "site": "makerworld-intl",
+      "name": "Bug Off Design Contest",
+      "desc": "Smart Ideas for a Bug-Free Home.",
+      "start": "2026-08-17",
+      "end": "2026-09-30",
+      "status": "ongoing",
+      "url": "https://makerworld.com/en/contests/159"
+    },
+    {
+      "site": "makerworld-intl",
+      "name": "RoboDog Mod Challenge Hosted by @itsboyinspace × @Plastic3D × @Sam Prentice",
+      "desc": "Cyber Awakening, Defined by You! RoboDog modification challenge.",
+      "start": "2026-08-03",
+      "end": "2026-09-28",
+      "status": "ongoing",
+      "url": "https://makerworld.com/en/contests/157"
+    },
+    {
+      "site": "makerworld-intl",
+      "name": "Hosted By Creator: @michelem — Basecamp Anywhere Travel & Outdoor Setup Kit",
+      "desc": "Pack it. Set it. Own the space.",
+      "start": "2026-07-27",
+      "end": "2026-08-28",
+      "status": "ongoing",
+      "url": "https://makerworld.com/en/contests/156"
+    },
+    {
+      "site": "makerworld-intl",
+      "name": "Hosted By Creator: @Ozarkexpeditions — PlayGrid Board Games Design Contest",
+      "desc": "One Grid. Many Worlds. Design Your Game Today.",
+      "start": "2026-07-22",
+      "end": "2026-08-26",
+      "status": "ongoing",
+      "url": "https://makerworld.com/en/contests/155"
+    },
+    {
+      "site": "makerworld-intl",
+      "name": "Homer's Epics Design Contest",
+      "desc": "Giving Shape to the Unseen Songs.",
+      "start": "2026-07-17",
+      "end": "2026-08-23",
+      "status": "ongoing",
+      "url": "https://makerworld.com/en/contests/154"
+    },
+    {
+      "site": "makerworld-intl",
+      "name": "Let's Make It: MakerWorld × Insta360 Luna Ultra Design Challenge",
+      "desc": "Think bold. Print bold.",
+      "start": "2026-07-10",
+      "end": "2026-08-09",
+      "status": "ended",
+      "url": "https://makerworld.com/en/contests/153"
+    },
+    {
+      "site": "makerworld-intl",
+      "name": "Hosted By Creator: @MeshBear — Exoskeleton & Articulated Mechanism Challenge",
+      "desc": "Bring Motion to Wearable Mechanics.",
+      "start": "2026-07-06",
+      "end": "2026-08-08",
+      "status": "ended",
+      "url": "https://makerworld.com/en/contests/152"
+    },
+    {
+      "site": "makerworld-intl",
+      "name": "Hosted By Creator: @Bavaria_3D Tanks — T-34 Evolution Remix",
+      "desc": "Swap Armor, Remix War, Build Your Power!",
+      "start": "2026-06-18",
+      "end": "2026-08-03",
+      "status": "ended",
+      "url": "https://makerworld.com/en/contests/151"
+    },
+    {
+      "site": "makerworld-intl",
+      "name": "Hosted By Creator: @Pipin.World — BONBON Capsules Design Contest",
+      "desc": "Mini Capsules, Big Surprises.",
+      "start": "2026-07-01",
+      "end": "2026-07-30",
+      "status": "ended",
+      "url": "https://makerworld.com/en/contests/150"
+    },
+    {
+      "site": "makerworld-intl",
+      "name": "Rethink Pet Feeding Design Contest",
+      "desc": "Pet Feeder Design Contest — rethink pet feeding with creative 3D designs.",
+      "start": "2026-06-22",
+      "end": "2026-07-26",
+      "status": "ended",
+      "url": "https://makerworld.com/en/contests/149"
+    },
+    {
+      "site": "makerworld-intl",
+      "name": "Hosted By Creator: @everythingDND — 'The Breach' Design Contest",
+      "desc": "Enter the War for the Ruined City.",
+      "start": "2026-06-08",
+      "end": "2026-07-12",
+      "status": "ended",
+      "url": "https://makerworld.com/en/contests/147"
+    },
+    {
+      "site": "makerworld-intl",
+      "name": "Master Challenge: Amusement Park Design Contest",
+      "desc": "竞赛预告，即将开始。",
+      "start": "2026-08-21",
+      "end": "2026-09-21",
+      "status": "upcoming",
+      "url": "https://makerworld.com/en/contests"
+    },
+    {
+      "site": "jlc",
+      "name": "点亮桌面灵感 | 桌面好物设计比赛",
+      "desc": "点亮桌面灵感，装点方寸好物。",
+      "start": "2026-06-30",
+      "end": "2026-08-10",
+      "status": "judging",
+      "url": "https://model.jlc-3dp.cn/raceDetail?id=d9ac22cc25274e6387c46eaf5306a150"
+    },
+    {
+      "site": "jlc",
+      "name": "Spring Maker: 春日造物设计赛",
+      "desc": "春日新生、创意赋能。",
+      "start": "2026-03-25",
+      "end": "2026-04-25",
+      "status": "ended",
+      "url": "https://model.jlc-3dp.cn/raceDetail?id=8905106915ee4704b4a2bda431922e84"
+    },
+    {
+      "site": "jlc",
+      "name": "2026马年新春模型创意大赛",
+      "desc": "马年启新程，3D印年味。",
+      "start": "2026-02-05",
+      "end": "2026-03-19",
+      "status": "ended",
+      "url": "https://model.jlc-3dp.cn/raceDetail?id=76059332b2d442318ad72390ec3aa5db"
+    },
+    {
+      "site": "jlc",
+      "name": "趣味模型设计大赛",
+      "desc": "趣味，由你定义！",
+      "start": "2025-12-19",
+      "end": "2026-01-25",
+      "status": "ended",
+      "url": "https://model.jlc-3dp.cn/raceDetail?id=2945e63407f34446965b187628b8c5c4"
+    },
+    {
+      "site": "nexprint",
+      "name": "打印好帮手 Vol.2",
+      "desc": "3D 打印实用工具设计。优秀参与奖: $15×30人。",
+      "start": "2026-08-05",
+      "end": "2026-08-19",
+      "status": "judging",
+      "url": "https://www.nexprint.com/zh/contests"
+    },
+    {
+      "site": "nexprint",
+      "name": "适我的卧室",
+      "desc": "卧室主题 3D 模型设计。优秀参与奖: $15×30人。",
+      "start": "2026-08-05",
+      "end": "2026-08-20",
+      "status": "ongoing",
+      "url": "https://www.nexprint.com/zh/contests"
+    },
+    {
+      "site": "nexprint",
+      "name": "一扇生风",
+      "desc": "风扇主题 3D 模型设计。优秀参与奖: $15×30人。",
+      "start": "2026-07-29",
+      "end": "2026-08-14",
+      "status": "judging",
+      "url": "https://www.nexprint.com/zh/contests"
+    },
+    {
+      "site": "nexprint",
+      "name": "料盘改造计划",
+      "desc": "给空料盘第二次生命。Elegoo赞助：一等奖$300礼品卡。",
+      "start": "2026-08-08",
+      "end": "2026-09-06",
+      "status": "ongoing",
+      "url": "https://www.nexprint.com/zh/contests"
+    },
+    {
+      "site": "nexprint",
+      "name": "玩转音乐角",
+      "desc": "音乐主题 3D 模型设计。优秀参与奖: $15×30人。",
+      "start": "2026-07-31",
+      "end": "2026-08-16",
+      "status": "judging",
+      "url": "https://www.nexprint.com/zh/contests"
+    },
+    {
+      "site": "nexprint",
+      "name": "派对打印计划",
+      "desc": "给聚会加点儿料 — 派对主题 3D 模型设计。",
+      "start": "2026-07-15",
+      "end": "2026-08-16",
+      "status": "judging",
+      "url": "https://www.nexprint.com/zh/contests"
+    },
+    {
+      "site": "nexprint",
+      "name": "开学必备",
+      "desc": "用 3D 打印，搞定新学期的小需求。",
+      "start": "2026-08-13",
+      "end": "2026-09-15",
+      "status": "ongoing",
+      "url": "https://www.nexprint.com/zh/contests"
+    },
+    {
+      "site": "nexprint",
+      "name": "电子产品爆改计划",
+      "desc": "专治各种'原厂不服' — 电子产品改造设计。",
+      "start": "2026-07-10",
+      "end": "2026-08-11",
+      "status": "judging",
+      "url": "https://www.nexprint.com/zh/contests"
+    },
+    {
+      "site": "nexprint",
+      "name": "套卡建模大赛",
+      "desc": "把 3D 世界拍扁，再立体重生！套卡建模主题。",
+      "start": "2026-06-25",
+      "end": "2026-07-25",
+      "status": "ended",
+      "url": "https://www.nexprint.com/zh/contests"
+    },
+    {
+      "name": "和平精英：刺激之夜模型创作大赛",
+      "desc": "玩家集结！超万元空投补给已就位！",
+      "start": "2026-08-01",
+      "end": "2026-09-08",
+      "status": "ongoing",
+      "url": "https://m.crealitycloud.cn/contest/game-for-peace",
+      "site": "creality-cn"
+    },
+    {
+      "name": "趣味卡套 · 模型设计大赛",
+      "desc": "门禁卡、公交卡、工牌、校园卡……每天都会陪伴我们的卡片，也可以变得有趣又有个性。 本次比赛，邀请设计师发挥3D打印的创意优势，设计兼具颜值、实用与巧思的趣味卡套，让普通卡片秒变吸睛单品。",
+      "start": "2026-10-16",
+      "end": "2026-11-16",
+      "status": "upcoming",
+      "url": "https://m.crealitycloud.cn/contest/Fun-CardHolders-3Dmodels",
+      "site": "creality-cn"
+    },
+    {
+      "name": "原创笔筒 · 模型设计大赛",
+      "desc": "一支笔的归处，也可以是一件艺术品。 本次比赛，邀请设计师发挥3D打印的无限可能，将创意造型、巧妙结构与实用功能融入设计，打造好看又能装的原创笔筒。让桌面告别凌乱，让文具各归其位，为日常办公学习增添一份独特的个性与灵感。",
+      "start": "2026-10-16",
+      "end": "2026-11-16",
+      "status": "upcoming",
+      "url": "https://m.crealitycloud.cn/contest/PencilHolder-3Dmodels",
+      "site": "creality-cn"
+    },
+    {
+      "name": "耳机支架 · 模型设计大赛",
+      "desc": "给耳机一个专属的位置，也给桌面一份整洁。 本次比赛，邀请设计师用 3D 创意，打造小巧实用、颜值在线的耳机收纳小物，让有线耳机清爽归位，让耳机安稳安家，小巧随身，整洁又治愈。",
+      "start": "2026-10-16",
+      "end": "2026-11-16",
+      "status": "upcoming",
+      "url": "https://m.crealitycloud.cn/contest/HeadphoneStand-3Dmodels",
+      "site": "creality-cn"
+    },
+    {
+      "name": "旅行神器·模型设计大赛",
+      "desc": "一场说走就走的旅行，离不开贴心又实用的小设计。本次比赛，邀请设计师发挥3D打印的定制优势，为旅途打造轻便、高效、有趣的旅行神器。",
+      "start": "2026-09-27",
+      "end": "2026-10-11",
+      "status": "upcoming",
+      "url": "https://m.crealitycloud.cn/contest/Travel-Essentials",
+      "site": "creality-cn"
+    },
+    {
+      "name": "演唱会应援·模型设计大赛",
+      "desc": "每一场演唱会，都是一次与热爱的双向奔赴。让我们发挥3D打印的无限可能，设计兼具颜值、趣味的应援好物，让你的应援在人群中闪闪发光。",
+      "start": "2026-10-25",
+      "end": "2026-11-08",
+      "status": "upcoming",
+      "url": "https://m.crealitycloud.cn/contest/Concert-Support-Items",
+      "site": "creality-cn"
+    },
+    {
+      "name": "创意书签 · 模型设计大赛",
+      "desc": "书签，不只是阅读的记号，更是藏在书页间的一份创意。 本次比赛，诚邀设计师们发挥3D打印的设计魅力，将趣味造型、巧妙结构与实用功能融入一枚小小的书签，让阅读变得更有仪式感。",
+      "start": "2026-10-16",
+      "end": "2026-11-16",
+      "status": "upcoming",
+      "url": "https://m.crealitycloud.cn/contest/CreativeBookmarks-3Dmodels",
+      "site": "creality-cn"
+    },
+    {
+      "name": "拼豆工具·模型设计大赛",
+      "desc": "一颗颗小小的拼豆，拼出的是脑洞，也是快乐。现在，把你的创意变成实用又有趣的拼豆工具！",
+      "start": "2026-10-11",
+      "end": "2026-10-25",
+      "status": "upcoming",
+      "url": "https://m.crealitycloud.cn/contest/Perler-Beads-Tools",
+      "site": "creality-cn"
+    },
+    {
+      "name": "开关装饰·模型设计大赛",
+      "desc": "轻轻一按，点亮的不只是灯，还有生活的小惊喜。发挥你的创意，为普通开关赋予有趣的造型、实用的功能和满满的个性，让普通开关秒变可爱装饰，轻轻一按，治愈一整天。",
+      "start": "2026-09-16",
+      "end": "2026-10-16",
+      "status": "upcoming",
+      "url": "https://m.crealitycloud.cn/contest/SwitchDecorations-3Dmodels",
+      "site": "creality-cn"
+    },
+    {
+      "name": "中秋灯饰·模型设计大赛",
+      "desc": "中秋，点亮一盏月光，打印一份团圆。这个中秋，不妨用3D打印亲手打造一盏属于自己的节日灯饰，将传统文化与创意设计巧妙融合，让月光与灯光交相辉映。",
+      "start": "2026-09-13",
+      "end": "2026-09-27",
+      "status": "upcoming",
+      "url": "https://m.crealitycloud.cn/contest/Mid-Autumn-Festival-Lanterns",
+      "site": "creality-cn"
+    },
+    {
+      "name": "手办展示架·模型设计大赛",
+      "desc": "每一个手办都承载着热爱和个性，它们也值得一个专属C位。 本次比赛邀请设计师用3D创意，为手办打造专属展示空间，把手办收纳变成迷你潮玩馆。",
+      "start": "2026-09-16",
+      "end": "2026-10-16",
+      "status": "upcoming",
+      "url": "https://m.crealitycloud.cn/contest/FigureDisplayStand-3Dmodels",
+      "site": "creality-cn"
+    },
+    {
+      "name": "多巴胺花束 · 模型设计大赛",
+      "desc": "一束花装饰生活的小角落 用3D设计赋予花束更多可能，让缤纷色彩、趣味造型与创意结构碰撞，打造属于你的多巴胺花束。无论是梦幻配色、创意花艺，还是可拼装、可互动的花束设计，都能让快乐常驻，让浪漫永不过期。",
+      "start": "2026-09-16",
+      "end": "2026-10-16",
+      "status": "upcoming",
+      "url": "https://m.crealitycloud.cn/contest/DopamineBouquet-3Dmodels",
+      "site": "creality-cn"
+    },
+    {
+      "name": "教师节祝福DIY·模型设计大赛",
+      "desc": "一支粉笔写春秋，一份心意暖师恩。这个教师节，用3D打印亲手制作一份专属祝福，让感谢不止停留在一句“老师，辛苦了”。",
+      "start": "2026-08-30",
+      "end": "2026-09-13",
+      "status": "upcoming",
+      "url": "https://m.crealitycloud.cn/contest/Teachers-Day",
+      "site": "creality-cn"
+    },
+    {
+      "name": "收纳好物·模型设计大赛",
+      "desc": "一个好设计，不仅能装下物品，更能装下生活的井井有条。 本次比赛，我们诚邀设计师发挥3D打印的定制优势，设计兼具实用、美观与创意的收纳好物，让每一寸空间都物尽其用，让收纳也成为一种生活美学。",
+      "start": "2026-09-16",
+      "end": "2026-10-16",
+      "status": "upcoming",
+      "url": "https://m.crealitycloud.cn/contest/Storage-3Dmodels",
+      "site": "creality-cn"
+    },
+    {
+      "name": "夏季消暑小物·模型设计大赛",
+      "desc": "从居家到户外，发挥你的脑洞，设计能消暑的夏季好物，让清凉不止停留在空调房。",
+      "start": "2026-08-16",
+      "end": "2026-08-30",
+      "status": "ongoing",
+      "url": "https://m.crealitycloud.cn/contest/Summer-Cooling-Items",
+      "site": "creality-cn"
+    },
+    {
+      "name": "怀旧物件 · 模型设计大赛",
+      "desc": "那些陪伴童年的玩具、家里的老物件、记忆中的经典设计，都藏着属于一代人的故事。 本次比赛邀请设计师们用3D设计重新诠释那些熟悉的旧时光，让回忆变成可打印、可珍藏的3D模型。",
+      "start": "2026-08-16",
+      "end": "2026-09-16",
+      "status": "ongoing",
+      "url": "https://m.crealitycloud.cn/contest/VintageItems-3Dmodels",
+      "site": "creality-cn"
+    },
+    {
+      "name": "开运好物 · 模型设计大赛",
+      "desc": "好运，不妨自己打印一份！它可以是一件寓意满满的摆件，也可以是陪伴日常的开运小物。 发挥你的创意，将“招财、纳福、转运、心想事成”等美好寓意融入3D模型设计，打造兼具颜值、趣味与实用性的开运好物。把好运做成模型，让幸运触手可及！",
+      "start": "2026-08-16",
+      "end": "2026-09-16",
+      "status": "ongoing",
+      "url": "https://m.crealitycloud.cn/contest/LuckyCharms-3Dmodels",
+      "site": "creality-cn"
+    },
+    {
+      "name": "网络热梗 · 模型设计大赛",
+      "desc": "网络热梗·模型设计大赛 一句爆火台词、一个经典表情、一个全网疯传的名场面，都可能成为下一件让人会心一笑的模型作品。 发挥你的脑洞，把网络热梗变成可打印、可把玩、可分享的创意模型，让大家不仅能“玩梗”，还能把梗打印出来。 快来用3D设计，打造属于你的年度热梗名场面吧！",
+      "start": "2026-08-16",
+      "end": "2026-09-16",
+      "status": "ongoing",
+      "url": "https://m.crealitycloud.cn/contest/InternetMemes-3Dmodels",
+      "site": "creality-cn"
+    },
+    {
+      "name": "指尖解压玩具·模型设计大赛",
+      "desc": "把压力交给指尖，让创意变成治愈。 让我们一起设计好握、好盘、好解压的指尖小物，一按一滑、一转一捏，让日常焦虑瞬间消散。 用手感传递快乐，让每一次把玩都成为治愈，让每一个奇思妙想变成人人都爱的解压神器。",
+      "start": "2026-08-16",
+      "end": "2026-09-16",
+      "status": "ongoing",
+      "url": "https://m.crealitycloud.cn/contest/Finger-Relaxation-3Dmodels",
+      "site": "creality-cn"
+    },
+    {
+      "name": "抽屉把手模型创意大赛",
+      "desc": "一个好看的把手，能让整面柜子活起来；一个有创意的把手，能让每次拉开的动作都多一分期待。🌿 快把那日常的五金件，变成桌面上的小惊喜、小彩蛋、小幽默。",
+      "start": "2026-07-24",
+      "end": "2026-08-30",
+      "status": "ongoing",
+      "url": "https://m.crealitycloud.cn/contest/Drawer-Handle",
+      "site": "creality-cn"
+    },
+    {
+      "name": "工位摆件模型征集大赛",
+      "desc": "小小工位，大大创意。一块小小的桌面，也可以藏着热爱、个性和治愈感。这个夏天，创想云发起 「工位摆件模型征集大赛」，邀请每一位创作者，为打工人的桌面注入创意！",
+      "start": "2026-07-10",
+      "end": "2026-08-16",
+      "status": "reviewing",
+      "url": "https://m.crealitycloud.cn/contest/Desk-decor",
+      "site": "creality-cn"
+    },
+    {
+      "site": "creality-cn",
+      "name": "创意手机支架模型设计大赛",
+      "desc": "设计兼具实用性、创意性与美观性的3D打印手机支架模型。最高可得2100元京东E卡。",
+      "start": "2026-06-25",
+      "end": "2026-08-02",
+      "status": "ended",
+      "url": "https://www.crealitycloud.cn/contest/Creative-Phone-Stand"
+    },
+    {
+      "site": "creality-cn",
+      "name": "平板3D创意周边设计大赛",
+      "desc": "平板3D周边创意大赛第二期 | 联想AI平板拯救者Y900",
+      "start": "2026-05-27",
+      "end": "2026-07-06",
+      "status": "ended",
+      "url": "https://www.crealitycloud.cn/contest/LenovoY900"
+    },
+    {
+      "site": "creality-cn",
+      "name": "机器人3D打印外观设计大赛",
+      "desc": "20W+奖品等你来拿！",
+      "start": "2026-05-06",
+      "end": "2026-06-10",
+      "status": "ended",
+      "url": "https://www.crealitycloud.cn/contest/Jiqiren"
+    },
+    {
+      "site": "creality-cn",
+      "name": "平板3D创意周边大赛",
+      "desc": "创想云&联想最新联动比赛来啦，万元大奖等你来拿！",
+      "start": "2026-03-05",
+      "end": "2026-04-09",
+      "status": "ended",
+      "url": "https://www.crealitycloud.cn/contest/pingban"
+    },
+    {
+      "site": "creality-cn",
+      "name": "岁启贺马模型设计大赛",
+      "desc": "2026马年新春，以3D打印为笔，绘就专属创意！",
+      "start": "2026-01-16",
+      "end": "2026-03-01",
+      "status": "ended",
+      "url": "https://www.crealitycloud.cn/contest/Horse"
+    },
+    {
+      "site": "creality-cn",
+      "name": "创意装饰用品模型设计比赛",
+      "desc": "在这个时代，每一个角落都渴望被艺术点亮。探索装饰艺术的边界，释放无限创意潜能！",
+      "start": "2025-05-09",
+      "end": "2025-06-08",
+      "status": "ended",
+      "url": "https://www.crealitycloud.cn/contest/Decoration-Model"
+    },
+    {
+      "site": "creality-cn",
+      "name": "哪吒主题模型竞赛",
+      "desc": "我命由我不由模！哪吒、敖丙、太乙真人等角色3D创作，均可参赛。",
+      "start": "2025-02-18",
+      "end": "2025-03-24",
+      "status": "ended",
+      "url": "https://www.crealitycloud.cn/contest/nezha-3Dprinting"
+    },
+    {
+      "name": "Headphone Stand Design Contest",
+      "desc": "A great headphone stand does more than hold your headphones—it completes your desk setup. Create an original headphone stand that reflects your style while keeping your workspace organized.",
+      "start": "2026-07-17",
+      "end": "2026-08-23",
+      "status": "ongoing",
+      "url": "https://www.crealitycloud.com/contest/Headphone-Stand",
+      "site": "creality-intl"
+    },
+    {
+      "name": "Dancing Skeleton Design Contest",
+      "desc": "Who says skeletons can't steal the spotlight?💀 Dancing Skeletons have become one of the internet's favorite meme characters. Now it's your turn to bring the bones to life.🎵",
+      "start": "2026-08-06",
+      "end": "2026-09-06",
+      "status": "ongoing",
+      "url": "https://www.crealitycloud.com/contest/Dancing-Skeleton",
+      "site": "creality-intl"
+    },
+    {
+      "name": "KitCard Design Contest",
+      "desc": "Bigger Rewards, More Winners—Join KitCard Design Contest! Now it's your turn to design the next great KitCard.",
+      "start": "2026-07-24",
+      "end": "2026-08-30",
+      "status": "ongoing",
+      "url": "https://www.crealitycloud.com/contest/KitCard",
+      "site": "creality-intl"
+    },
+    {
+      "name": "Credit Card Wand Design Contest",
+      "desc": "Who says paying has to be boring? Join the Credit Card Wand Design Contest and reinvent the everyday wallet.",
+      "start": "2026-07-22",
+      "end": "2026-08-23",
+      "status": "ongoing",
+      "url": "https://www.crealitycloud.com/contest/Credit-Card-Wand",
+      "site": "creality-intl"
+    },
+    {
+      "site": "creality-intl",
+      "name": "Dragon Design Contest",
+      "desc": "Design a majestic display model, articulated dragon, desktop companion, or wearable dragon-themed accessory.",
+      "start": "2026-07-09",
+      "end": "2026-08-09",
+      "status": "ended",
+      "url": "https://www.crealitycloud.com/zh/contest/Dragon"
+    },
+    {
+      "site": "creality-intl",
+      "name": "Creative Stationery Design Contest",
+      "desc": "Reimagine everyday stationery with the power of 3D printing.",
+      "start": "2026-06-25",
+      "end": "2026-08-09",
+      "status": "ended",
+      "url": "https://www.crealitycloud.com/zh/contest/Creative-Stationery"
+    },
+    {
+      "site": "creality-intl",
+      "name": "Car & Truck Accessories Design Contest",
+      "desc": "Creative 3D printable car and truck accessories that make driving and traveling more convenient.",
+      "start": "2026-06-19",
+      "end": "2026-07-19",
+      "status": "ended",
+      "url": "https://www.crealitycloud.com/zh/contest/Car-Truck-Accessories"
+    },
+    {
+      "site": "creality-intl",
+      "name": "Model Upload Challenge",
+      "desc": "Share your brand-new designs, win rewards & 14-day Premium membership.",
+      "start": "2026-06-25",
+      "end": "2026-07-09",
+      "status": "ended",
+      "url": "https://www.crealitycloud.com/zh/contest/Model-Upload-Challenge"
+    },
+    {
+      "site": "creality-intl",
+      "name": "Playful Cat Design Contest",
+      "desc": "From wobbly cats to spring-loaded kitties — cat designs that are playful, creative, and impossible to ignore.",
+      "start": "2026-06-12",
+      "end": "2026-07-12",
+      "status": "ended",
+      "url": "https://www.crealitycloud.com/zh/contest/Playful-Cat"
+    },
+    {
+      "site": "creality-intl",
+      "name": "Camping Gear Design Contest",
+      "desc": "Create innovative 3D-printed camping gear that blends practicality, creativity, and adventure.",
+      "start": "2026-06-03",
+      "end": "2026-07-05",
+      "status": "ended",
+      "url": "https://www.crealitycloud.com/zh/contest/Camping-Gear"
+    },
+    {
+      "site": "creality-intl",
+      "name": "All Things Football Design Contest",
+      "desc": "2026 World Cup themed football model design contest — unleash your creativity and passion.",
+      "start": "2026-05-16",
+      "end": "2026-06-30",
+      "status": "ended",
+      "url": "https://www.crealitycloud.com/zh/contest/All-Things-Football"
+    },
+    {
+      "site": "creality-intl",
+      "name": "Box It Up: Storage Box Design Contest",
+      "desc": "Practical and fun creative storage box designs — from hidden compartments to toy-inspired storage.",
+      "start": "2026-05-26",
+      "end": "2026-06-26",
+      "status": "ended",
+      "url": "https://www.crealitycloud.com/zh/contest/Box-It-Up"
+    },
+    {
+      "name": "Summer Maker Fest – 3D Print & Play Outdoor Challenge",
+      "desc": "Summer Maker Fest — 3D Print &amp; Play Outdoor Challenge This summer, we’re ditching the dry specs and talking real-world action under the sun! Whether you want to pilot a whimsical boat you built from scratch across the lake, or show off your custom camping gear at the campsite, MAKEROAD provides the ultimate stage for your creativity. ✨ Four Categories to Conquer 1. 🚤 Water Wonders: The Creative Boat Creative Showpieces:​ Hull designs inspired by biomimicry, sci-fi mechs, or fantasy creatures. Focus on visual impact and fun—these aren't just toys, they're perfect photo props for social media and family fun. Functional RC Builds:​ Remote-controlled vessels optimized for MAKEROAD Official Electronics Kits. Prioritize hydrodynamic stability and agile steering to ensure your prints don't just float—they raceacross the water! 2. 🎉 Garden Party Gear Ambiance Setters:​ Portable cup holders, snack trays, and decorative light string stands to instantly elevate any gathering. Game Zone:​ Kids' party props (mini soccer goals, throwing targets) to turn your backyard into a playground. Furniture:​ Foldable outdoor dining tables and chairs that balance utility with easy storage. 3. ⛺ Camping Essentials Lightweight Tools:​ Mini stove racks, utensil organizers, and tent lantern hooks to boost happiness while cutting weight. Practical Accessories:​ Water bottle straps, waterproof phone mounts, and fun campsite signposts to solve outdoor pain points in style. 4. 🏖️ Beach Day Must-Haves Waterproof Gear:​ Phone dry boxes and waterproof key capsules to keep valuables safe. Leisure Accessories:​ Beach chair cup holders, kids' sandcastle molds, and towel clips for ultimate relaxation. Sun Protection:​ Portable parasol stands and sun hat hangers—your thoughtful guardians against the harsh sun. 💡 Creative Spark Guide 🌊 Aqua Adventures:​ How do you make prints buoyant, water-resistant, and wave-proof? 🔥 Built to Last:​ Can your design survive drops, UV exposure, and rough terrain? Lighten the Load:​ How do you maintain structural integrity while reducing weight for easy transport? 🧩 Modular Assembly:​ Can large items be broken down for small-print beds and reassembled quickly on-site? 🛠️ Submission Guidelines Functionality First:​ Entries must suit real-world summer outdoor scenarios, demonstrating strength, weather resistance, and usability. No \"display-only\" fragile pieces—we want gear that works! Creativity Bonus:​ Share your design inspiration, structural ingenuity, or field test stories​ in the description. Special optimizations for the outdoors (e.g., anti-sink designs, windproof structures) will earn extra favor. Documentation:​ Complex builds require clear assembly instructions (PDF or GIF animation) so the community can recreate your success. Let the sun, the surf, and your 3D prints shine together this summer! Start creating now! 🚀",
+      "start": "2026-07-15",
+      "end": "2026-08-20",
+      "status": "ongoing",
+      "url": "https://www.makeroad.com/contests/56",
+      "site": "makeroad"
+    },
+    {
+      "site": "makeroad",
+      "name": "Green Pitch Imagination – 2026世界杯主题3D模型竞赛",
+      "desc": "2026 世界杯主题3D模型竞赛。体育场助威道具、足球文化作品、水上足球装备。",
+      "start": "2026-06-12",
+      "end": "2026-07-21",
+      "status": "ended",
+      "url": "https://www.makeroad.com/contests/55"
+    },
+    {
+      "site": "makeroad",
+      "name": "Silk Shine Creator Challenge",
+      "desc": "丝绸光泽3D打印创作挑战赛，使用PLA/PETG丝绸耗材展现流光溢彩的视觉效果。",
+      "start": "2026-05-17",
+      "end": "2026-06-22",
+      "status": "ended",
+      "url": "https://www.makeroad.com/contests/54"
+    },
+    {
+      "site": "makeroad",
+      "name": "Mother's Day Contest",
+      "desc": "以爱的名义，用3D打印为妈妈设计独一无二的礼物。",
+      "start": "2026-04-24",
+      "end": "2026-05-17",
+      "status": "ended",
+      "url": "https://www.makeroad.com/contests/53"
+    },
+    {
+      "site": "makeroad",
+      "name": "Easter Contest – Easter Egg Adventure",
+      "desc": "用创意点亮复活节，让每个彩蛋都独一无二。",
+      "start": "2026-03-30",
+      "end": "2026-04-18",
+      "status": "ended",
+      "url": "https://www.makeroad.com/contests/52"
+    },
+    {
+      "site": "makeroad",
+      "name": "MakerAI Series Contest 2: My Dream Car",
+      "desc": "使用MakerAI重现梦想之车。速度美学赛车、童年经典、科幻概念车复刻。",
+      "start": "2026-03-23",
+      "end": "2026-04-21",
+      "status": "ended",
+      "url": "https://www.makeroad.com/contests/50"
+    },
+    {
+      "site": "makeroad",
+      "name": "Innovate Your Digital Accessories",
+      "desc": "重新定义电子设备用户体验：智能充电底座、多场景支架、模块化配件。",
+      "start": "2026-03-16",
+      "end": "2026-04-13",
+      "status": "ended",
+      "url": "https://www.makeroad.com/contests/49"
+    },
+    {
+      "site": "makeroad",
+      "name": "MakerAI Series Contest 1: My City Coordinates",
+      "desc": "从灵感到模型，用AI创作通过3D打印将城市记忆变为可触摸的作品。",
+      "start": "2026-01-30",
+      "end": "2026-02-28",
+      "status": "ended",
+      "url": "https://www.makeroad.com/contests/46"
+    },
+    {
+      "site": "makeroad",
+      "name": "Chinese New Year Design Contest – The Colors of Home",
+      "desc": "春节主题设计竞赛，用设计重新诠释新年的标志性色彩。",
+      "start": "2026-01-05",
+      "end": "2026-03-01",
+      "status": "ended",
+      "url": "https://www.makeroad.com/contests/45"
+    },
+    {
+      "site": "makeroad",
+      "name": "Build Your Ideal Bathroom（卫浴空间站）",
+      "desc": "卫浴空间设计竞赛：防滑安全、收纳结构、排水巧思、多功能设计。",
+      "start": "2025-12-15",
+      "end": "2026-01-04",
+      "status": "ended",
+      "url": "https://www.makeroad.com/contests/40"
+    },
+    {
+      "name": "「支」撑创意・架趣无限  3D打印手机支架设计征集大赛",
+      "desc": "",
+      "start": "2026-08-12",
+      "end": "2026-08-26",
+      "status": "ongoing",
+      "url": "https://www.joykings3d.com/activitys/detail/21",
+      "site": "joykings3d"
+    },
+    {
+      "name": "几何芯・粤造粤潮   3D 打印潮玩商业设计大赛",
+      "desc": "",
+      "start": "2026-08-01",
+      "end": "2026-09-15",
+      "status": "ongoing",
+      "url": "https://www.joykings3d.com/activitys/detail/19",
+      "site": "joykings3d"
+    },
+    {
+      "name": "Make Something Colorful — 模型设计竞赛",
+      "desc": "",
+      "start": "2026-05-10",
+      "end": "2026-06-16",
+      "status": "ended",
+      "url": "https://models.snapmaker.com/contest/1",
+      "site": "snapmaker"
+    },
+    {
+      "name": "Beyond One Material — 多材料融合设计竞赛",
+      "desc": "",
+      "start": "2026-07-07",
+      "end": "2026-08-25",
+      "status": "ongoing",
+      "url": "https://models.snapmaker.com/contest/2",
+      "site": "snapmaker"
+    }
   ]
 }
