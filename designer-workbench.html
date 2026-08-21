@@ -1,0 +1,1466 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>设计工作台 · 个人任务与项目进度管理</title>
+<style>
+:root{
+  --bg:#f4f5f7; --card:#ffffff; --border:#e6e8ec; --text:#1f2329; --muted:#8a919f;
+  --primary:#3b6ef6; --primary-weak:#eaf0ff;
+  --danger:#e5484d; --danger-weak:#fdecec;
+  --ok:#30a46c; --ok-weak:#e8f6ef;
+  --warn:#e8912d; --warn-weak:#fdf3e4;
+  --gray:#6b7280; --gray-weak:#f0f1f3;
+  --shadow:0 1px 3px rgba(20,24,35,.06),0 1px 2px rgba(20,24,35,.04);
+  --radius:12px;
+  --radius-sm:8px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  background:var(--bg); color:var(--text); font-size:14px; line-height:1.55;
+  padding-bottom:60px;
+}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select,textarea{font-family:inherit;font-size:14px;color:var(--text);outline:none}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-thumb{background:#d4d7de;border-radius:3px}
+
+/* ---------- 顶部导航 ---------- */
+header{
+  position:sticky;top:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--border);
+}
+.nav-inner{max-width:1080px;margin:0 auto;padding:10px 16px;display:flex;align-items:center;gap:12px}
+.logo{display:flex;align-items:center;gap:8px;font-weight:700;font-size:16px;white-space:nowrap}
+.logo .dot{width:22px;height:22px;border-radius:7px;background:linear-gradient(135deg,#3b6ef6,#7a5af8);display:inline-flex;align-items:center;justify-content:center;color:#fff;font-size:13px}
+.nav-tabs{display:flex;gap:2px;margin-left:8px;overflow-x:auto;scrollbar-width:none}
+.nav-tabs::-webkit-scrollbar{display:none}
+.nav-tab{padding:7px 12px;border-radius:20px;font-size:13.5px;color:var(--muted);white-space:nowrap;transition:all .15s}
+.nav-tab:hover{color:var(--text);background:#f0f1f3}
+.nav-tab.active{color:#fff;background:var(--primary);font-weight:600}
+.header-date{margin-left:auto;font-size:12.5px;color:var(--muted);text-align:right;line-height:1.4;white-space:nowrap}
+
+/* ---------- 主容器 ---------- */
+main{max-width:1080px;margin:0 auto;padding:18px 16px 40px}
+.view{display:none}
+.view.active{display:block;animation:fadeIn .25s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+
+/* ---------- 通用卡片 ---------- */
+.card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin-bottom:14px}
+.card-title{display:flex;align-items:center;gap:8px;font-size:15px;font-weight:700;margin-bottom:12px}
+.card-title .sub{margin-left:auto;font-size:12px;color:var(--muted);font-weight:400}
+.section-note{font-size:12.5px;color:var(--muted);margin:-6px 0 12px}
+
+/* ---------- 日期大标题 ---------- */
+.hero-date{display:flex;align-items:baseline;gap:10px;margin:4px 0 14px;flex-wrap:wrap}
+.hero-date .d1{font-size:26px;font-weight:800;letter-spacing:.5px}
+.hero-date .d2{font-size:14px;color:var(--muted)}
+
+/* ---------- 徽章 ---------- */
+.badge{display:inline-flex;align-items:center;gap:4px;padding:2px 9px;border-radius:20px;font-size:12px;font-weight:600;white-space:nowrap}
+.badge.todo{background:var(--warn-weak);color:#b26a12}
+.badge.doing{background:var(--primary-weak);color:var(--primary)}
+.badge.done{background:var(--ok-weak);color:var(--ok)}
+.badge.delayed{background:var(--danger-weak);color:var(--danger)}
+.badge.abandoned{background:var(--gray-weak);color:var(--gray)}
+.badge.pri-high{background:#fdecec;color:var(--danger)}
+.badge.pri-mid{background:var(--warn-weak);color:#b26a12}
+.badge.pri-low{background:#eef4ee;color:var(--ok)}
+.badge.pri{background:var(--gray-weak);color:var(--gray)}
+.badge.ptype{background:#f0f1f3;color:var(--gray)}
+
+/* ---------- 任务行 ---------- */
+.task-row{
+  display:flex;align-items:center;gap:10px;padding:11px 12px;border:1px solid var(--border);
+  border-radius:var(--radius-sm);background:var(--card);margin-bottom:8px;transition:border-color .15s;
+}
+.task-row:hover{border-color:#c9d2e8}
+.task-row.done-task{opacity:.62;background:#fafbfc}
+.task-row.delayed-task{border-color:#f3b4b6;background:#fffbfb}
+.task-main{flex:1;min-width:0}
+.task-name{font-weight:600;font-size:14px;word-break:break-word}
+.task-meta{display:flex;flex-wrap:wrap;gap:6px 10px;margin-top:4px;font-size:12px;color:var(--muted)}
+.task-meta .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:4px;vertical-align:1px}
+.pri-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+.pri-dot.high{background:var(--danger)}.pri-dot.mid{background:var(--warn)}.pri-dot.low{background:var(--ok)}
+.task-actions{display:flex;gap:4px;flex-shrink:0;align-items:center}
+.icon-btn{width:30px;height:30px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:15px;color:var(--muted);transition:all .15s}
+.icon-btn:hover{background:#f0f1f3;color:var(--text)}
+.icon-btn.done-btn{color:var(--ok)}
+.icon-btn.done-btn:hover{background:var(--ok-weak)}
+.icon-btn.delayed-mark{color:var(--danger);font-size:13px}
+.delay-chip{display:inline-flex;align-items:center;gap:3px;background:var(--danger-weak);color:var(--danger);font-size:12px;font-weight:700;padding:2px 8px;border-radius:6px}
+
+/* ---------- 进度条 ---------- */
+.progress{height:8px;border-radius:5px;background:#eef0f3;overflow:hidden}
+.progress > div{height:100%;border-radius:5px;background:linear-gradient(90deg,#3b6ef6,#7a5af8);transition:width .3s}
+.progress.ok > div{background:var(--ok)}
+.progress.warn > div{background:var(--warn)}
+.progress.danger > div{background:var(--danger)}
+
+/* ---------- 按钮 ---------- */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:5px;padding:8px 16px;border-radius:var(--radius-sm);font-size:13.5px;font-weight:600;transition:all .15s;border:1px solid transparent}
+.btn-primary{background:var(--primary);color:#fff}
+.btn-primary:hover{background:#2f5ce0}
+.btn-ghost{background:#fff;border-color:var(--border);color:var(--text)}
+.btn-ghost:hover{background:#f4f5f7}
+.btn-danger{background:#fff;border-color:#f3b4b6;color:var(--danger)}
+.btn-danger:hover{background:var(--danger-weak)}
+.btn-sm{padding:4px 12px;font-size:12.5px}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+
+/* ---------- 输入 ---------- */
+.input,.select,.textarea{
+  width:100%;padding:9px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:#fff;transition:border-color .15s;
+}
+.input:focus,.select:focus,.textarea:focus{border-color:var(--primary)}
+.textarea{resize:vertical;min-height:70px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:12.5px;color:var(--muted);margin-bottom:5px;font-weight:600}
+.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 14px}
+@media(max-width:560px){.field-grid{grid-template-columns:1fr}}
+
+/* ---------- 快速添加 ---------- */
+.quick-add{display:flex;gap:8px}
+.quick-add .input{flex:1}
+.quick-add .input::placeholder{color:#b3b8c2}
+
+/* ---------- 筛选栏 ---------- */
+.filter-bar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.filter-bar .input,.filter-bar .select{width:auto;min-width:110px;padding:7px 10px;font-size:13px}
+.filter-bar .input.f-search{flex:1;min-width:180px}
+
+/* ---------- 统计卡片 ---------- */
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.stat-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;box-shadow:var(--shadow)}
+.stat-box .num{font-size:22px;font-weight:800;line-height:1.2}
+.stat-box .lbl{font-size:12px;color:var(--muted);margin-top:2px}
+.stat-box .num.red{color:var(--danger)}.stat-box .num.green{color:var(--ok)}.stat-box .num.blue{color:var(--primary)}
+
+/* ---------- 项目卡片 ---------- */
+.project-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px}
+.project-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:15px;display:flex;flex-direction:column;gap:10px}
+.project-head{display:flex;align-items:center;gap:8px}
+.project-head .pname{font-size:15px;font-weight:700;flex:1;word-break:break-word}
+.stage-line{font-size:12.5px;color:var(--muted)}
+.stage-line b{color:var(--text)}
+.stage-chips{display:flex;flex-wrap:wrap;gap:5px}
+.stage-chip{font-size:11.5px;padding:2px 8px;border-radius:14px;background:var(--gray-weak);color:var(--gray);cursor:pointer;user-select:none;border:1px solid transparent;transition:all .15s}
+.stage-chip.done{background:var(--ok-weak);color:var(--ok)}
+.stage-chip:hover{border-color:var(--primary)}
+.stage-chip .tick{opacity:.6;margin-right:2px}
+.empty-tip{color:var(--muted);font-size:13px;padding:24px 0;text-align:center}
+
+/* ---------- 每日计划 ---------- */
+.plan-header{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.plan-nav{display:flex;gap:6px;align-items:center}
+.plan-date{font-size:16px;font-weight:700;min-width:150px;text-align:center}
+.plan-arrow{width:32px;height:32px;border-radius:8px;border:1px solid var(--border);background:#fff;font-size:16px;display:inline-flex;align-items:center;justify-content:center;color:var(--muted)}
+.plan-arrow:hover{color:var(--text);border-color:var(--primary)}
+.plan-sec{margin-bottom:12px}
+.plan-sec-title{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;margin-bottom:8px}
+.plan-sec-title .time{font-size:11.5px;color:var(--muted);font-weight:400}
+.plan-item{display:flex;align-items:center;gap:8px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);margin-bottom:6px;background:#fff}
+.plan-item .chk{width:16px;height:16px;border-radius:50%;border:2px solid #cfd4dd;flex-shrink:0;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:10px;color:#fff;transition:all .15s}
+.plan-item .chk.checked{background:var(--ok);border-color:var(--ok)}
+.plan-item .txt{flex:1;font-size:13.5px}
+.plan-item .txt.done-txt{text-decoration:line-through;color:var(--muted)}
+.plan-item .ref{font-size:11px;color:var(--muted);padding:1px 7px;background:var(--gray-weak);border-radius:10px}
+.plan-item .rm{color:var(--muted);font-size:14px;padding:0 4px;cursor:pointer}
+.plan-item .rm:hover{color:var(--danger)}
+
+/* ---------- 弹窗 ---------- */
+.modal-mask{position:fixed;inset:0;background:rgba(20,24,35,.45);z-index:100;display:none;align-items:flex-start;justify-content:center;padding:40px 16px;overflow-y:auto}
+.modal-mask.show{display:flex}
+.modal{background:#fff;border-radius:14px;max-width:560px;width:100%;padding:20px;box-shadow:0 12px 40px rgba(0,0,0,.18);animation:pop .18s ease}
+@keyframes pop{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:none}}
+.modal h3{font-size:16px;font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.modal .modal-foot{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}
+.modal .close-x{margin-left:auto;color:var(--muted);font-size:20px;cursor:pointer;line-height:1}
+.confirm-icon{font-size:34px;text-align:center;margin:6px 0 10px}
+.confirm-text{text-align:center;color:var(--muted);font-size:13.5px;margin-bottom:4px}
+
+/* ---------- 总结 ---------- */
+.reason-chips{display:flex;flex-wrap:wrap;gap:7px}
+.reason-chip{padding:5px 12px;border-radius:16px;background:#fff;border:1px solid var(--border);font-size:12.5px;cursor:pointer;user-select:none;transition:all .15s}
+.reason-chip.on{background:var(--primary-weak);border-color:var(--primary);color:var(--primary);font-weight:600}
+
+/* ---------- 数据管理 ---------- */
+.data-actions{display:flex;flex-wrap:wrap;gap:8px}
+.hint{font-size:12px;color:var(--muted);margin-top:8px}
+.type-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px dashed var(--border)}
+.type-row:last-child{border-bottom:none}
+
+/* ---------- Toast ---------- */
+#toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%) translateY(20px);background:#1f2329;color:#fff;padding:10px 20px;border-radius:30px;font-size:13.5px;opacity:0;transition:all .3s;z-index:200;pointer-events:none;box-shadow:0 6px 20px rgba(0,0,0,.25)}
+#toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ---------- 云端同步状态 ---------- */
+.sync-dot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#c9ced6;margin-right:6px;vertical-align:1px}
+.sync-dot.synced{background:var(--ok)}
+.sync-dot.syncing{background:var(--warn);animation:blink 1s infinite}
+.sync-dot.offline{background:var(--danger)}
+.sync-dot.never{background:#c9ced6}
+@keyframes blink{50%{opacity:.25}}
+
+@media(max-width:640px){
+  .header-date{display:none}
+  .logo{font-size:15px}
+  .hero-date .d1{font-size:21px}
+  .stat-grid{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav-inner">
+    <div class="logo"><span class="dot">设</span>设计工作台</div>
+    <nav class="nav-tabs" id="navTabs"></nav>
+    <div class="header-date"><span id="syncDot" class="sync-dot never" title="未启用云端同步"></span><span id="headerDate"></span></div>
+  </div>
+</header>
+
+<main>
+  <!-- ============ 今日工作台 ============ -->
+  <section class="view" id="view-dashboard"></section>
+  <!-- ============ 任务库 ============ -->
+  <section class="view" id="view-tasks"></section>
+  <!-- ============ 项目库 ============ -->
+  <section class="view" id="view-projects"></section>
+  <!-- ============ 每日计划 ============ -->
+  <section class="view" id="view-plans"></section>
+  <!-- ============ 每日总结 ============ -->
+  <section class="view" id="view-summary"></section>
+  <!-- ============ 数据管理 ============ -->
+  <section class="view" id="view-data"></section>
+</main>
+
+<div id="toast"></div>
+
+<!-- 任务编辑弹窗 -->
+<div class="modal-mask" id="taskModal">
+  <div class="modal">
+    <h3 id="taskModalTitle">编辑任务 <span class="close-x" onclick="closeModal('taskModal')">×</span></h3>
+    <input type="hidden" id="f_id">
+    <div class="field"><label>任务名称 *</label><input class="input" id="f_name" placeholder="例如：完成抽屉把手模型初稿"></div>
+    <div class="field-grid">
+      <div class="field"><label>所属项目</label><select class="select" id="f_project"></select></div>
+      <div class="field"><label>任务类型</label><select class="select" id="f_type"></select></div>
+    </div>
+    <div class="field-grid">
+      <div class="field"><label>优先级</label><select class="select" id="f_priority"><option value="high">高</option><option value="mid" selected>中</option><option value="low">低</option></select></div>
+      <div class="field"><label>状态</label><select class="select" id="f_status">
+        <option value="todo">🟡 未开始</option>
+        <option value="doing">🔵 进行中</option>
+        <option value="done">🟢 已完成</option>
+        <option value="delayed">🔴 延期</option>
+        <option value="abandoned">⚫ 放弃</option>
+      </select></div>
+    </div>
+    <div class="field-grid">
+      <div class="field"><label>计划开始日期</label><input class="input" type="date" id="f_planStart"></div>
+      <div class="field"><label>截止日期</label><input class="input" type="date" id="f_due"></div>
+    </div>
+    <div class="field-grid">
+      <div class="field"><label>预计完成时间（小时）</label><input class="input" type="number" id="f_est" min="0" step="0.5" placeholder="如 3"></div>
+      <div class="field"><label>实际完成日期</label><input class="input" type="date" id="f_finish"></div>
+    </div>
+    <div class="field"><label>备注（设计思路 / 修改意见 / 遇到的问题 / 下一步）</label><textarea class="textarea" id="f_notes" placeholder="例如：目前结构已完成，但齿轮转动阻力太大。下一步：调整齿轮间隙 0.2mm。"></textarea></div>
+    <div class="modal-foot">
+      <button class="btn btn-danger" id="f_delete" style="margin-right:auto">删除任务</button>
+      <button class="btn btn-ghost" onclick="closeModal('taskModal')">取消</button>
+      <button class="btn btn-primary" onclick="saveTaskFromModal()">保存</button>
+    </div>
+  </div>
+</div>
+
+<!-- 完成确认弹窗 -->
+<div class="modal-mask" id="confirmModal">
+  <div class="modal" style="max-width:400px;text-align:center">
+    <div class="confirm-icon">✅</div>
+    <h3 style="justify-content:center;margin-bottom:8px">是否确认完成此任务？</h3>
+    <div class="confirm-text" id="confirmTaskName"></div>
+    <div class="confirm-text" style="margin-top:6px">确认后将自动记录完成日期和时间，并保留历史记录。</div>
+    <div class="modal-foot" style="justify-content:center">
+      <button class="btn btn-ghost" onclick="closeModal('confirmModal')">再想想</button>
+      <button class="btn btn-primary" onclick="confirmFinishTask()">确认完成</button>
+    </div>
+  </div>
+</div>
+
+<!-- 项目编辑弹窗 -->
+<div class="modal-mask" id="projectModal">
+  <div class="modal">
+    <h3 id="projectModalTitle">编辑项目 <span class="close-x" onclick="closeModal('projectModal')">×</span></h3>
+    <input type="hidden" id="p_id">
+    <div class="field"><label>项目名称 *</label><input class="input" id="p_name" placeholder="例如：抽屉把手设计比赛"></div>
+    <div class="field-grid">
+      <div class="field"><label>项目类型</label><select class="select" id="p_type"></select></div>
+      <div class="field"><label>重要程度</label><select class="select" id="p_importance"><option value="high">★ 重要</option><option value="mid" selected>★★ 普通</option><option value="low">★★★ 一般</option></select></div>
+    </div>
+    <div class="field-grid">
+      <div class="field"><label>开始日期</label><input class="input" type="date" id="p_start"></div>
+      <div class="field"><label>截止日期</label><input class="input" type="date" id="p_due"></div>
+    </div>
+    <div class="field"><label>项目状态</label><select class="select" id="p_status">
+      <option value="todo">未开始</option><option value="doing" selected>进行中</option>
+      <option value="waiting">等待中</option><option value="done">已完成</option>
+      <option value="paused">暂停</option><option value="abandoned">放弃</option>
+    </select></div>
+    <div class="field">
+      <label>项目阶段（点击右侧 ✓ 可勾选完成，自动计算进度）</label>
+      <div id="p_stages"></div>
+      <div style="display:flex;gap:6px;margin-top:8px">
+        <input class="input" id="p_stageInput" placeholder="输入阶段名称，如：3D建模" style="flex:1">
+        <button class="btn btn-ghost btn-sm" onclick="addStageInput()">添加阶段</button>
+      </div>
+    </div>
+    <div class="modal-foot">
+      <button class="btn btn-danger" id="p_delete" style="margin-right:auto">删除项目</button>
+      <button class="btn btn-ghost" onclick="closeModal('projectModal')">取消</button>
+      <button class="btn btn-primary" onclick="saveProjectFromModal()">保存</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   数据层
+===================================================================== */
+const LS_KEY = 'designer-workbench-v1';
+const STATUS = {todo:'未开始', doing:'进行中', done:'已完成', delayed:'延期', abandoned:'放弃'};
+const PRI = {high:'高', mid:'中', low:'低'};
+
+let state = load();
+
+function defaultData(){
+  const today = fmt(new Date());
+  return {
+    version: 1,
+    taskTypes: ['设计','建模','渲染','3D打印','比赛','店铺运营','视频/内容','学习','生活','临时任务'],
+    tasks: [], projects: [], dailyPlans: {}, dailySummaries: {},
+    sampleLoaded: false
+  };
+}
+function load(){
+  try{
+    const raw = localStorage.getItem(LS_KEY);
+    if(raw){ const d = JSON.parse(raw); if(d && d.version) return d; }
+  }catch(e){}
+  return defaultData();
+}
+function save(){
+  try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){ toast('保存失败：存储空间已满'); }
+  scheduleSync();
+}
+
+/* =====================================================================
+   云端同步（GitHub 私有仓库）
+===================================================================== */
+const SYNC_KEY = 'designer-workbench-sync-v1';
+let syncConf = loadSyncConf();
+function loadSyncConf(){
+  try{ const raw = localStorage.getItem(SYNC_KEY); if(raw) return JSON.parse(raw); }catch(e){}
+  return {enabled:false, repo:'', token:'', lastTime:'', lastMsg:''};
+}
+function saveSyncConf(){
+  localStorage.setItem(SYNC_KEY, JSON.stringify(syncConf));
+  setSyncDot();
+}
+function syncRepoName(){ return (syncConf.repo||'').trim().replace(/^https?:\/\/github\.com\//,'').replace(/\/+$/,''); }
+function b64e(str){ return btoa(unescape(encodeURIComponent(str))); }
+function b64d(b64){ return decodeURIComponent(escape(atob(b64))); }
+async function githubGet(path){
+  const res = await fetch('https://api.github.com'+path, {
+    headers:{Authorization:'Bearer '+syncConf.token, Accept:'application/vnd.github+json'}
+  });
+  if(res.status===404) return null;
+  if(!res.ok) throw new Error('HTTP '+res.status);
+  return res.json();
+}
+async function githubPut(path, body){
+  const res = await fetch('https://api.github.com'+path, {
+    method:'PUT',
+    headers:{Authorization:'Bearer '+syncConf.token, Accept:'application/vnd.github+json', 'Content-Type':'application/json'},
+    body: JSON.stringify(body)
+  });
+  if(!res.ok) throw new Error('HTTP '+res.status);
+  return res.json();
+}
+function syncDotEl(){ return document.getElementById('syncDot'); }
+function setSyncDot(){
+  const el = syncDotEl(); if(!el) return;
+  if(!syncConf.enabled || !syncRepoName() || !syncConf.token){ el.className='sync-dot never'; el.title='未启用云端同步'; return; }
+  el.className='sync-dot '+(syncConf.lastMsg||'never');
+  el.title = syncConf.lastTime? ('上次同步：'+syncConf.lastTime) : '已配置，等待首次同步';
+}
+async function pullFromGithub(){
+  const repo = syncRepoName();
+  if(!repo || !syncConf.token) return {ok:false, msg:'未配置仓库或令牌'};
+  const data = await githubGet('/repos/'+repo+'/contents/data.json');
+  if(data===null) return {ok:true, exists:false, msg:'云端还没有数据文件'};
+  const parsed = JSON.parse(b64d(data.content));
+  if(!parsed || parsed.version!==1) throw new Error('云端数据格式不正确');
+  state = parsed;
+  save();   // 更新本地缓存
+  return {ok:true, exists:true, msg:'已载入 '+state.tasks.length+' 个任务、'+state.projects.length+' 个项目'};
+}
+async function pushToGithub(){
+  const repo = syncRepoName();
+  if(!repo || !syncConf.token) return {ok:false, msg:'未配置仓库或令牌'};
+  const content = b64e(JSON.stringify(state));
+  let sha = null;
+  try{ const cur = await githubGet('/repos/'+repo+'/contents/data.json'); if(cur) sha = cur.sha; }catch(e){}
+  const body = {message:'workbench auto-save '+new Date().toISOString(), content: content};
+  if(sha) body.sha = sha;
+  await githubPut('/repos/'+repo+'/contents/data.json', body);
+  return {ok:true};
+}
+let syncTimer = null;
+function scheduleSync(){
+  if(!syncConf.enabled || !syncRepoName() || !syncConf.token) return;
+  clearTimeout(syncTimer);
+  syncTimer = setTimeout(async ()=>{
+    setSyncDot(); syncDotEl().className='sync-dot syncing';
+    try{
+      const r = await pushToGithub();
+      if(r.ok){
+        syncConf.lastTime = new Date().toLocaleString('zh-CN',{hour12:false});
+        syncConf.lastMsg = 'synced'; saveSyncConf();
+        toast('已同步到云端 ☁️');
+      }
+    }catch(e){
+      syncConf.lastMsg = 'offline'; saveSyncConf();
+      toast('⚠ 同步失败：'+e.message+'（数据已保存在本机，稍后会自动重试）');
+    }
+  }, 800);
+}
+function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2,7); }
+
+/* =====================================================================
+   日期工具
+===================================================================== */
+function pad(n){ return n<10 ? '0'+n : ''+n; }
+function fmt(d){ return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+function parse(s){ if(!s) return null; const p=s.split('-'); return new Date(+p[0], +p[1]-1, +p[2]); }
+function todayStr(){ return fmt(new Date()); }
+function weekdayCN(d){
+  return ['日','一','二','三','四','五','六'][d.getDay()];
+}
+function diffDays(aStr, bStr){ // b - a 的天数
+  const a = parse(aStr), b = parse(bStr);
+  if(!a || !b) return 0;
+  return Math.round((b - a) / 86400000);
+}
+function addDays(s, n){ const d = parse(s); d.setDate(d.getDate()+n); return fmt(d); }
+function weekStart(s){ const d = parse(s); const w = d.getDay(); const off = (w===0?6:w-1); d.setDate(d.getDate()-off); return fmt(d); }
+function weekEnd(s){ return addDays(weekStart(s), 6); }
+function weekNumInYear(d){
+  const start = new Date(d.getFullYear(),0,1);
+  const day = Math.floor((d - start)/86400000)+1;
+  return Math.ceil(day/7);
+}
+function inRange(dateStr, startStr, endStr){ return dateStr && startStr && dateStr >= startStr && dateStr <= endStr; }
+function inWeek(dateStr, refStr){ return inRange(dateStr, weekStart(refStr), weekEnd(refStr)); }
+
+/* =====================================================================
+   核心业务逻辑
+===================================================================== */
+// 实际状态：未完成且已过截止日期 → 自动视为延期（显示层计算，不覆盖用户手动状态）
+function effStatus(t){
+  if((t.status==='todo'||t.status==='doing') && t.due && t.due < todayStr()) return 'delayed';
+  return t.status;
+}
+function delayDays(t){
+  const s = effStatus(t);
+  if(s==='delayed' && t.due) return diffDays(t.due, todayStr());
+  return 0;
+}
+// 排序：延期 > 今天截止 > 高优先级 > 即将截止 > 普通 > 长期
+function taskScore(t){
+  let score = 0;
+  const s = effStatus(t);
+  if(s==='delayed') score -= 1000;
+  if(s==='done' || s==='abandoned') score += 800;
+  if(t.due === todayStr()) score -= 100;
+  if(t.priority==='high') score -= 30;
+  if(t.priority==='mid') score -= 20;
+  if(t.priority==='low') score -= 10;
+  if(t.due && t.due > todayStr() && diffDays(todayStr(), t.due) <= 3) score -= 5;
+  if(!t.due || (t.due && diffDays(todayStr(), t.due) > 14)) score += 10;
+  return score;
+}
+function sortTasks(tasks){
+  return tasks.slice().sort((a,b)=>{
+    const sa=taskScore(a), sb=taskScore(b);
+    if(sa!==sb) return sa-sb;
+    return (a.createdAt||'').localeCompare(b.createdAt||'');
+  });
+}
+function projectProgress(p){
+  const stages = p.stages||[];
+  const done = stages.filter(s=>s.done).length;
+  const total = stages.length;
+  return {done, total, pct: total? Math.round(done/total*100):0};
+}
+function projectStageNow(p){
+  const s = p.stages||[];
+  for(let i=0;i<s.length;i++) if(!s[i].done) return s[i].name;
+  return s.length? s[s.length-1].name : '—';
+}
+
+// 今日任务：每日计划安排 ∪ 今天截止 ∪ 今天计划开始
+function todayTasks(){
+  const t = todayStr();
+  const set = new Map();
+  const plan = state.dailyPlans[t];
+  if(plan){
+    ['morning','afternoon','evening'].forEach(k=>{
+      (plan[k]||[]).forEach(item=>{ if(item.taskId && state.tasks.some(x=>x.id===item.taskId)) set.set(item.taskId, state.tasks.find(x=>x.id===item.taskId)); });
+    });
+  }
+  state.tasks.forEach(tk=>{
+    if(tk.due===t || tk.planStart===t) set.set(tk.id, tk);
+  });
+  return Array.from(set.values());
+}
+function todayStats(){
+  const tasks = todayTasks();
+  const total = tasks.length;
+  const done = tasks.filter(t=>effStatus(t)==='done').length;
+  const doing = tasks.filter(t=>effStatus(t)==='doing').length;
+  const delayed = tasks.filter(t=>effStatus(t)==='delayed').length;
+  return {total, done, doing, remaining: total-done, delayed, pct: total? Math.round(done/total*100):0};
+}
+function weekStats(){
+  const t = todayStr();
+  const ws = weekStart(t), we = weekEnd(t);
+  const weekTasks = state.tasks.filter(tk=> inWeek(tk.due, t) || inWeek(tk.planStart, t) || inWeek(tk.createdAt, t));
+  const done = weekTasks.filter(tk=>effStatus(tk)==='done').length;
+  const delayed = state.tasks.filter(tk=>effStatus(tk)==='delayed').length;
+  return {total: weekTasks.length, done, pct: weekTasks.length? Math.round(done/weekTasks.length*100):0, delayed};
+}
+function delayedTasks(){
+  return state.tasks.filter(t=>effStatus(t)==='delayed').sort((a,b)=> delayDays(b)-delayDays(a));
+}
+
+/* =====================================================================
+   导航
+===================================================================== */
+const VIEWS = [
+  {id:'dashboard', name:'今日工作台'},
+  {id:'tasks', name:'任务库'},
+  {id:'projects', name:'项目库'},
+  {id:'plans', name:'每日计划'},
+  {id:'summary', name:'今日总结'},
+  {id:'data', name:'数据管理'},
+];
+let currentView = 'dashboard';
+function renderNav(){
+  document.getElementById('navTabs').innerHTML = VIEWS.map(v=>
+    `<button class="nav-tab ${v.id===currentView?'active':''}" onclick="switchView('${v.id}')">${v.name}</button>`
+  ).join('');
+}
+function switchView(id){
+  currentView = id;
+  document.querySelectorAll('.view').forEach(el=>el.classList.remove('active'));
+  document.getElementById('view-'+id).classList.add('active');
+  renderNav();
+  if(id==='dashboard') renderDashboard();
+  if(id==='tasks') renderTasks();
+  if(id==='projects') renderProjects();
+  if(id==='plans') renderPlans();
+  if(id==='summary') renderSummary();
+  if(id==='data') renderData();
+  window.scrollTo({top:0});
+}
+
+/* =====================================================================
+   通用渲染工具
+===================================================================== */
+function badgeSt(s){
+  const map = {todo:'🟡 未开始', doing:'🔵 进行中', done:'🟢 已完成', delayed:'🔴 延期', abandoned:'⚫ 放弃'};
+  return `<span class="badge ${s}">${map[s]}</span>`;
+}
+function priDot(p){ return `<span class="pri-dot ${p}" title="优先级：${PRI[p]}"></span>`; }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function taskProjectName(t){
+  if(!t.project) return '';
+  const p = state.projects.find(x=>x.id===t.project);
+  return p? p.name : '';
+}
+function typeBadge(t){
+  return t.type? `<span class="badge ptype">${esc(t.type)}</span>` : '';
+}
+
+/* =====================================================================
+   今日工作台
+===================================================================== */
+function renderDashboard(){
+  const now = new Date();
+  const today = todayStr();
+  const todayT = todayTasks();
+  const sorted = sortTasks(todayT).filter(t=>effStatus(t)!=='done' && effStatus(t)!=='abandoned');
+  const top3 = sorted.slice(0,3);
+  const stats = todayStats();
+  const delays = delayedTasks();
+  const wStats = weekStats();
+  const activeProjects = state.projects.filter(p=> p.status==='doing' || p.status==='waiting' || p.status==='todo');
+  const sum = state.dailySummaries[today] || {};
+
+  // 今日任务完整列表（含已完成，便于回顾勾选）
+  const todayListAll = sortTasks(todayT);
+
+  let html = '';
+  // 日期
+  html += `<div class="hero-date"><span class="d1">${now.getFullYear()}年${now.getMonth()+1}月${now.getDate()}日</span><span class="d2">星期${weekdayCN(now)} · 本周第 ${now.getDay()===0?7:now.getDay()} 天 · 第 ${weekNumInYear(now)} 周</span></div>`;
+
+  // 延期预警
+  if(delays.length){
+    html += `<div class="card" style="border-color:#f3b4b6;background:#fff8f8">
+      <div class="card-title" style="color:var(--danger)">⚠ 已延期任务 <span class="sub">${delays.length} 项 · 尽快处理</span></div>
+      ${delays.map(t=>{
+        const d = delayDays(t);
+        return `<div class="task-row delayed-task">
+          <span style="color:var(--danger);font-size:18px">🔴</span>
+          <div class="task-main"><div class="task-name">${esc(t.name)}</div>
+            <div class="task-meta">原截止日期：${t.due||'—'} &nbsp;·&nbsp; 已延期 <b style="color:var(--danger)">${d} 天</b></div></div>
+          <div class="task-actions">
+            <button class="icon-btn done-btn" title="完成" onclick="openConfirmFinish('${t.id}')">✔</button>
+            <button class="icon-btn" title="编辑" onclick="openTaskModal('${t.id}')">✎</button>
+          </div></div>`;
+      }).join('')}
+    </div>`;
+  }
+
+  // 最重要的3件事
+  html += `<div class="card">
+    <div class="card-title">🔥 今天最重要的 3 件事 <span class="sub">按优先级自动排序</span></div>`;
+  if(top3.length){
+    top3.forEach((t,i)=>{
+      const s = effStatus(t);
+      html += `<div class="task-row ${s==='delayed'?'delayed-task':''}">
+        <span style="font-weight:800;color:var(--primary);width:22px;font-size:15px">${i+1}</span>
+        ${priDot(t.priority)}
+        <div class="task-main"><div class="task-name">${esc(t.name)}</div>
+          <div class="task-meta">
+            ${taskProjectName(t)? `<span>📁 ${esc(taskProjectName(t))}</span>`:''}
+            ${typeBadge(t)}
+            ${t.est? `<span>⏱ ${t.est} 小时</span>`:''}
+            ${t.due? `<span>📅 截止 ${t.due}</span>`:''}
+            ${badgeSt(s)}
+            ${s==='delayed'? `<span class="delay-chip">已延期 ${delayDays(t)} 天</span>`:''}
+          </div></div>
+        <div class="task-actions">
+          ${s!=='done' && s!=='abandoned' ? `<button class="icon-btn done-btn" title="标记完成" onclick="openConfirmFinish('${t.id}')">✔</button>`:''}
+          <button class="icon-btn" title="编辑" onclick="openTaskModal('${t.id}')">✎</button>
+        </div></div>`;
+    });
+  }else{
+    html += `<div class="empty-tip">今天还没有安排任务，从下方快速添加一个吧 ✨</div>`;
+  }
+  html += `</div>`;
+
+  // 今日任务
+  html += `<div class="card">
+    <div class="card-title">📋 今日任务 <span class="sub">已完成 ${stats.done} / ${stats.total}</span></div>`;
+  if(todayListAll.length){
+    todayListAll.forEach(t=>{
+      const s = effStatus(t);
+      html += `<div class="task-row ${s==='done'?'done-task':''} ${s==='delayed'?'delayed-task':''}">
+        <span style="width:20px;text-align:center">${s==='done'?'✅':priDot(t.priority)}</span>
+        <div class="task-main"><div class="task-name">${esc(t.name)}</div>
+          <div class="task-meta">
+            ${taskProjectName(t)? `<span>📁 ${esc(taskProjectName(t))}</span>`:''}
+            ${badgeSt(s)}
+            ${s==='delayed'? `<span class="delay-chip">已延期 ${delayDays(t)} 天</span>`:''}
+          </div></div>
+        <div class="task-actions">
+          ${s!=='done' && s!=='abandoned' ? `<button class="icon-btn done-btn" title="标记完成" onclick="openConfirmFinish('${t.id}')">✔</button>`:''}
+          <button class="icon-btn" title="编辑" onclick="openTaskModal('${t.id}')">✎</button>
+        </div></div>`;
+    });
+  }else{
+    html += `<div class="empty-tip">今日暂无任务。可以去「每日计划」安排今天，或在下方快速添加。</div>`;
+  }
+  html += `</div>`;
+
+  // 今日进度 + 本周统计
+  html += `<div class="stat-grid">
+    <div class="stat-box"><div class="num">${stats.total}</div><div class="lbl">今日计划任务</div></div>
+    <div class="stat-box"><div class="num green">${stats.done}</div><div class="lbl">今日已完成</div></div>
+    <div class="stat-box"><div class="num blue">${stats.doing}</div><div class="lbl">进行中</div></div>
+    <div class="stat-box"><div class="num red">${stats.remaining}</div><div class="lbl">未完成</div></div>
+    <div class="stat-box"><div class="num ${stats.pct>=60?'green':(stats.pct>=30?'':'red')}">${stats.pct}%</div><div class="lbl">今日完成率</div></div>
+    <div class="stat-box"><div class="num">${wStats.total}</div><div class="lbl">本周任务</div></div>
+    <div class="stat-box"><div class="num green">${wStats.done}</div><div class="lbl">本周完成 · ${wStats.pct}%</div></div>
+    <div class="stat-box"><div class="num red">${wStats.delayed}</div><div class="lbl">当前延期</div></div>
+  </div>`;
+
+  // 正在进行的项目
+  html += `<div class="card">
+    <div class="card-title">🚀 正在进行的项目 <span class="sub">点击查看进度</span></div>`;
+  if(activeProjects.length){
+    html += `<div class="project-grid">`;
+    activeProjects.forEach(p=>{
+      const pp = projectProgress(p);
+      const cls = pp.pct>=100?'ok':(pp.pct>=40?'':'danger');
+      html += `<div class="project-card">
+        <div class="project-head"><span class="pname">${esc(p.name)}</span>${pStatusBadge(p.status)}</div>
+        <div class="stage-line">当前阶段：<b>${esc(projectStageNow(p))}</b></div>
+        <div class="progress ${pp.pct>=100?'ok':(pp.pct>=40?'':'')}"><div style="width:${pp.pct}%"></div></div>
+        <div class="stage-line">${pp.pct}% &nbsp;·&nbsp; ${pp.done}/${pp.total} 阶段完成 ${p.due? '· 截止 '+p.due:''}</div>
+      </div>`;
+    });
+    html += `</div>`;
+  }else{
+    html += `<div class="empty-tip">暂无进行中的项目，去「项目库」新建一个吧。</div>`;
+  }
+  html += `</div>`;
+
+  // 今日总结（快捷）
+  html += `<div class="card">
+    <div class="card-title">📝 今日总结 <span class="sub">晚上花 1 分钟填一下</span></div>
+    <div class="field"><label>今天完成了什么</label><textarea class="textarea" id="sum_done" placeholder="自由填写今天完成的事…" style="min-height:54px">${esc(sum.done||'')}</textarea></div>
+    <div class="field"><label>今天遇到的问题 / 没完成的原因</label><textarea class="textarea" id="sum_problem" placeholder="可选：时间不够、难度比预计大、临时任务、拖延…" style="min-height:54px">${esc((sum.problems||[]).join('；'))}</textarea></div>
+    <div class="field"><label>明天最重要的事情（最多 3 项）</label>
+      ${[0,1,2].map(i=>`<input class="input" id="sum_tomorrow_${i}" style="margin-bottom:6px" placeholder="明天第 ${i+1} 重要的事…" value="${esc((sum.tomorrow||[])[i]||'')}">`).join('')}
+    </div>
+    <button class="btn btn-primary" onclick="saveTodaySummary()">保存今日总结</button>
+  </div>`;
+
+  document.getElementById('view-dashboard').innerHTML = html;
+}
+function saveTodaySummary(){
+  const t = todayStr();
+  const done = document.getElementById('sum_done').value.trim();
+  const problem = document.getElementById('sum_problem').value.trim();
+  const tomorrow = [0,1,2].map(i=>document.getElementById('sum_tomorrow_'+i).value.trim()).filter(Boolean);
+  state.dailySummaries[t] = {done, problems: problem? [problem]:[], tomorrow};
+  save();
+  toast('今日总结已保存 ✅');
+}
+
+/* =====================================================================
+   任务库
+===================================================================== */
+let taskFilter = {q:'', status:'', project:'', type:'', pri:''};
+function renderTasks(){
+  const t = todayStr();
+  let list = state.tasks.slice();
+  if(taskFilter.q){ const q = taskFilter.q.toLowerCase(); list = list.filter(x=> x.name.toLowerCase().includes(q)); }
+  if(taskFilter.status) list = list.filter(x=> effStatus(x)===taskFilter.status);
+  if(taskFilter.project) list = list.filter(x=> x.project===taskFilter.project);
+  if(taskFilter.type) list = list.filter(x=> x.type===taskFilter.type);
+  if(taskFilter.pri) list = list.filter(x=> x.priority===taskFilter.pri);
+  list = sortTasks(list);
+
+  let html = `<div class="card">
+    <div class="card-title">任务库 <span class="sub">共 ${state.tasks.length} 个任务 · 已完成不删除，保留历史</span></div>
+    <div class="quick-add" style="margin-bottom:12px">
+      <input class="input" id="quickTask" placeholder="快速添加任务：只需输入任务名称，如「设计一个新的书架模型」⏎" onkeydown="if(event.key==='Enter')quickAddTask()">
+      <button class="btn btn-primary" onclick="quickAddTask()">＋ 添加</button>
+    </div>
+    <div class="filter-bar">
+      <input class="input f-search" placeholder="🔍 搜索任务…" value="${esc(taskFilter.q)}" oninput="taskFilter.q=this.value;renderTasks()">
+      <select class="select" onchange="taskFilter.status=this.value;renderTasks()"><option value="">全部状态</option>${Object.keys(STATUS).map(k=>`<option value="${k}" ${taskFilter.status===k?'selected':''}>${STATUS[k]}</option>`).join('')}</select>
+      <select class="select" onchange="taskFilter.project=this.value;renderTasks()"><option value="">全部项目</option>${state.projects.map(p=>`<option value="${p.id}" ${taskFilter.project===p.id?'selected':''}>${esc(p.name)}</option>`).join('')}</select>
+      <select class="select" onchange="taskFilter.type=this.value;renderTasks()"><option value="">全部类型</option>${state.taskTypes.map(x=>`<option value="${x}" ${taskFilter.type===x?'selected':''}>${x}</option>`).join('')}</select>
+      <select class="select" onchange="taskFilter.pri=this.value;renderTasks()"><option value="">全部优先级</option><option value="high" ${taskFilter.pri==='high'?'selected':''}>高</option><option value="mid" ${taskFilter.pri==='mid'?'selected':''}>中</option><option value="low" ${taskFilter.pri==='low'?'selected':''}>低</option></select>
+    </div>`;
+
+  if(!list.length){
+    html += `<div class="empty-tip">${state.tasks.length? '没有符合筛选条件的任务':'还没有任务，用上面的输入框快速添加一个吧'}</div>`;
+  }
+  list.forEach(tk=>{
+    const s = effStatus(tk);
+    const d = delayDays(tk);
+    html += `<div class="task-row ${s==='done'?'done-task':''} ${s==='delayed'?'delayed-task':''}">
+      ${priDot(tk.priority)}
+      <div class="task-main">
+        <div class="task-name">${esc(tk.name)}</div>
+        <div class="task-meta">
+          ${badgeSt(s)}
+          ${taskProjectName(tk)? `<span>📁 ${esc(taskProjectName(tk))}</span>`:''}
+          ${typeBadge(tk)}
+          ${tk.est? `<span>⏱ ${tk.est}h</span>`:''}
+          ${tk.planStart? `<span>开始 ${tk.planStart}</span>`:''}
+          ${tk.due? `<span>截止 ${tk.due}${tk.due < t ? ' <span style="color:#c9ced6">(已过)</span>':''}</span>`:''}
+          ${s==='delayed'? `<span class="delay-chip">已延期 ${d} 天</span>`:''}
+          ${tk.finishDate? `<span style="color:var(--ok)">✅ 完成于 ${tk.finishDate}</span>`:''}
+        </div>
+        ${tk.notes? `<div class="task-meta" style="color:#5a6270;margin-top:3px;border-left:3px solid var(--border);padding-left:8px">📝 ${esc(tk.notes)}</div>`:''}
+      </div>
+      <div class="task-actions">
+        ${s!=='done' && s!=='abandoned' ? `<button class="icon-btn done-btn" title="标记完成" onclick="openConfirmFinish('${tk.id}')">✔</button>`:''}
+        <button class="icon-btn" title="编辑" onclick="openTaskModal('${tk.id}')">✎</button>
+      </div>
+    </div>`;
+  });
+  html += `</div>`;
+  document.getElementById('view-tasks').innerHTML = html;
+}
+function quickAddTask(){
+  const inp = document.getElementById('quickTask');
+  const name = inp.value.trim();
+  if(!name){ inp.focus(); return; }
+  const tk = {id:uid(), name, project:'', type:'', priority:'mid', status:'todo',
+    createdAt:todayStr(), planStart:'', due:'', est:'', notes:'', finishDate:''};
+  state.tasks.push(tk);
+  save();
+  inp.value='';
+  toast('已添加任务，可点击 ✎ 补充截止日期、项目等');
+  renderTasks();
+}
+
+/* =====================================================================
+   任务弹窗
+===================================================================== */
+function openTaskModal(id){
+  const isNew = !id;
+  const tk = isNew? {id:'',name:'',project:'',type:'',priority:'mid',status:'todo',createdAt:todayStr(),planStart:'',due:'',est:'',notes:'',finishDate:''} : state.tasks.find(x=>x.id===id);
+  if(!tk) return;
+  document.getElementById('taskModalTitle').textContent = isNew? '新建任务':'编辑任务';
+  document.getElementById('f_id').value = tk.id;
+  document.getElementById('f_name').value = tk.name;
+  document.getElementById('f_project').innerHTML = '<option value="">无项目</option>' + state.projects.map(p=>`<option value="${p.id}" ${tk.project===p.id?'selected':''}>${esc(p.name)}</option>`).join('');
+  document.getElementById('f_type').innerHTML = state.taskTypes.map(x=>`<option ${tk.type===x?'selected':''}>${x}</option>`).join('');
+  document.getElementById('f_priority').value = tk.priority;
+  document.getElementById('f_status').value = tk.status;
+  document.getElementById('f_planStart').value = tk.planStart;
+  document.getElementById('f_due').value = tk.due;
+  document.getElementById('f_est').value = tk.est;
+  document.getElementById('f_finish').value = tk.finishDate;
+  document.getElementById('f_notes').value = tk.notes;
+  document.getElementById('f_delete').style.display = isNew? 'none':'inline-flex';
+  showModal('taskModal');
+}
+function saveTaskFromModal(){
+  const id = document.getElementById('f_id').value;
+  const name = document.getElementById('f_name').value.trim();
+  if(!name){ toast('请填写任务名称'); return; }
+  const data = {
+    name,
+    project: document.getElementById('f_project').value,
+    type: document.getElementById('f_type').value,
+    priority: document.getElementById('f_priority').value,
+    status: document.getElementById('f_status').value,
+    planStart: document.getElementById('f_planStart').value,
+    due: document.getElementById('f_due').value,
+    est: document.getElementById('f_est').value? +document.getElementById('f_est').value:'',
+    notes: document.getElementById('f_notes').value.trim(),
+    finishDate: document.getElementById('f_finish').value
+  };
+  if(data.status==='done' && !data.finishDate) data.finishDate = todayStr();
+  if(id){
+    const tk = state.tasks.find(x=>x.id===id);
+    Object.assign(tk, data);
+  }else{
+    state.tasks.push(Object.assign({id:uid(), createdAt:todayStr()}, data));
+  }
+  save();
+  closeModal('taskModal');
+  toast('已保存');
+  renderTasks();
+  renderDashboard();
+}
+function deleteTask(id){
+  const tk = state.tasks.find(x=>x.id===id);
+  if(!tk) return;
+  if(!confirm(`确定删除任务「${tk.name}」吗？此操作不可恢复。`)) return;
+  state.tasks = state.tasks.filter(x=>x.id!==id);
+  save();
+  closeModal('taskModal');
+  toast('任务已删除');
+  renderTasks();
+  renderDashboard();
+}
+
+/* =====================================================================
+   完成确认机制
+===================================================================== */
+let finishTargetId = null;
+function openConfirmFinish(id){
+  const tk = state.tasks.find(x=>x.id===id);
+  if(!tk) return;
+  finishTargetId = id;
+  document.getElementById('confirmTaskName').textContent = '「' + tk.name + '」';
+  showModal('confirmModal');
+}
+function confirmFinishTask(){
+  if(!finishTargetId) return;
+  const tk = state.tasks.find(x=>x.id===finishTargetId);
+  if(tk){
+    tk.status = 'done';
+    tk.finishDate = todayStr();
+    // 同步：每日计划中的该任务也标记完成
+    const t = todayStr();
+    const plan = state.dailyPlans[t];
+    if(plan){
+      ['morning','afternoon','evening'].forEach(k=>{
+        (plan[k]||[]).forEach(item=>{ if(item.taskId===tk.id) item.done = true; });
+      });
+    }
+    save();
+    toast('🎉 完成！已记录完成日期：' + tk.finishDate);
+  }
+  finishTargetId = null;
+  closeModal('confirmModal');
+  renderDashboard();
+  renderTasks();
+  renderPlans();
+}
+
+/* =====================================================================
+   项目库
+===================================================================== */
+function pStatusBadge(s){
+  const map = {todo:'未开始', doing:'进行中', waiting:'等待中', done:'已完成', paused:'暂停', abandoned:'放弃'};
+  const cls = {todo:'todo', doing:'doing', waiting:'doing', done:'done', paused:'abandoned', abandoned:'abandoned'};
+  return `<span class="badge ${cls[s]||''}">${map[s]||s}</span>`;
+}
+function renderProjects(){
+  const list = state.projects;
+  let html = `<div class="card">
+    <div class="card-title">项目库 <span class="sub">每个项目可拆分为多个阶段，勾选阶段自动计算进度</span></div>
+    <button class="btn btn-primary" onclick="openProjectModal()">＋ 新建项目</button>
+  </div>`;
+  if(!list.length){
+    html += `<div class="card"><div class="empty-tip">还没有项目。点击「新建项目」，例如「抽屉把手设计比赛」。</div></div>`;
+  }else{
+    html += `<div class="project-grid">`;
+    list.forEach(p=>{
+      const pp = projectProgress(p);
+      html += `<div class="project-card">
+        <div class="project-head">
+          <span class="pname">${esc(p.name)}</span>
+          ${p.importance==='high'? '<span title="重要项目" style="font-size:15px">⭐</span>':''}
+          ${pStatusBadge(p.status)}
+        </div>
+        <div class="stage-line">当前阶段：<b>${esc(projectStageNow(p))}</b></div>
+        <div class="progress ${pp.pct>=100?'ok':(pp.pct>=40?'':'')}"><div style="width:${pp.pct}%"></div></div>
+        <div class="stage-line">进度 <b>${pp.pct}%</b> · ${pp.done}/${pp.total} 阶段 ${p.start? ' · 开始 '+p.start:''}${p.due? ' · 截止 '+p.due:''}</div>
+        <div class="stage-chips">
+          ${(p.stages||[]).map((s,i)=>`<span class="stage-chip ${s.done?'done':''}" onclick="toggleStage('${p.id}',${i})" title="${s.done?'点击取消完成':'点击标记完成'}">${s.done?'✓':''}${esc(s.name)}</span>`).join('')}
+        </div>
+        <div style="display:flex;gap:8px;margin-top:4px">
+          <button class="btn btn-ghost btn-sm" onclick="openProjectModal('${p.id}')">✎ 编辑</button>
+          <button class="btn btn-danger btn-sm" onclick="deleteProject('${p.id}')">删除</button>
+        </div>
+      </div>`;
+    });
+    html += `</div>`;
+  }
+  document.getElementById('view-projects').innerHTML = html;
+}
+function toggleStage(pid, idx){
+  const p = state.projects.find(x=>x.id===pid);
+  if(!p || !p.stages || !p.stages[idx]) return;
+  p.stages[idx].done = !p.stages[idx].done;
+  save();
+  renderProjects();
+  renderDashboard();
+}
+
+/* =====================================================================
+   项目弹窗
+===================================================================== */
+function openProjectModal(id){
+  const isNew = !id;
+  const p = isNew? {id:'',name:'',type:'',importance:'mid',start:'',due:'',status:'doing',stages:[]} : state.projects.find(x=>x.id===id);
+  if(!p) return;
+  document.getElementById('projectModalTitle').textContent = isNew? '新建项目':'编辑项目';
+  document.getElementById('p_id').value = p.id;
+  document.getElementById('p_name').value = p.name;
+  document.getElementById('p_type').innerHTML = state.taskTypes.map(x=>`<option ${p.type===x?'selected':''}>${x}</option>`).join('');
+  document.getElementById('p_importance').value = p.importance;
+  document.getElementById('p_start').value = p.start;
+  document.getElementById('p_due').value = p.due;
+  document.getElementById('p_status').value = p.status;
+  document.getElementById('p_stageInput').value = '';
+  renderStageEditor(p.stages||[]);
+  document.getElementById('p_delete').style.display = isNew? 'none':'inline-flex';
+  showModal('projectModal');
+}
+function renderStageEditor(stages){
+  document.getElementById('p_stages').innerHTML = stages.map((s,i)=>`
+    <div class="type-row">
+      <span style="flex:1">${esc(s.name)}</span>
+      <span class="stage-chip ${s.done?'done':''}" onclick="toggleStageEditor(${i})" style="cursor:pointer">${s.done?'✓ 已完成':'○ 未完成'}</span>
+      <button class="icon-btn" onclick="removeStageEditor(${i})" style="width:24px;height:24px">✕</button>
+    </div>`).join('') || '<div style="color:var(--muted);font-size:12.5px;padding:4px 0">暂无阶段，添加阶段后自动计算进度</div>';
+}
+function toggleStageEditor(i){
+  const id = document.getElementById('p_id').value;
+  const p = state.projects.find(x=>x.id===id);
+  const stages = p? p.stages : modalStageCache;
+  if(stages[i]) stages[i].done = !stages[i].done;
+  renderStageEditor(stages);
+}
+function removeStageEditor(i){
+  const id = document.getElementById('p_id').value;
+  const p = state.projects.find(x=>x.id===id);
+  const stages = p? p.stages : modalStageCache;
+  stages.splice(i,1);
+  renderStageEditor(stages);
+}
+let modalStageCache = [];
+function addStageInput(){
+  const inp = document.getElementById('p_stageInput');
+  const name = inp.value.trim();
+  if(!name) return;
+  const id = document.getElementById('p_id').value;
+  const p = state.projects.find(x=>x.id===id);
+  const stages = p? p.stages : modalStageCache;
+  stages.push({name, done:false});
+  inp.value='';
+  renderStageEditor(stages);
+}
+function saveProjectFromModal(){
+  const id = document.getElementById('p_id').value;
+  const name = document.getElementById('p_name').value.trim();
+  if(!name){ toast('请填写项目名称'); return; }
+  const data = {
+    name,
+    type: document.getElementById('p_type').value,
+    importance: document.getElementById('p_importance').value,
+    start: document.getElementById('p_start').value,
+    due: document.getElementById('p_due').value,
+    status: document.getElementById('p_status').value,
+  };
+  if(id){
+    const p = state.projects.find(x=>x.id===id);
+    Object.assign(p, data);
+  }else{
+    const p = Object.assign({id:uid(), stages: modalStageCache.slice()}, data);
+    state.projects.push(p);
+  }
+  modalStageCache = [];
+  save();
+  closeModal('projectModal');
+  toast('项目已保存');
+  renderProjects();
+  renderDashboard();
+  renderTasks();
+}
+function deleteProject(id){
+  const p = state.projects.find(x=>x.id===id);
+  if(!p) return;
+  if(!confirm(`确定删除项目「${p.name}」吗？\n（关联的任务不会被删除，只会变成「无项目」）`)) return;
+  state.projects = state.projects.filter(x=>x.id!==id);
+  state.tasks.forEach(t=>{ if(t.project===id) t.project=''; });
+  save();
+  closeModal('projectModal');
+  toast('项目已删除');
+  renderProjects();
+  renderTasks();
+}
+
+/* =====================================================================
+   每日计划
+===================================================================== */
+let planCursor = todayStr();
+const PLAN_SLOTS = [
+  {key:'morning', name:'☀️ 上午', time:'09:00 - 12:00'},
+  {key:'afternoon', name:'🌤 下午', time:'14:00 - 17:00'},
+  {key:'evening', name:'🌙 晚上', time:'20:00 - 22:00'},
+];
+function renderPlans(){
+  const t = planCursor;
+  const plan = state.dailyPlans[t] || (state.dailyPlans[t]={morning:[],afternoon:[],evening:[]});
+  let html = `<div class="plan-header">
+    <div class="plan-nav">
+      <button class="plan-arrow" onclick="planShift(-1)">‹</button>
+      <span class="plan-date">${t} ${t===todayStr()? '<span class="badge doing" style="vertical-align:2px">今天</span>':''}</span>
+      <button class="plan-arrow" onclick="planShift(1)">›</button>
+      ${t!==todayStr()? `<button class="btn btn-ghost btn-sm" onclick="planCursor=todayStr();renderPlans()">回到今天</button>`:''}
+    </div>
+  </div>`;
+  if(t < todayStr()) html += `<div class="section-note">📌 这是过去的日期，可回顾当天安排</div>`;
+  if(t > todayStr()) html += `<div class="section-note">📌 未来日期的安排</div>`;
+
+  PLAN_SLOTS.forEach(slot=>{
+    const items = plan[slot.key]||[];
+    html += `<div class="card" style="padding:14px 16px">
+      <div class="plan-sec-title">${slot.name} <span class="time">${slot.time}</span>
+        <span style="margin-left:auto;display:flex;gap:6px">
+          <select class="select" id="pick_${slot.key}" style="width:auto;padding:5px 8px;font-size:12.5px;min-width:150px">
+            <option value="">— 从任务库选择 —</option>
+            ${sortTasks(state.tasks.filter(x=>effStatus(x)!=='done' && effStatus(x)!=='abandoned')).map(x=>`<option value="${x.id}">${esc(x.name)}</option>`).join('')}
+          </select>
+          <button class="btn btn-ghost btn-sm" onclick="planAddTask('${slot.key}')">加入</button>
+          <button class="btn btn-ghost btn-sm" onclick="planAddText('${slot.key}')">＋ 临时安排</button>
+        </span>
+      </div>`;
+    if(items.length){
+      items.forEach((item,i)=>{
+        const isTask = !!item.taskId;
+        const ref = isTask? state.tasks.find(x=>x.id===item.taskId):null;
+        html += `<div class="plan-item">
+          <span class="chk ${item.done?'checked':''}" onclick="planToggle('${slot.key}',${i})">${item.done?'✓':''}</span>
+          <span class="txt ${item.done?'done-txt':''}">${esc(item.text)}</span>
+          ${isTask? `<span class="ref">任务</span>`:`<span class="ref" style="background:var(--warn-weak);color:#b26a12">临时</span>`}
+          ${ref? `<span class="ref">${esc(taskProjectName(ref)||ref.type||'')}</span>`:''}
+          <button class="rm" onclick="planRemove('${slot.key}',${i})">✕</button>
+        </div>`;
+      });
+    }else{
+      html += `<div style="color:var(--muted);font-size:12.5px;padding:4px 2px">${slot.name}还没有安排任务</div>`;
+    }
+    html += `</div>`;
+  });
+  document.getElementById('view-plans').innerHTML = html;
+}
+function planShift(d){
+  planCursor = addDays(planCursor, d);
+  renderPlans();
+}
+function planAddTask(slot){
+  const sel = document.getElementById('pick_'+slot);
+  const tid = sel.value;
+  if(!tid){ toast('请先选择一个任务'); return; }
+  const tk = state.tasks.find(x=>x.id===tid);
+  if(!tk) return;
+  const plan = state.dailyPlans[planCursor];
+  plan[slot].push({taskId: tid, text: tk.name, done: false});
+  save(); renderPlans();
+}
+function planAddText(slot){
+  const text = prompt('输入临时安排（不建任务，仅记录）：');
+  if(text===null) return;
+  const v = text.trim(); if(!v) return;
+  const plan = state.dailyPlans[planCursor];
+  plan[slot].push({taskId:'', text: v, done: false});
+  save(); renderPlans();
+}
+function planToggle(slot, i){
+  const plan = state.dailyPlans[planCursor];
+  const item = plan[slot][i];
+  item.done = !item.done;
+  // 若关联任务且勾选完成 → 同步任务完成
+  if(item.done && item.taskId){
+    const tk = state.tasks.find(x=>x.id===item.taskId);
+    if(tk && effStatus(tk)!=='done'){ tk.status='done'; tk.finishDate=planCursor; }
+  }
+  save(); renderPlans(); renderDashboard(); renderTasks();
+}
+function planRemove(slot, i){
+  const plan = state.dailyPlans[planCursor];
+  plan[slot].splice(i,1);
+  save(); renderPlans();
+}
+
+/* =====================================================================
+   今日总结
+===================================================================== */
+function renderSummary(){
+  const t = planCursor;
+  const sum = state.dailySummaries[t] || {};
+  const todayT = t===todayStr()? todayTasks() : [];
+  const undone = t===todayStr()? todayT.filter(x=>effStatus(x)!=='done' && effStatus(x)!=='abandoned') : [];
+  const reasons = ['时间不够','难度比预计大','临时任务','拖延','其他'];
+  let html = `<div class="card">
+    <div class="card-title">📝 每日总结 <span class="sub">${t}${t===todayStr()? ' · 今天':''}</span></div>
+    <div style="display:flex;gap:6px;align-items:center;margin-bottom:12px">
+      <button class="plan-arrow" onclick="planShift(-1)">‹</button>
+      <button class="btn btn-ghost btn-sm" onclick="planCursor=todayStr();renderSummary()">回到今天</button>
+      <button class="plan-arrow" onclick="planShift(1)">›</button>
+    </div>
+    <div class="field"><label>今天完成了什么</label><textarea class="textarea" id="sum2_done" placeholder="自由填写…">${esc(sum.done||'')}</textarea></div>`;
+
+  if(t===todayStr() && undone.length){
+    html += `<div class="field"><label>今天没有完成什么（自动列出）</label>
+      <div style="margin-bottom:8px">${undone.map(x=>`<span class="badge ptype" style="margin:0 4px 4px 0">${esc(x.name)}</span>`).join('')}</div></div>`;
+  }
+  html += `<div class="field"><label>为什么没有完成（可多选）</label>
+    <div class="reason-chips">${reasons.map(r=>`<span class="reason-chip ${(sum.reasons||[]).includes(r)?'on':''}" onclick="toggleReason('${r}')">${r}</span>`).join('')}</div></div>
+    <div class="field"><label>明天最重要的事情（最多 3 项）</label>
+      ${[0,1,2].map(i=>`<input class="input" id="sum2_tomorrow_${i}" style="margin-bottom:6px" placeholder="明天第 ${i+1} 重要的事…" value="${esc((sum.tomorrow||[])[i]||'')}">`).join('')}
+    </div>
+    <button class="btn btn-primary" onclick="saveSummary2()">保存总结</button>
+  </div>`;
+  document.getElementById('view-summary').innerHTML = html;
+}
+function toggleReason(r){
+  const t = planCursor;
+  const sum = state.dailySummaries[t] || (state.dailySummaries[t]={done:'',reasons:[],tomorrow:[]});
+  const arr = sum.reasons||(sum.reasons=[]);
+  const i = arr.indexOf(r);
+  if(i>=0) arr.splice(i,1); else arr.push(r);
+  renderSummary();
+}
+function saveSummary2(){
+  const t = planCursor;
+  const sum = state.dailySummaries[t] || (state.dailySummaries[t]={done:'',reasons:[],tomorrow:[]});
+  sum.done = document.getElementById('sum2_done').value.trim();
+  sum.tomorrow = [0,1,2].map(i=>document.getElementById('sum2_tomorrow_'+i).value.trim()).filter(Boolean);
+  save();
+  toast('总结已保存 ✅');
+}
+
+/* =====================================================================
+   数据管理
+===================================================================== */
+function renderData(){
+  let html = `<div class="card">
+    <div class="card-title">💾 数据管理 <span class="sub">数据保存在本机浏览器，可导出备份到云端</span></div>
+    <div class="data-actions">
+      <button class="btn btn-primary" onclick="exportData()">⬇ 导出备份（JSON）</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()">⬆ 导入备份</button>
+      <button class="btn btn-ghost" onclick="loadSample()">📦 载入示例数据</button>
+      <button class="btn btn-danger" onclick="clearAll()">🗑 清空所有数据</button>
+      <input type="file" id="importFile" accept=".json,application/json" style="display:none" onchange="importData(event)">
+    </div>
+    <div class="hint">数据总量：${state.tasks.length} 个任务 · ${state.projects.length} 个项目 · ${Object.keys(state.dailyPlans).length} 天计划 · ${Object.keys(state.dailySummaries).length} 天总结</div>
+    <div class="hint">💡 把导出的 JSON 文件存到金山文档 / 百度网盘，即可实现云端备份。更换设备后导入即可恢复。</div>
+  </div>`;
+  html += `<div class="card" style="border-color:${syncConf.enabled?'#b8cdf5':'var(--border)'}">
+    <div class="card-title">☁️ 云端同步 <span class="sub">手机 / 电脑 / 平板同一份数据</span></div>
+    <div class="hint" style="margin-bottom:10px">数据保存到你的 GitHub 私有仓库。任意设备打开本页面，填入同一组配置后自动同步。页面本身是公开的，但没有令牌的人看不到你的数据。</div>
+    <label style="display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;margin-bottom:12px">
+      <input type="checkbox" id="sync_enabled" ${syncConf.enabled?'checked':''} onchange="toggleSync()"> 启用云端同步（每次保存后自动推送到云端）
+    </label>
+    <div class="field"><label>数据仓库（owner/repo）</label><input class="input" id="sync_repo" placeholder="例如：csxiangcn-ui/designer-workbench-data" value="${esc(syncConf.repo)}"></div>
+    <div class="field"><label>访问令牌（GitHub Personal Access Token）</label>
+      <input class="input" type="password" id="sync_token" placeholder="github_pat_... 或 ghp_..." value="${esc(syncConf.token)}">
+      <div class="hint">生成步骤：GitHub → Settings → Developer settings → Fine-grained personal access tokens → Generate new token → Repository access 只勾选你的<u>数据仓库</u> → Permissions 里 Contents 设为 <b>Read and write</b> → 生成。令牌只存在你这台设备的浏览器里。</div>
+    </div>
+    <div class="data-actions">
+      <button class="btn btn-primary" onclick="syncTest()">测试连接</button>
+      <button class="btn btn-ghost" onclick="syncPull()">从云端拉取（覆盖本机）</button>
+      <button class="btn btn-ghost" onclick="syncPush()">立即推送本机数据</button>
+    </div>
+    <div class="hint" id="syncStatusText">${syncConf.lastTime? ('上次同步：'+syncConf.lastTime+' · '+syncConf.lastMsg) : '尚未同步过。填好仓库和令牌后点「测试连接」。'}</div>
+  </div>`;
+  html += `<div class="card">
+    <div class="card-title">🏷 任务类型管理 <span class="sub">自定义分类，随时增删</span></div>
+    ${state.taskTypes.map((x,i)=>`<div class="type-row"><span style="flex:1">${esc(x)}</span><button class="icon-btn" title="删除" onclick="removeType(${i})" ${state.taskTypes.length<=1?'disabled':''}>✕</button></div>`).join('')}
+    <div style="display:flex;gap:6px;margin-top:10px">
+      <input class="input" id="newType" placeholder="新增分类，如：摄影" style="flex:1">
+      <button class="btn btn-ghost" onclick="addType()">添加</button>
+    </div>
+  </div>`;
+  html += `<div class="card">
+    <div class="card-title">ℹ️ 关于</div>
+    <div class="hint" style="line-height:1.9">
+      设计工作台 v1.0 · 个人设计师任务与项目进度管理<br>
+      · 任务状态：🟡未开始 🔵进行中 🟢已完成 🔴延期 ⚫放弃<br>
+      · 截止日期已过且未完成的任务会自动标记为「延期」<br>
+      · 任务排序：延期 → 今天截止 → 高优先级 → 即将截止 → 普通 → 长期<br>
+      · 所有数据仅保存在本机浏览器（localStorage），可导出 JSON 备份
+    </div>
+  </div>`;
+  document.getElementById('view-data').innerHTML = html;
+}
+function syncReadForm(){
+  syncConf.enabled = document.getElementById('sync_enabled').checked;
+  syncConf.repo = document.getElementById('sync_repo').value.trim();
+  syncConf.token = document.getElementById('sync_token').value.trim();
+}
+function toggleSync(){
+  syncReadForm();
+  saveSyncConf();
+  toast(syncConf.enabled? '云端同步已启用 ☁️':'已关闭云端同步');
+  renderData();
+}
+function syncStatusText(msg, ok){
+  const el = document.getElementById('syncStatusText');
+  if(el) el.textContent = msg;
+  toast(msg);
+}
+async function syncTest(){
+  syncReadForm(); saveSyncConf();
+  if(!syncRepoName() || !syncConf.token){ syncStatusText('请先填写仓库和令牌'); return; }
+  syncStatusText('正在测试连接…');
+  try{
+    const data = await githubGet('/repos/'+syncRepoName()+'/contents/data.json');
+    if(data===null) syncStatusText('✅ 连接成功！仓库就绪（云端还没有数据，点「立即推送」上传当前数据）');
+    else syncStatusText('✅ 连接成功！云端已有数据（点「从云端拉取」载入到本机）');
+  }catch(e){
+    syncStatusText('❌ 连接失败：'+e.message+'。请检查仓库名和令牌（token 需授权该仓库 Contents 读写）');
+  }
+}
+async function syncPull(){
+  syncReadForm(); saveSyncConf();
+  syncStatusText('正在从云端拉取…');
+  try{
+    const r = await pullFromGithub();
+    syncStatusText(r.ok? ('✅ '+r.msg) : '⚠ '+r.msg);
+    if(r.ok && r.exists){ syncConf.lastMsg='synced'; saveSyncConf(); renderCurrent(); }
+  }catch(e){ syncStatusText('❌ 拉取失败：'+e.message); }
+}
+async function syncPush(){
+  syncReadForm(); saveSyncConf();
+  syncStatusText('正在推送…');
+  try{
+    const r = await pushToGithub();
+    if(r.ok){
+      syncConf.lastTime = new Date().toLocaleString('zh-CN',{hour12:false});
+      syncConf.lastMsg='synced'; saveSyncConf();
+      syncStatusText('✅ 已推送 '+state.tasks.length+' 个任务、'+state.projects.length+' 个项目到云端');
+    }
+  }catch(e){ syncStatusText('❌ 推送失败：'+e.message); }
+}
+async function initSync(){
+  if(!syncConf.enabled || !syncRepoName() || !syncConf.token){ setSyncDot(); return; }
+  syncDotEl().className='sync-dot syncing';
+  try{
+    const r = await pullFromGithub();
+    if(r.ok){
+      if(r.exists){ syncConf.lastMsg='synced'; saveSyncConf(); renderCurrent(); toast('已从云端载入最新数据 ☁️'); }
+      else{ toast('云端暂无数据，以本机数据为准'); }
+    }
+  }catch(e){
+    syncConf.lastMsg='offline'; saveSyncConf();
+    toast('⚠ 云端同步失败：'+e.message+'（使用本机数据）');
+  }
+}
+function renderCurrent(){
+  if(currentView==='dashboard') renderDashboard();
+  else if(currentView==='tasks') renderTasks();
+  else if(currentView==='projects') renderProjects();
+  else if(currentView==='plans') renderPlans();
+  else if(currentView==='summary') renderSummary();
+  else if(currentView==='data') renderData();
+}
+
+function exportData(){
+  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = '设计工作台备份_' + todayStr() + '.json';
+  a.click();
+  URL.revokeObjectURL(a.href);
+  toast('备份已导出 ✅');
+}
+function importData(ev){
+  const file = ev.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = e=>{
+    try{
+      const d = JSON.parse(e.target.result);
+      if(!d || d.version!==1){ throw new Error('bad'); }
+      if(!confirm('导入将覆盖当前所有数据，确定继续吗？')) return;
+      state = d;
+      save();
+      toast('导入成功 ✅');
+      switchView('dashboard');
+    }catch(err){ toast('导入失败：文件格式不正确'); }
+  };
+  reader.readAsText(file);
+}
+function clearAll(){
+  if(!confirm('确定清空所有数据吗？此操作不可恢复，建议先导出备份！')) return;
+  state = defaultData();
+  save();
+  toast('已清空');
+  switchView('dashboard');
+}
+function addType(){
+  const inp = document.getElementById('newType');
+  const v = inp.value.trim();
+  if(!v) return;
+  if(state.taskTypes.includes(v)){ toast('该分类已存在'); return; }
+  state.taskTypes.push(v);
+  inp.value='';
+  save();
+  renderData();
+}
+function removeType(i){
+  const v = state.taskTypes[i];
+  if(!confirm(`确定删除分类「${v}」吗？（已使用该分类的任务不受影响）`)) return;
+  state.taskTypes.splice(i,1);
+  save();
+  renderData();
+}
+
+/* =====================================================================
+   示例数据
+===================================================================== */
+function loadSample(){
+  if(state.tasks.length || state.projects.length){
+    if(!confirm('载入示例会合并进现有数据（示例项目/任务会追加），继续吗？')) return;
+  }
+  const today = todayStr();
+  // 项目：抽屉把手设计比赛（10 阶段）
+  const stages = ['收集灵感','确定设计方向','草图','3D建模','结构优化','3D打印测试','修改模型','渲染图片','编写介绍','投稿'].map((name,i)=>({name, done: i<7}));
+  const p1 = {id:'p_sample1', name:'抽屉把手设计比赛', type:'比赛', importance:'high', start: addDays(today,-12), due: addDays(today,9), status:'doing', stages};
+  const p2 = {id:'p_sample2', name:'手机支架产品设计', type:'设计', importance:'mid', start: addDays(today,-5), due: addDays(today,14), status:'doing', stages:[{name:'需求分析',done:true},{name:'草图',done:true},{name:'3D建模',done:false},{name:'结构优化',done:false},{name:'打印测试',done:false}]};
+  const p3 = {id:'p_sample3', name:'闲鱼店铺运营', type:'店铺运营', importance:'low', start: addDays(today,-20), due:'', status:'doing', stages:[{name:'整理库存',done:true},{name:'拍照上架',done:false},{name:'定价策略',done:false}]};
+
+  // 任务
+  const t1 = {id:'s1', name:'完成抽屉把手模型初稿', project:'p_sample1', type:'比赛', priority:'high', status:'doing', createdAt:addDays(today,-3), planStart:today, due:addDays(today,2), est:3, notes:'参考 MakerWorld 热门把手设计，采用圆弧握把+防滑纹路', finishDate:''};
+  const t2 = {id:'s2', name:'修改手机支架结构', project:'p_sample2', type:'建模', priority:'high', status:'todo', createdAt:addDays(today,-6), planStart:today, due:addDays(today,-3), est:2, notes:'', finishDate:''};  // 已延期3天
+  const t3 = {id:'s3', name:'发布一个3D模型到 MakerWorld', project:'', type:'视频/内容', priority:'mid', status:'todo', createdAt:addDays(today,-1), planStart:today, due:today, est:0.5, notes:'', finishDate:''};
+  const t4 = {id:'s4', name:'渲染比赛作品图片', project:'p_sample1', type:'渲染', priority:'mid', status:'todo', createdAt:addDays(today,-2), planStart:addDays(today,1), due:addDays(today,6), est:4, notes:'', finishDate:''};
+  const t5 = {id:'s5', name:'3D打印测试：抽屉把手', project:'p_sample1', type:'3D打印', priority:'low', status:'todo', createdAt:addDays(today,-1), planStart:addDays(today,2), due:addDays(today,5), est:2, notes:'', finishDate:''};
+  const t6 = {id:'s6', name:'给手机支架拍上架图', project:'p_sample3', type:'店铺运营', priority:'low', status:'done', createdAt:addDays(today,-2), planStart:addDays(today,-1), due:addDays(today,-1), est:1, notes:'', finishDate:addDays(today,-1)};
+
+  state.projects.push(...[p1,p2,p3]);
+  state.tasks.push(...[t1,t2,t3,t4,t5,t6]);
+  // 今日计划：上午/下午/晚上
+  state.dailyPlans[today] = {
+    morning:[{taskId:'s1', text:t1.name, done:false}],
+    afternoon:[{taskId:'s2', text:t2.name, done:false},{taskId:'s3', text:t3.name, done:false}],
+    evening:[{taskId:'s5', text:t5.name, done:false}]
+  };
+  save();
+  toast('示例数据已载入（含 1 个延期任务演示）');
+  switchView('dashboard');
+}
+
+/* =====================================================================
+   弹窗 & Toast
+===================================================================== */
+function showModal(id){ document.getElementById(id).classList.add('show'); }
+function closeModal(id){ document.getElementById(id).classList.remove('show'); }
+document.querySelectorAll('.modal-mask').forEach(m=>{
+  m.addEventListener('click', e=>{ if(e.target===m) m.classList.remove('show'); });
+});
+document.getElementById('f_delete').addEventListener('click', ()=>{
+  const id = document.getElementById('f_id').value;
+  if(id) deleteTask(id);
+});
+document.getElementById('p_delete').addEventListener('click', ()=>{
+  const id = document.getElementById('p_id').value;
+  if(id) deleteProject(id);
+});
+
+let toastTimer = null;
+function toast(msg){
+  const el = document.getElementById('toast');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>el.classList.remove('show'), 2400);
+}
+
+/* =====================================================================
+   启动
+===================================================================== */
+function init(){
+  renderNav();
+  // 首次使用引导
+  if(!state.sampleLoaded && !state.tasks.length && !state.projects.length){
+    state.sampleLoaded = true;
+    loadSample();
+  }
+  switchView(currentView);
+  initSync();
+}
+function tickHeader(){
+  const now = new Date();
+  document.getElementById('headerDate').innerHTML = `${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())} 星期${weekdayCN(now)}`;
+}
+tickHeader();
+setInterval(tickHeader, 30000);
+init();
+</script>
+</body>
+</html>
