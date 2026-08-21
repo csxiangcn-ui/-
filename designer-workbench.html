@@ -221,7 +221,7 @@ main{max-width:1080px;margin:0 auto;padding:18px 16px 40px}
   <div class="nav-inner">
     <div class="logo"><span class="dot">设</span>设计工作台</div>
     <nav class="nav-tabs" id="navTabs"></nav>
-    <div class="header-date"><span id="syncDot" class="sync-dot never" title="未启用云端同步"></span><span id="headerDate"></span></div>
+    <div class="header-date"><span id="syncDot" class="sync-dot never" title="未启用云端同步"></span><span id="syncLabel">本地模式</span><span id="headerDate"></span></div>
   </div>
 </header>
 
@@ -395,9 +395,11 @@ async function githubPut(path, body){
 function syncDotEl(){ return document.getElementById('syncDot'); }
 function setSyncDot(){
   const el = syncDotEl(); if(!el) return;
-  if(!syncConf.enabled || !syncRepoName() || !syncConf.token){ el.className='sync-dot never'; el.title='未启用云端同步'; return; }
+  const lbl = document.getElementById('syncLabel');
+  if(!syncConf.enabled || !syncRepoName() || !syncConf.token){ el.className='sync-dot never'; el.title='未启用云端同步'; if(lbl) lbl.textContent='本地模式 · 数据仅存本机'; return; }
   el.className='sync-dot '+(syncConf.lastMsg||'never');
   el.title = syncConf.lastTime? ('上次同步：'+syncConf.lastTime) : '已配置，等待首次同步';
+  if(lbl) lbl.textContent = syncConf.lastMsg==='synced'? '☁ 已同步到云端' : (syncConf.lastMsg==='offline'? '⚠ 离线模式' : '同步中…');
 }
 async function pullFromGithub(){
   const repo = syncRepoName();
@@ -1252,7 +1254,8 @@ function renderData(){
       · 任务状态：🟡未开始 🔵进行中 🟢已完成 🔴延期 ⚫放弃<br>
       · 截止日期已过且未完成的任务会自动标记为「延期」<br>
       · 任务排序：延期 → 今天截止 → 高优先级 → 即将截止 → 普通 → 长期<br>
-      · 所有数据仅保存在本机浏览器（localStorage），可导出 JSON 备份
+      · 所有数据仅保存在本机浏览器（localStorage），可导出 JSON 备份；启用云端同步后数据存你的 GitHub 私有仓库
+      · 隐私：本页面代码公开，但数据需要访问令牌才能读取；未配置令牌的访客看不到你的任何数据
     </div>
   </div>`;
   document.getElementById('view-data').innerHTML = html;
