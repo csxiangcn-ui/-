@@ -1,6 +1,6 @@
 {
   "_comment": "3D模型网站比赛数据 - 自动抓取更新。status: ongoing|upcoming|judging|ended",
-  "last_update": "2026-08-24 09:13",
+  "last_update": "2026-08-25 16:00",
   "contests": [
     {
       "name": "和平精英：刺激之夜模型创作大赛",
@@ -217,15 +217,6 @@
       "end": "2026-08-27",
       "status": "ongoing",
       "url": "https://www.makeronline.com/zh/contest/%E7%8E%A9%E5%85%B7%E7%81%AB%E8%BD%A6%E4%B8%96%E7%95%8C%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/196.html"
-    },
-    {
-      "site": "makeronline",
-      "name": "实验器材设计大赛",
-      "desc": "让我们一起创造赋能科学实践学习的工具吧！",
-      "start": "2026-07-17",
-      "end": "2026-08-17",
-      "status": "judging",
-      "url": "https://www.makeronline.com/zh/contest/%E5%AE%9E%E9%AA%8C%E5%99%A8%E6%9D%90%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/195.html"
     },
     {
       "site": "makeronline",
@@ -478,6 +469,15 @@
       "end": "2026-09-20",
       "status": "ongoing",
       "url": "https://www.crealitycloud.com/contest/Plant-Inspired-Homeware"
+    },
+    {
+      "site": "creality-intl",
+      "name": "Creative Bookmarks Design Contest",
+      "desc": "A great bookmark doesn't just mark your page—it adds a little personality to every reading moment. Turn your creativity into something readers can see, touch, and enjoy.",
+      "start": "2026-08-23",
+      "end": "2026-09-06",
+      "status": "ongoing",
+      "url": "https://www.crealitycloud.com/contest/Creative-Bookmarks"
     },
     {
       "site": "makerworld-intl",
