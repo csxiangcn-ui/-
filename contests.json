@@ -1,6 +1,6 @@
 {
   "_comment": "3D模型网站比赛数据 - 自动抓取更新。status: ongoing|upcoming|judging|ended",
-  "last_update": "2026-08-25 16:00",
+  "last_update": "2026-08-26 09:10",
   "contests": [
     {
       "name": "和平精英：刺激之夜模型创作大赛",
@@ -457,7 +457,7 @@
       "desc": "",
       "start": "2026-07-07",
       "end": "2026-08-25",
-      "status": "ongoing",
+      "status": "judging",
       "url": "https://models.snapmaker.com/contest/2",
       "site": "snapmaker"
     },
@@ -485,7 +485,7 @@
       "desc": "竞赛预告，即将开始。",
       "start": "2026-08-26",
       "end": "2026-09-26",
-      "status": "upcoming",
+      "status": "ongoing",
       "url": "https://makerworld.com/en/contests"
     }
   ]
