@@ -1,6 +1,6 @@
 {
   "_comment": "3D模型网站比赛数据 - 自动抓取更新。status: ongoing|upcoming|judging|ended",
-  "last_update": "2026-08-28 09:11",
+  "last_update": "2026-08-31 08:37",
   "contests": [
     {
       "name": "和平精英：刺激之夜模型创作大赛",
@@ -115,7 +115,7 @@
       "desc": "一支粉笔写春秋，一份心意暖师恩。这个教师节，用3D打印亲手制作一份专属祝福，让感谢不止停留在一句“老师，辛苦了”。",
       "start": "2026-08-31",
       "end": "2026-09-13",
-      "status": "upcoming",
+      "status": "ongoing",
       "url": "https://m.crealitycloud.cn/contest/Teachers-Day",
       "site": "creality-cn"
     },
@@ -133,7 +133,7 @@
       "desc": "从居家到户外，发挥你的脑洞，设计能消暑的夏季好物，让清凉不止停留在空调房。",
       "start": "2026-08-17",
       "end": "2026-08-30",
-      "status": "ongoing",
+      "status": "judging",
       "url": "https://m.crealitycloud.cn/contest/Summer-Cooling-Items",
       "site": "creality-cn"
     },
@@ -178,9 +178,18 @@
       "desc": "一个好看的把手，能让整面柜子活起来；一个有创意的把手，能让每次拉开的动作都多一分期待。🌿 快把那日常的五金件，变成桌面上的小惊喜、小彩蛋、小幽默。",
       "start": "2026-07-25",
       "end": "2026-08-30",
-      "status": "ongoing",
+      "status": "judging",
       "url": "https://m.crealitycloud.cn/contest/Drawer-Handle",
       "site": "creality-cn"
+    },
+    {
+      "name": "光影中国 3D打印中国风灯具设计大赛",
+      "desc": "",
+      "start": "2026-08-31",
+      "end": "2026-09-30",
+      "status": "ongoing",
+      "url": "https://www.joykings3d.com/activitys/detail/23",
+      "site": "joykings3d"
     },
     {
       "name": "毛孩子的时髦日常  3D打印猫狗装饰设计大赛",
@@ -189,15 +198,6 @@
       "end": "2026-09-17",
       "status": "ongoing",
       "url": "https://www.joykings3d.com/activitys/detail/22",
-      "site": "joykings3d"
-    },
-    {
-      "name": "「支」撑创意・架趣无限  3D打印手机支架设计征集大赛",
-      "desc": "",
-      "start": "2026-08-12",
-      "end": "2026-08-26",
-      "status": "judging",
-      "url": "https://www.joykings3d.com/activitys/detail/21",
       "site": "joykings3d"
     },
     {
@@ -241,7 +241,7 @@
       "desc": "Bigger Rewards, More Winners—Join KitCard Design Contest!",
       "start": "2026-07-24",
       "end": "2026-08-30",
-      "status": "ongoing",
+      "status": "judging",
       "url": "https://www.crealitycloud.com/contest/KitCard",
       "site": "creality-intl"
     },
@@ -324,15 +324,6 @@
       "end": "2026-10-08",
       "status": "ongoing",
       "url": "https://makerworld.com.cn/zh/contests/86",
-      "site": "makerworld-cn"
-    },
-    {
-      "name": "创作者挑战赛: @天门计划 国防装备设计竞赛",
-      "desc": "国防装备主题设计竞赛。笔尖绘国防，3D'印'铁甲。",
-      "start": "2026-07-29",
-      "end": "2026-08-30",
-      "status": "ongoing",
-      "url": "https://makerworld.com.cn/zh/contests/82",
       "site": "makerworld-cn"
     },
     {
