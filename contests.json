@@ -1,6 +1,6 @@
 {
   "_comment": "3D模型网站比赛数据 - 自动抓取更新。status: ongoing|upcoming|judging|ended",
-  "last_update": "2026-09-01 14:26",
+  "last_update": "2026-09-02 09:05",
   "contests": [
     {
       "name": "和平精英：刺激之夜模型创作大赛",
@@ -273,7 +273,7 @@
     },
     {
       "name": "Mechanical Motion Elite Design Challenge",
-      "desc": "Make the mechanism move. Make the idea come alive.",
+      "desc": "全新旗舰级赛事。我们邀请创作者突破3D打印机械设计的无限可能，打造融合创意机构、功能运动、工程巧思与可打印性的高品质模型。",
       "start": "2026-08-28",
       "end": "2026-10-11",
       "status": "ongoing",
@@ -467,6 +467,35 @@
       "end": "",
       "status": "upcoming",
       "url": "https://makerworld.com/en/contests",
+      "site": "makerworld-intl"
+    },
+    {
+      "name": "平板3D创意周边&电竞生态设计大赛",
+      "desc": "我们期待的不只是一个好看的3D模型， 而是一个真正有机会从创意走向产品的设计。 联想无界，创想有形。",
+      "start": "2026-09-01",
+      "end": "2026-10-31",
+      "status": "ongoing",
+      "url": "https://m.crealitycloud.cn/contest/Lenovo3D",
+      "acStatus": 2,
+      "site": "creality-cn"
+    },
+    {
+      "name": "MOKI打印挑战",
+      "desc": "打印你的专属 Moki，分享作品赢积分，还有机会赢取 20,000 创想币 + K2 Plus！",
+      "start": "2026-08-31",
+      "end": "2026-09-30",
+      "status": "ongoing",
+      "url": "https://m.crealitycloud.cn/contest/MOKI-Print-Challenge",
+      "acStatus": 2,
+      "site": "creality-cn"
+    },
+    {
+      "name": "Hosted by Creator: @SUSANFANG - Brooch Design Challenge",
+      "desc": "Illusion & Hope",
+      "start": "2026-09-01",
+      "end": "2026-10-08",
+      "status": "ongoing",
+      "url": "https://makerworld.com/en/contests/162",
       "site": "makerworld-intl"
     }
   ]
