@@ -1,30 +1,37 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-3D 打印比赛聚合 - 云端独立抓取脚本
-替代 WorkBuddy WebFetch 依赖，可在 GitHub Actions(无头环境) 中独立运行。
+3D 打印比赛聚合 - 家庭/云端独立更新脚本（不依赖 WorkBuddy，可无人值守）
+替代 WorkBuddy WebFetch 依赖，在家用电脑 / GitHub Actions(无头环境) 中独立运行。
 
 抓取策略：
-- 纯 HTTP/API（无需浏览器）：creality-cn, creality-intl, makeroad, joykings3d,
-  makeronline(Nuxt 内嵌JSON经 node 求值), snapmaker(Next.js RSC 转义JSON正则提取)
-- 需 Playwright 无头浏览器：makerworld-cn, makerworld-intl, jlc, nexprint(客户端水合)
+- 纯 HTTP/API（无需浏览器）：creality-cn, creality-intl, makeroad, joykings3d(jhx3d),
+  snapmaker(Next.js RSC 转义JSON正则提取)
+- 需 Playwright 无头浏览器：makerworld-cn, makerworld-intl, jlc, nexprint, makeronline(客户端水合)
 
-合并原则（增量、不删旧数据）：
-- 以 (site, name) 为键，旧数据优先保留；
-- 新抓到且同名的比赛，更新其 desc/start/end/status/url；
-- 新抓到且名字不存在的比赛，新增；
-- 某平台抓取失败(返回 None) 时，该平台旧数据原样保留，绝不删除。
+合并原则（增量、逐平台、不删旧数据）：
+- 抓取失败(返回 None)的平台：该平台旧条目原样保留，绝不删除。
+- 抓取成功的平台：旧条目与新抓列表两轮匹配（name→url，每个新条目只消费一次），
+  匹配成功更新 desc/start/end/status（url 仅 name 匹配成功时覆盖）；
+  旧条目未匹配且已过 end → 移除；end 未到 → 保留（防新列表不完整误删）。
+- status=ended 的新条目不写入（已结束比赛不展示，与页面过滤逻辑一致）。
 
 注意：
 - 纵维立方(makeronline) 截止时间页面标注 "YYYY-MM-DD 00:00:00"，实际最后参赛日为前一天，
   该平台 end 统一 -1 天。
-- 已结束(ended) 比赛仍写入 contests.json（与历史数据保持一致），由 generate_page.py 页面端过滤。
+- 几何芯(joykings3d) 2026-09-05 起中文站迁移到 www.jhx3d.com（SSR），见 fetch_joykings3d()。
+- 无 Playwright 时 makeronline/makerworld/jlc/nexprint 会跳过并保留旧数据（脚本仍可用）。
+
+用法：
+    python scripts/fetch_contests.py            # 抓取+合并+生成 HTML
+    python scripts/fetch_contests.py --no-html  # 只更新 contests.json
 """
 
 import json
 import re
 import sys
 import os
+import argparse
 import subprocess
 import datetime
 from pathlib import Path
@@ -93,7 +100,11 @@ def strip_html(s):
     return re.sub(r"\s+", " ", s).strip()
 
 
-def ts_date(ts, unit="s"):
+def ts_date(ts, unit="s", tz="local"):
+    """秒级/毫秒级时间戳转 YYYY-MM-DD。
+    tz: 'local'=按本机时区(东八区家用电脑)转换；'utc'=按 UTC 转换。
+    创想云国内 API 时间戳为「中国时区整点」(start=00:00:00/end=23:59:59)，应传 local；
+    创想云国际 API 时间戳为 UTC 整点，应传 utc（用 local 会把日期 +1 天）。"""
     try:
         ts = float(ts)
     except (TypeError, ValueError):
@@ -101,8 +112,11 @@ def ts_date(ts, unit="s"):
     if unit == "ms":
         ts /= 1000.0
     try:
-        return datetime.datetime.fromtimestamp(
-            ts, tz=datetime.timezone.utc).strftime("%Y-%m-%d")
+        if tz == "utc":
+            dt = datetime.datetime.fromtimestamp(ts, tz=datetime.timezone.utc)
+        else:
+            dt = datetime.datetime.fromtimestamp(ts)
+        return dt.strftime("%Y-%m-%d")
     except (ValueError, OSError):
         return ""
 
@@ -144,7 +158,7 @@ def status_from_text(t):
     if "已结束" in t or "ended" in t or "关闭" in t:
         return "ended"
     if "评审" in t or "review" in t or "judg" in t:
-        return "reviewing"
+        return "judging"
     if "报名" in t or "upcoming" in t or "未开始" in t or "即将" in t or "预告" in t:
         return "upcoming"
     return "ongoing"
@@ -154,8 +168,9 @@ def status_from_text(t):
 # 各平台抓取器（返回 list[dict]，或 None 表示抓取失败）
 # ----------------------------------------------------------------------------
 
-def _creality_fetch(url, headers, body_base):
-    """创想云列表通用抓取（带分页，activityType=9 模型设计比赛）。"""
+def _creality_fetch(url, headers, body_base, tz="local"):
+    """创想云列表通用抓取（带分页，activityType=9 模型设计比赛）。
+    tz: 国内 API 传 local（中国时区整点），国际 API 传 utc。"""
     out = []
     seen = 0
     total = None
@@ -171,7 +186,7 @@ def _creality_fetch(url, headers, body_base):
             if a.get("activityType") != 9:
                 continue
             ac = a.get("acStatus")
-            st = {1: "upcoming", 2: "ongoing", 6: "reviewing", 3: "ended"}.get(ac, "ongoing")
+            st = {1: "upcoming", 2: "ongoing", 6: "judging", 3: "ended"}.get(ac, "ongoing")
             if st == "ended":
                 # 跳过已结束：创想云 API 会返回海量历史结束比赛，已结束不展示，
                 # 历史 ended 由 merge 沿用旧数据保留，避免 JSON 被历史数据撑爆。
@@ -191,8 +206,8 @@ def _creality_fetch(url, headers, body_base):
             out.append({
                 "name": (a.get("name") or "").strip(),
                 "desc": strip_html(a.get("desc", "")),
-                "start": ts_date(a.get("startTime")),
-                "end": ts_date(a.get("endTime")),
+                "start": ts_date(a.get("startTime"), tz=tz),
+                "end": ts_date(a.get("endTime"), tz=tz),
                 "status": st,
                 "url": u,
             })
@@ -204,13 +219,16 @@ def _creality_fetch(url, headers, body_base):
 
 
 def fetch_creality_cn():
+    # 国内站：startTime/endTime 为中国时区整点 → 本地时区转换
     return _creality_fetch(
         "https://api.crealitycloud.cn/api/cxy/v2/allActivity/list",
         {"Origin": "https://m.crealitycloud.cn"},
-        {"pageSize": 100, "lang": "zh"})
+        {"pageSize": 100, "lang": "zh"},
+        tz="local")
 
 
 def fetch_creality_intl():
+    # 国际站：时间戳为 UTC 整点 → UTC 转换（用本地会 +1 天）
     return _creality_fetch(
         "https://www.crealitycloud.com/api/cxy/v2/allActivity/list",
         {
@@ -220,7 +238,8 @@ def fetch_creality_intl():
             "__CXY_APP_ID_": "cxy-gen2",
             "__CXY_APP_VER_": "7.3.20",
         },
-        {"pageSize": 100, "platforms": [2, 3], "status": 0})
+        {"pageSize": 100, "platforms": [2, 3], "status": 0},
+        tz="utc")
 
 
 def fetch_makeroad():
@@ -229,7 +248,8 @@ def fetch_makeroad():
     d = json.loads(http_get("https://www.makeroad.com/api/contest/list", h))
     out = []
     for r in d["data"]["list"]:
-        st = {3: "ongoing", 5: "ended"}.get(r.get("status"), "ongoing")
+        # status: 3=进行中, 4=评审中(judging, 投稿截止未出结果), 5=已结束
+        st = {3: "ongoing", 4: "judging", 5: "ended"}.get(r.get("status"), "ongoing")
         if st == "ended":
             continue  # 跳过已结束，历史 ended 由 merge 保留
         out.append({
@@ -243,32 +263,99 @@ def fetch_makeroad():
     return out
 
 
+def _extract_next_records(html):
+    """从 Next.js RSC payload(self.__next_f.push) 中提取 records 数组。
+    返回 list[dict] 或 None。"""
+    m = None
+    for pm in re.finditer(r'self\.__next_f\.push\(\[1,"(.*?)"\]\)', html, re.S):
+        if '"competitionId"' in pm.group(1) or 'records' in pm.group(1):
+            m = pm
+            break
+    if not m:
+        return None
+    raw = m.group(1)
+    # 还原 JS 字符串字面量的最外层转义
+    out_chars = []
+    i = 0
+    while i < len(raw):
+        c = raw[i]
+        if c == "\\" and i + 1 < len(raw):
+            n = raw[i + 1]
+            if n == '"':
+                out_chars.append('"'); i += 2; continue
+            elif n == "\\":
+                out_chars.append("\\"); i += 2; continue
+            elif n == "n":
+                out_chars.append("\n"); i += 2; continue
+            elif n == "t":
+                out_chars.append("\t"); i += 2; continue
+            elif n == "/":
+                out_chars.append("/"); i += 2; continue
+            elif n == "u":
+                out_chars.append(raw[i:i + 6]); i += 6; continue
+            else:
+                out_chars.append(c); i += 1; continue
+        out_chars.append(c); i += 1
+    inner = "".join(out_chars)
+    idx = inner.find('"records":[')
+    if idx < 0:
+        return None
+    start = inner.find("[", idx)
+    depth = 0
+    end = None
+    for i in range(start, len(inner)):
+        if inner[i] == "[":
+            depth += 1
+        elif inner[i] == "]":
+            depth -= 1
+            if depth == 0:
+                end = i + 1
+                break
+    if end is None:
+        return None
+    seg = inner[start:end]
+    seg = re.sub(r'\\u([0-9a-fA-F]{4})',
+                 lambda x: chr(int(x.group(1), 16)), seg)
+    try:
+        return json.loads(seg)
+    except Exception:
+        return None
+
+
 def fetch_joykings3d():
-    h = {"Origin": "https://www.joykings3d.com"}
-    d = json.loads(http_post(
-        "https://www.joykings3d.com/api/web/competition/page",
-        {"page": 1, "pageSize": 100}, h))
+    """几何芯中文站 2026-09-05 起迁移至 www.jhx3d.com（joykings3d.com 只剩英文站，旧 API 全 404）。
+    列表页为 Next.js SSR，比赛数据嵌在 self.__next_f.push 的 records 数组中。"""
+    html = http_get(
+        "https://www.jhx3d.com/activitys/list",
+        {"Accept-Language": "zh-CN,zh;q=0.9"})
+    records = _extract_next_records(html)
+    if records is None:
+        return None
     out = []
-    for r in d["data"]["records"]:
+    for r in records:
         ms = r.get("miniStatus")
+        if ms in ("ended", "finished"):
+            continue  # 已结束不写入
         st = {
             "in_progress": "ongoing",
             "not_started": "upcoming",
+            "upcoming": "upcoming",
             "ended": "ended",
             "finished": "ended",
-            "review": "reviewing",
-            "reviewing": "reviewing",
+            "review": "judging",
+            "reviewing": "judging",
         }.get(ms)
         if st is None:
             st = status_by_date(str_date(r.get("regStartTime")),
                                 str_date(r.get("regEndTime")))
+        cid = r.get("competitionId")
         out.append({
-            "name": (r.get("title") or "").replace("\\n", " ").replace("\n", " ").strip(),
-            "desc": (r.get("subtitle") or "").strip(),
+            "name": " ".join((r.get("title") or "").replace("\\n", " ").replace("\n", " ").split()),
+            "desc": " ".join((r.get("subtitle") or "").split()),
             "start": str_date(r.get("regStartTime")),
             "end": str_date(r.get("regEndTime")),
             "status": st,
-            "url": f"https://www.joykings3d.com/activitys/detail/{r.get('competitionId')}",
+            "url": f"https://www.jhx3d.com/activitys/detail/{cid}",
         })
     return out
 
@@ -307,9 +394,8 @@ def fetch_snapmaker_page(pid):
     name = _snapmaker_name_lookup(pid) or f"Snapmaker Contest {pid}"
     start = str_date(pairs.get("contestStartAt"))
     end = str_date(pairs.get("contestEndAt"))
-    st = status_from_text(pairs.get("statusDesc", ""))
-    if st == "ongoing" and start and end:
-        st = status_by_date(start, end)
+    # 状态优先用页面时间线判断：比赛提交已截止但处于评审期 → judging
+    st = _snapmaker_status(html, start, end)
     return [{
         "name": name,
         "desc": strip_html(pairs.get("contestDesc", "")),
@@ -318,6 +404,45 @@ def fetch_snapmaker_page(pid):
         "status": st,
         "url": f"https://models.snapmaker.com/contest/{pid}",
     }]
+
+
+def _snapmaker_status(html, sub_start, sub_end):
+    """按页面 Timeline 文本判断快造比赛状态：
+    Submission 截止后进入 Review 期(judging)，Winners 公布后才是 ended。
+    返回 ongoing / judging / upcoming / ended 之一。"""
+    def to_date(mon, day, year):
+        try:
+            return datetime.datetime.strptime(f"{mon} {day} {year}", "%b %d %Y").date()
+        except ValueError:
+            return None
+
+    today = datetime.date.today()
+    win_date = None
+    m_win = re.search(r"Winners Announced:\s*([A-Z][a-z]{2})\s+(\d{1,2})"
+                      r"(?:st|nd|rd|th)?,?\s+(\d{4})", html)
+    if m_win:
+        win_date = to_date(m_win.group(1), m_win.group(2), m_win.group(3))
+        if win_date and today > win_date:
+            return "ended"  # 已公布结果 → 已结束
+    # 评审窗口判定：找到 Review 段起止
+    m_rev = re.search(r"Review:\s*([A-Z][a-z]{2})\s+(\d{1,2})"
+                      r"(?:st|nd|rd|th)?\s+to\s+([A-Z][a-z]{2})\s+(\d{1,2}),?\s+(\d{4})", html)
+    if m_rev:
+        d1 = to_date(m_rev.group(1), m_rev.group(2), m_rev.group(5))
+        d2 = to_date(m_rev.group(3), m_rev.group(4), m_rev.group(5))
+        if d1 and d2 and d1 <= today <= d2:
+            return "judging"
+    # 提交已截止且结果未公布 → 评审中
+    try:
+        e = datetime.date.fromisoformat(sub_end) if sub_end else None
+        s = datetime.date.fromisoformat(sub_start) if sub_start else None
+    except ValueError:
+        e = s = None
+    if e and today > e and not (win_date and today > win_date):
+        return "judging"
+    if s and today < s:
+        return "upcoming"
+    return "ongoing"
 
 
 # ---- Playwright 组（需浏览器） ----
@@ -491,40 +616,89 @@ def _makeronline_parse(page):
 # 合并
 # ----------------------------------------------------------------------------
 
-def _key(s):
-    """合并去重用的归一化键：去除中间点(·•)两侧空格，避免同场比赛因格式差异被判为两条。"""
+def _norm_name(s):
+    """归一化比赛名用于匹配：去除空白、统一中间点（·•）两侧空格。"""
     s = (s or "").strip()
     s = re.sub(r"\s*([·•・·])\s*", r"\1", s)
-    return s
+    return "".join(s.split()).lower()
 
 
-def merge(existing, fresh_blocks):
+def _match_and_consume(oc, fresh, used):
+    """两轮匹配：第一轮按 name、第二轮按 url；每个新条目只消费一次。
+    返回 (fresh_item, matched_by) 或 (None, None)。"""
+    for i, fc in enumerate(fresh):
+        if (not used[i] and oc.get("name") and fc.get("name")
+                and _norm_name(oc["name"]) == _norm_name(fc["name"])):
+            used[i] = True
+            return fc, "name"
+    for i, fc in enumerate(fresh):
+        if (not used[i] and oc.get("url") and fc.get("url")
+                and _norm_name(oc["url"]) == _norm_name(fc["url"])):
+            used[i] = True
+            return fc, "url"
+    return None, None
+
+
+def merge(existing, fresh_blocks, today=None):
     """
-    按平台整体替换式合并（增量、不丢历史）：
-    - 抓取失败(返回 None)的平台：旧块原样保留；
-    - 抓取成功的平台：写入新抓到的全部条目(含已结束)，
-      并额外保留"旧数据中已结束、且新抓取未返回"的历史条目（避免丢失已结束历史）。
-    归一化键(_key)用于匹配，避免同一比赛因名称里 · 两侧空格不同被判重。
+    逐平台增量合并（与 WorkBuddy AI 版 update_contests_*.py 语义一致）：
+    - 抓取失败(返回 None/空)的平台：旧条目原样保留（防 WebFetch/网络不完整误删）；
+    - 抓取成功的平台：旧条目与新列表两轮匹配(name→url，每个新条目只消费一次)，
+      匹配成功则更新字段；旧条目未匹配且 end < today → 移除（已结束/下架）；
+      end 未到但未匹配 → 保留（防新抓列表不完整误删）；
+      新列表未被消费的条目 → 追加。
+    - url 仅在 name 匹配成功时允许覆盖（预告转正式/域名迁移场景）；
+      url 兜底匹配不覆盖 url（防同 URL 平台串改，如 nexprint 共用主站 URL）。
+    - status=ended 的新条目不写入（已结束比赛不显示）。
     """
+    today = today or datetime.date.today()
     existing_by_site = {}
     for c in existing:
         existing_by_site.setdefault(c.get("site"), []).append(c)
 
     result = []
     replaced = set(fresh_blocks.keys())
-    # 1) 未被替换的平台：原样保留
+    # 1) 未被抓取/抓取失败平台：原样保留
     for c in existing:
         if c.get("site") not in replaced:
             result.append(c)
-    # 2) 被替换的平台：写新数据(全部) + 旧 ended 历史(未在新数据中出现的)
-    for site, items in fresh_blocks.items():
-        fresh_keys = {_key(it["name"]) for it in items}
-        for it in items:
-            it["site"] = site
-            result.append(it)  # 写入全部新数据（含 ended）
-        for c in existing_by_site.get(site, []):
-            if c.get("status") == "ended" and _key(c.get("name")) not in fresh_keys:
-                result.append(c)  # 保留旧 ended 历史
+    # 2) 抓取成功的平台：增量合并
+    for site, fresh in fresh_blocks.items():
+        # 过滤已结束的新条目
+        fresh_active = [f for f in fresh if f.get("status") != "ended"]
+        old_items = existing_by_site.get(site, [])
+        used = [False] * len(fresh_active)
+        site_out = []
+        for oc in old_items:
+            fc, matched_by = _match_and_consume(oc, fresh_active, used)
+            if fc:
+                # 仅当新值非空才覆盖；url 只在 name 匹配成功时覆盖
+                for k, v in fc.items():
+                    if k in ("name", "site"):
+                        continue
+                    if k == "url":
+                        if matched_by == "name" and v and oc.get("url") != v:
+                            oc[k] = v
+                        continue
+                    if v is not None and oc.get(k) != v:
+                        oc[k] = v
+                site_out.append(oc)
+            else:
+                end = oc.get("end") or ""
+                try:
+                    ended = bool(end) and datetime.date.fromisoformat(end) < today
+                except ValueError:
+                    ended = False
+                # 旧条目在完整列表中找不到 → 仅当确实已过截止才移除，否则保守保留
+                if oc.get("status") == "ended" or ended:
+                    continue
+                site_out.append(oc)
+        for i, fc in enumerate(fresh_active):
+            if not used[i]:
+                item = dict(fc)
+                item["site"] = site
+                site_out.append(item)
+        result.extend(site_out)
     return result
 
 
@@ -533,6 +707,10 @@ def merge(existing, fresh_blocks):
 # ----------------------------------------------------------------------------
 
 def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--no-html", action="store_true", help="只更新 contests.json，不重新生成 HTML")
+    args = ap.parse_args()
+
     SITES = {
         "creality-cn": fetch_creality_cn,
         "creality-intl": fetch_creality_intl,
@@ -573,12 +751,13 @@ def main():
     CONTESTS.write_text(json.dumps(data, ensure_ascii=False, indent=2),
                         encoding="utf-8")
 
-    # 重新生成 HTML
-    try:
-        subprocess.run([sys.executable, str(PROJECT / "generate_page.py")],
-                       cwd=PROJECT, check=True)
-    except Exception as e:
-        print(f"[warn] 生成 HTML 失败: {e}")
+    # 重新生成 HTML（除非 --no-html）
+    if not args.no_html:
+        try:
+            subprocess.run([sys.executable, str(PROJECT / "generate_page.py")],
+                           cwd=PROJECT, check=True)
+        except Exception as e:
+            print(f"[warn] 生成 HTML 失败: {e}")
 
     total = len(merged)
     active = sum(1 for c in merged if c.get("status") != "ended")

@@ -42,7 +42,7 @@ SITES = {
     "makeroad":         {"name": "三绿 (MakerRoad)",    "url": "https://www.makeroad.com/zh/contests",         "color": "#52C41A"},
     "snapmaker":        {"name": "快造 (Snapmaker)",    "url": "https://models.snapmaker.com/contest",         "color": "#722ED1"},
     "nexprint":         {"name": "爱乐酷 (Nexprint)",   "url": "https://www.nexprint.com/zh/contests",        "color": "#EB2F96"},
-    "joykings3d":       {"name": "几何芯 (JoyKings3D)", "url": "https://www.joykings3d.com/activitys/list",   "color": "#00B8A9"},
+    "joykings3d":       {"name": "几何芯 (JoyKings3D)", "url": "https://www.jhx3d.com/activitys/list",   "color": "#00B8A9"},
 }
 
 
