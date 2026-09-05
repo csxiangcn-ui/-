@@ -6,6 +6,7 @@ start.vbs
 index.html
 deploy/
 .workbuddy/
+home_deploy/
 *.pyc
 __pycache__/
 .DS_Store
