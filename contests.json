@@ -1,6 +1,6 @@
 {
   "_comment": "3D模型网站比赛数据 - 自动抓取更新。status: ongoing|upcoming|judging|ended",
-  "last_update": "2026-09-05 09:05",
+  "last_update": "2026-09-07 09:05",
   "contests": [
     {
       "name": "和平精英：刺激之夜模型创作大赛",
@@ -143,16 +143,6 @@
       "site": "creality-cn"
     },
     {
-      "name": "夏季消暑小物·模型设计大赛",
-      "desc": "从居家到户外，发挥你的脑洞，设计能消暑的夏季好物，让清凉不止停留在空调房。",
-      "start": "2026-08-17",
-      "end": "2026-08-30",
-      "status": "judging",
-      "url": "https://m.crealitycloud.cn/contest/Summer-Cooling-Items",
-      "acStatus": 6,
-      "site": "creality-cn"
-    },
-    {
       "name": "怀旧物件 · 模型设计大赛",
       "desc": "那些陪伴童年的玩具、家里的老物件、记忆中的经典设计，都藏着属于一代人的故事。 本次比赛邀请设计师们用3D设计重新诠释那些熟悉的旧时光，让回忆变成可打印、可珍藏的3D模型。",
       "start": "2026-08-17",
@@ -230,7 +220,7 @@
       "desc": "A great bookmark doesn't just mark your page—it adds a little personality to every reading moment.",
       "start": "2026-08-23",
       "end": "2026-09-06",
-      "status": "ongoing",
+      "status": "judging",
       "url": "https://www.crealitycloud.com/contest/Creative-Bookmarks",
       "site": "creality-intl"
     },
@@ -248,17 +238,8 @@
       "desc": "Who says skeletons can't steal the spotlight?",
       "start": "2026-08-06",
       "end": "2026-09-06",
-      "status": "ongoing",
-      "url": "https://www.crealitycloud.com/contest/Dancing-Skeleton",
-      "site": "creality-intl"
-    },
-    {
-      "name": "KitCard Design Contest",
-      "desc": "Bigger Rewards, More Winners—Join KitCard Design Contest!",
-      "start": "2026-07-24",
-      "end": "2026-08-30",
       "status": "judging",
-      "url": "https://www.crealitycloud.com/contest/KitCard",
+      "url": "https://www.crealitycloud.com/contest/Dancing-Skeleton",
       "site": "creality-intl"
     },
     {
@@ -271,19 +252,10 @@
       "site": "creality-intl"
     },
     {
-      "name": "玩具火车世界设计大赛",
-      "desc": "打造火车、模块化轨道和铁路场景，让想象成为现实。",
-      "start": "2026-07-24",
-      "end": "2026-08-30",
-      "status": "judging",
-      "url": "https://www.makeronline.com/zh/contest/%E7%8E%A9%E5%85%B7%E7%81%AB%E8%BD%A6%E4%B8%96%E7%95%8C%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/196.html",
-      "site": "makeronline"
-    },
-    {
       "name": "像素世界设计大赛",
       "desc": "让像素灵感变为真实的艺术、玩具、手作与创意工具。",
       "start": "2026-08-14",
-      "end": "2026-09-10",
+      "end": "2026-09-13",
       "status": "ongoing",
       "url": "https://www.makeronline.com/zh/contest/%E5%83%8F%E7%B4%A0%E4%B8%96%E7%95%8C%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/198.html",
       "site": "makeronline"
@@ -293,7 +265,7 @@
       "desc": "探索数学之美，开启无限可能！",
       "start": "2026-08-07",
       "end": "2026-09-06",
-      "status": "ongoing",
+      "status": "judging",
       "url": "https://www.makeronline.com/zh/contest/%E6%95%B0%E5%AD%A6%E4%B9%8B%E7%BE%8E%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/197.html",
       "site": "makeronline"
     },
@@ -305,15 +277,6 @@
       "status": "ongoing",
       "url": "https://www.makeronline.com/zh/contest/%E6%8B%BC%E8%A3%85%E5%A5%97%E5%8D%A1%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/199.html",
       "site": "makeronline"
-    },
-    {
-      "name": "百变卡套模型设计竞赛",
-      "desc": "卡面来打！百变卡套模型设计竞赛。",
-      "start": "2026-08-05",
-      "end": "2026-09-06",
-      "status": "ongoing",
-      "url": "https://makerworld.com.cn/zh/contests/83",
-      "site": "makerworld-cn"
     },
     {
       "name": "创作者挑战赛：@木白粽子 养鸟好物设计竞赛",
@@ -395,15 +358,6 @@
       "status": "ongoing",
       "url": "https://makerworld.com/en/contests/161",
       "site": "makerworld-intl"
-    },
-    {
-      "name": "点亮桌面灵感 | 桌面好物设计比赛",
-      "desc": "点亮桌面灵感，装点方寸好物。",
-      "start": "2026-06-30",
-      "end": "2026-08-10",
-      "status": "judging",
-      "url": "https://model.jlc-3dp.cn/raceDetail?id=d9ac22cc25274e6387c46eaf5306a150",
-      "site": "jlc"
     },
     {
       "name": "料盘改造计划",
@@ -556,6 +510,15 @@
       "status": "ongoing",
       "url": "https://www.nexprint.com/zh/contests",
       "site": "nexprint"
+    },
+    {
+      "name": "打印你的「出彩」时刻|全彩3D模型设计比赛",
+      "desc": "打印你的「出彩」时刻",
+      "start": "2026-09-07",
+      "end": "2026-10-18",
+      "status": "ongoing",
+      "url": "https://model.jlc-3dp.cn/raceDetail?id=73b36c3bbafb43e48ff2c27d7a78b200",
+      "site": "jlc"
     }
   ]
 }
