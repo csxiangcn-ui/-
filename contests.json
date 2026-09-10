@@ -1,6 +1,6 @@
 {
   "_comment": "3D模型网站比赛数据 - 自动抓取更新。status: ongoing|upcoming|judging|ended",
-  "last_update": "2026-09-09 09:05",
+  "last_update": "2026-09-10 09:10",
   "contests": [
     {
       "name": "和平精英：刺激之夜模型创作大赛",
@@ -264,7 +264,7 @@
       "name": "数学之美设计大赛",
       "desc": "探索数学之美，开启无限可能！",
       "start": "2026-08-07",
-      "end": "2026-09-08",
+      "end": "2026-09-09",
       "status": "judging",
       "url": "https://www.makeronline.com/zh/contest/%E6%95%B0%E5%AD%A6%E4%B9%8B%E7%BE%8E%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/197.html",
       "site": "makeronline"
@@ -478,7 +478,7 @@
     {
       "name": "Hosted By Creator: @berri3D - Build Knowledge: Kit Card Design Contest",
       "desc": "竞赛预告，即将开始。Hosted By Creator: @berri3D — Build Knowledge: Kit Card Design Contest",
-      "start": "",
+      "start": "2026-09-10",
       "end": "",
       "status": "upcoming",
       "url": "https://makerworld.com/en/contests",
@@ -496,10 +496,10 @@
     {
       "name": "打印你的「出彩」时刻|全彩3D模型设计比赛",
       "desc": "打印你的「出彩」时刻",
-      "start": "2026-09-07",
-      "end": "2026-10-18",
+      "start": "2026-09-09",
+      "end": "2026-11-30",
       "status": "ongoing",
-      "url": "https://model.jlc-3dp.cn/raceDetail?id=73b36c3bbafb43e48ff2c27d7a78b200",
+      "url": "https://model.jlc-3dp.cn/raceDetail?id=2280bf5d6a9c4ca786cc48c91d69d8ae",
       "site": "jlc"
     },
     {
@@ -528,12 +528,41 @@
       "name": "壳 · 定义 3D打印秋季新机手机壳设计大赛",
       "desc": "",
       "start": "2026-09-09",
-      "end": "2026-09-30",
+      "end": "2026-10-07",
       "status": "ongoing",
       "url": "https://www.jhx3d.com/activitys/detail/31",
       "miniStatus": "in_progress",
       "competitionId": 31,
       "site": "joykings3d"
+    },
+    {
+      "name": "山河万色 3D打印国庆主题设计大赛",
+      "desc": "",
+      "start": "2026-09-10",
+      "end": "2026-10-07",
+      "status": "ongoing",
+      "url": "https://www.jhx3d.com/activitys/detail/32",
+      "miniStatus": "in_progress",
+      "competitionId": 32,
+      "site": "joykings3d"
+    },
+    {
+      "name": "Make for Good: Accessibility Design Contest",
+      "desc": "竞赛预告，即将开始。",
+      "start": "2026-09-16",
+      "end": "",
+      "status": "upcoming",
+      "url": "https://makerworld.com/en/contests",
+      "site": "makerworld-intl"
+    },
+    {
+      "name": "所想即所造",
+      "desc": "MakeItReal",
+      "start": "2026-09-10",
+      "end": "2026-10-30",
+      "status": "ongoing",
+      "url": "https://www.nexprint.com/zh/contests",
+      "site": "nexprint"
     }
   ]
 }
