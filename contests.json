@@ -1,6 +1,6 @@
 {
   "_comment": "3D模型网站比赛数据 - 自动抓取更新。status: ongoing|upcoming|judging|ended",
-  "last_update": "2026-09-16 09:00",
+  "last_update": "2026-09-17 09:00",
   "contests": [
     {
       "name": "和平精英：刺激之夜模型创作大赛",
@@ -87,9 +87,9 @@
       "desc": "轻轻一按，点亮的不只是灯，还有生活的小惊喜。发挥你的创意，为普通开关赋予有趣的造型、实用的功能和满满的个性，让普通开关秒变可爱装饰，轻轻一按，治愈一整天。",
       "start": "2026-09-17",
       "end": "2026-10-16",
-      "status": "upcoming",
+      "status": "ongoing",
       "url": "https://m.crealitycloud.cn/contest/SwitchDecorations-3Dmodels",
-      "acStatus": 1,
+      "acStatus": 2,
       "site": "creality-cn"
     },
     {
@@ -107,9 +107,9 @@
       "desc": "每一个手办都承载着热爱和个性，它们也值得一个专属C位。 本次比赛邀请设计师用3D创意，为手办打造专属展示空间，把手办收纳变成迷你潮玩馆。",
       "start": "2026-09-17",
       "end": "2026-10-16",
-      "status": "upcoming",
+      "status": "ongoing",
       "url": "https://m.crealitycloud.cn/contest/FigureDisplayStand-3Dmodels",
-      "acStatus": 1,
+      "acStatus": 2,
       "site": "creality-cn"
     },
     {
@@ -117,9 +117,9 @@
       "desc": "一束花装饰生活的小角落 用3D设计赋予花束更多可能，让缤纷色彩、趣味造型与创意结构碰撞，打造属于你的多巴胺花束。无论是梦幻配色、创意花艺，还是可拼装、可互动的花束设计，都能让快乐常驻，让浪漫永不过期。",
       "start": "2026-09-17",
       "end": "2026-10-16",
-      "status": "upcoming",
+      "status": "ongoing",
       "url": "https://m.crealitycloud.cn/contest/DopamineBouquet-3Dmodels",
-      "acStatus": 1,
+      "acStatus": 2,
       "site": "creality-cn"
     },
     {
@@ -137,9 +137,9 @@
       "desc": "一个好设计，不仅能装下物品，更能装下生活的井井有条。 本次比赛，我们诚邀设计师发挥3D打印的定制优势，设计兼具实用、美观与创意的收纳好物，让每一寸空间都物尽其用，让收纳也成为一种生活美学。",
       "start": "2026-09-17",
       "end": "2026-10-16",
-      "status": "upcoming",
+      "status": "ongoing",
       "url": "https://m.crealitycloud.cn/contest/Storage-3Dmodels",
-      "acStatus": 1,
+      "acStatus": 2,
       "site": "creality-cn"
     },
     {
@@ -147,9 +147,9 @@
       "desc": "那些陪伴童年的玩具、家里的老物件、记忆中的经典设计，都藏着属于一代人的故事。 本次比赛邀请设计师们用3D设计重新诠释那些熟悉的旧时光，让回忆变成可打印、可珍藏的3D模型。",
       "start": "2026-08-17",
       "end": "2026-09-16",
-      "status": "ongoing",
+      "status": "judging",
       "url": "https://m.crealitycloud.cn/contest/VintageItems-3Dmodels",
-      "acStatus": 2,
+      "acStatus": 6,
       "site": "creality-cn"
     },
     {
@@ -157,9 +157,9 @@
       "desc": "好运，不妨自己打印一份！它可以是一件寓意满满的摆件，也可以是陪伴日常的开运小物。 发挥你的创意，将“招财、纳福、转运、心想事成”等美好寓意融入3D模型设计，打造兼具颜值、趣味与实用性的开运好物。把好运做成模型，让幸运触手可及！",
       "start": "2026-08-17",
       "end": "2026-09-16",
-      "status": "ongoing",
+      "status": "judging",
       "url": "https://m.crealitycloud.cn/contest/LuckyCharms-3Dmodels",
-      "acStatus": 2,
+      "acStatus": 6,
       "site": "creality-cn"
     },
     {
@@ -167,9 +167,9 @@
       "desc": "网络热梗·模型设计大赛 一句爆火台词、一个经典表情、一个全网疯传的名场面，都可能成为下一件让人会心一笑的模型作品。 发挥你的脑洞，把网络热梗变成可打印、可把玩、可分享的创意模型，让大家不仅能“玩梗”，还能把梗打印出来。 快来用3D设计，打造属于你的年度热梗名场面吧！",
       "start": "2026-08-17",
       "end": "2026-09-16",
-      "status": "ongoing",
+      "status": "judging",
       "url": "https://m.crealitycloud.cn/contest/InternetMemes-3Dmodels",
-      "acStatus": 2,
+      "acStatus": 6,
       "site": "creality-cn"
     },
     {
@@ -177,9 +177,9 @@
       "desc": "把压力交给指尖，让创意变成治愈。 让我们一起设计好握、好盘、好解压的指尖小物，一按一滑、一转一捏，让日常焦虑瞬间消散。 用手感传递快乐，让每一次把玩都成为治愈，让每一个奇思妙想变成人人都爱的解压神器。",
       "start": "2026-08-17",
       "end": "2026-09-16",
-      "status": "ongoing",
+      "status": "judging",
       "url": "https://m.crealitycloud.cn/contest/Finger-Relaxation-3Dmodels",
-      "acStatus": 2,
+      "acStatus": 6,
       "site": "creality-cn"
     },
     {
@@ -645,6 +645,28 @@
       "status": "upcoming",
       "url": "https://www.nexprint.com/zh/contests",
       "site": "nexprint"
+    },
+    {
+      "name": "防蚊大作战 3D打印防蚊好物设计大赛",
+      "desc": "",
+      "start": "2026-09-18",
+      "end": "2026-10-18",
+      "status": "upcoming",
+      "url": "https://www.jhx3d.com/activitys/detail/39",
+      "miniStatus": "upcoming",
+      "competitionId": 39,
+      "site": "joykings3d"
+    },
+    {
+      "name": "脚背上的创意美学 3D打印鞋花创意设计大赛",
+      "desc": "",
+      "start": "2026-09-17",
+      "end": "2026-10-11",
+      "status": "ongoing",
+      "url": "https://www.jhx3d.com/activitys/detail/40",
+      "miniStatus": "in_progress",
+      "competitionId": 40,
+      "site": "joykings3d"
     }
   ]
 }
