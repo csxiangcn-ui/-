@@ -1,6 +1,6 @@
 {
   "_comment": "3D模型网站比赛数据 - 自动抓取更新。status: ongoing|upcoming|judging|ended",
-  "last_update": "2026-09-17 09:00",
+  "last_update": "2026-09-18 09:00",
   "contests": [
     {
       "name": "和平精英：刺激之夜模型创作大赛",
@@ -198,7 +198,7 @@
       "desc": "",
       "start": "2026-08-27",
       "end": "2026-09-17",
-      "status": "ongoing",
+      "status": "judging",
       "url": "https://www.jhx3d.com/activitys/detail/22",
       "miniStatus": "in_progress",
       "competitionId": 22,
@@ -211,7 +211,7 @@
       "end": "2026-09-15",
       "status": "judging",
       "url": "https://www.jhx3d.com/activitys/detail/19",
-      "miniStatus": "reviewing",
+      "miniStatus": "in_progress",
       "competitionId": 19,
       "site": "joykings3d"
     },
@@ -521,11 +521,11 @@
     },
     {
       "name": "Make for Good: Accessibility Design Contest",
-      "desc": "竞赛预告，即将开始。",
+      "desc": "Design for Needs. Print for Change.",
       "start": "2026-09-16",
-      "end": "",
-      "status": "upcoming",
-      "url": "https://makerworld.com/en/contests",
+      "end": "2026-11-15",
+      "status": "ongoing",
+      "url": "https://makerworld.com/en/contests/164",
       "site": "makerworld-intl"
     },
     {
@@ -577,11 +577,11 @@
     },
     {
       "name": "大师挑战赛：车饰模型",
-      "desc": "竞赛预告，即将开始。",
+      "desc": "S级座舱 由你定义",
       "start": "2026-09-16",
-      "end": "",
-      "status": "upcoming",
-      "url": "https://makerworld.com.cn/zh/contests",
+      "end": "2026-10-18",
+      "status": "ongoing",
+      "url": "https://makerworld.com.cn/zh/contests/89",
       "site": "makerworld-cn"
     },
     {
@@ -651,9 +651,9 @@
       "desc": "",
       "start": "2026-09-18",
       "end": "2026-10-18",
-      "status": "upcoming",
+      "status": "ongoing",
       "url": "https://www.jhx3d.com/activitys/detail/39",
-      "miniStatus": "upcoming",
+      "miniStatus": "in_progress",
       "competitionId": 39,
       "site": "joykings3d"
     },
@@ -667,6 +667,15 @@
       "miniStatus": "in_progress",
       "competitionId": 40,
       "site": "joykings3d"
+    },
+    {
+      "name": "钱利淮｜竹编新生",
+      "desc": "From Patterns to Everyday Design",
+      "start": "2026-09-16",
+      "end": "2026-10-14",
+      "status": "ongoing",
+      "url": "https://www.makeronline.com/zh/contest/qian-lihuai-%E2%80%94-bamboo-reimagined/202.html",
+      "site": "makeronline"
     }
   ]
 }
