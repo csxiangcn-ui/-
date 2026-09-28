@@ -1,7 +1,52 @@
 {
   "_comment": "3D模型网站比赛数据 - 自动抓取更新。status: ongoing|upcoming|judging|ended",
-  "last_update": "2026-09-24 09:10",
+  "last_update": "2026-09-28 08:30",
   "contests": [
+    {
+      "name": "2026 万圣节设计大赛",
+      "desc": "召唤惊魂创意，赢取丰厚大奖！",
+      "start": "2026-09-18",
+      "end": "2026-10-30",
+      "status": "ongoing",
+      "url": "https://www.makeronline.com/zh/contest/2026-%E4%B8%87%E5%9C%A3%E8%8A%82%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/203.html",
+      "site": "makeronline"
+    },
+    {
+      "name": "钱利淮｜竹编新生",
+      "desc": "From Patterns to Everyday Design",
+      "start": "2026-09-16",
+      "end": "2026-10-14",
+      "status": "ongoing",
+      "url": "https://www.makeronline.com/zh/contest/%E9%92%B1%E5%88%A9%E6%B7%AE%EF%BD%9C%E7%AB%B9%E7%BC%96%E6%96%B0%E7%94%9F-/202.html",
+      "site": "makeronline"
+    },
+    {
+      "name": "军事模型设计大赛",
+      "desc": "国之重器，智造未来！",
+      "start": "2026-09-11",
+      "end": "2026-10-22",
+      "status": "ongoing",
+      "url": "https://www.makeronline.com/zh/contest/%E5%86%9B%E4%BA%8B%E6%A8%A1%E5%9E%8B%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/201.html",
+      "site": "makeronline"
+    },
+    {
+      "name": "太空探索设计大赛",
+      "desc": "探索未知,创造未来。赢取最高 $350 奖励！",
+      "start": "2026-09-04",
+      "end": "2026-10-10",
+      "status": "ongoing",
+      "url": "https://www.makeronline.com/zh/contest/%E5%A4%AA%E7%A9%BA%E6%8E%A2%E7%B4%A2%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/200.html",
+      "site": "makeronline"
+    },
+    {
+      "name": "拼装套卡设计大赛",
+      "desc": "将创意设计变成拼装卡片，赢取最高 $350 奖励！",
+      "start": "2026-08-21",
+      "end": "2026-09-20",
+      "status": "judging",
+      "url": "https://www.makeronline.com/zh/contest/%E6%8B%BC%E8%A3%85%E5%A5%97%E5%8D%A1%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/199.html",
+      "site": "makeronline"
+    },
     {
       "name": "打印你的「出彩」时刻|全彩3D模型设计比赛",
       "desc": "打印你的「出彩」时刻",
@@ -12,12 +57,84 @@
       "site": "jlc"
     },
     {
-      "name": "中秋灯饰·模型设计大赛",
-      "desc": "中秋，点亮一盏月光，打印一份团圆。这个中秋，不妨用3D打印亲手打造一盏属于自己的节日灯饰，将传统文化与创意设计巧妙融合，让月光与灯光交相辉映。",
-      "start": "2026-09-14",
-      "end": "2026-09-27",
+      "name": "Halloween Party: 3D Design Contest 🎃",
+      "desc": "万圣节主题 3D 设计比赛，分三条赛道：万圣节穿戴品、万圣节遥控模型、万圣节展示与装饰。",
+      "start": "2026-09-23",
+      "end": "2026-11-02",
       "status": "ongoing",
-      "url": "https://m.crealitycloud.cn/contest/Mid-Autumn-Festival-Lanterns",
+      "url": "https://www.makeroad.com/contests/57",
+      "site": "makeroad"
+    },
+    {
+      "name": "秋行山径🍂",
+      "desc": "优秀参与奖：105元*30人",
+      "start": "2026-09-23",
+      "end": "2026-10-08",
+      "status": "ongoing",
+      "url": "https://www.nexprint.com/zh/contests",
+      "site": "nexprint"
+    },
+    {
+      "name": "一把手🫴",
+      "desc": "优秀参与奖: $15*30人",
+      "start": "2026-09-22",
+      "end": "2026-10-07",
+      "status": "ongoing",
+      "url": "https://www.nexprint.com/zh/contests",
+      "site": "nexprint"
+    },
+    {
+      "name": "开瓶有招🍾",
+      "desc": "优秀参与奖: $15*30人",
+      "start": "2026-09-05",
+      "end": "2026-09-20",
+      "status": "judging",
+      "url": "https://www.nexprint.com/zh/contests",
+      "site": "nexprint"
+    },
+    {
+      "name": "😉捣蛋时刻",
+      "desc": "万圣节捣蛋主题趣味创作。",
+      "start": "2026-09-20",
+      "end": "2026-10-30",
+      "status": "ongoing",
+      "url": "https://www.nexprint.com/zh/contests",
+      "site": "nexprint"
+    },
+    {
+      "name": "所想即所造",
+      "desc": "MakeItReal",
+      "start": "2026-09-10",
+      "end": "2026-10-30",
+      "status": "ongoing",
+      "url": "https://www.nexprint.com/zh/contests",
+      "site": "nexprint"
+    },
+    {
+      "name": "开学必备",
+      "desc": "用 3D 打印，搞定新学期的小需求。",
+      "start": "2026-08-13",
+      "end": "2026-09-15",
+      "status": "judging",
+      "url": "https://www.nexprint.com/zh/contests",
+      "site": "nexprint"
+    },
+    {
+      "name": "料盘改造计划",
+      "desc": "给空料盘第二次生命。Elegoo赞助：一等奖$300礼品卡。",
+      "start": "2026-08-08",
+      "end": "2026-09-20",
+      "status": "judging",
+      "url": "https://www.nexprint.com/zh/contests",
+      "site": "nexprint"
+    },
+    {
+      "name": "叠叠乐社媒挑战赛",
+      "desc": "参与创想云叠叠乐挑战赛，赢取丰厚大奖！打印指定模型，堆叠螺旋组件，借助弹簧将“弹珠”高高弹射出去。你能叠多少层？",
+      "start": "2026-09-24",
+      "end": "2026-10-25",
+      "status": "ongoing",
+      "url": "https://m.crealitycloud.cn/contest/vortexstack-challenge",
       "acStatus": 2,
       "site": "creality-cn"
     },
@@ -76,9 +193,9 @@
       "desc": "一场说走就走的旅行，离不开贴心又实用的小设计。本次比赛，邀请设计师发挥3D打印的定制优势，为旅途打造轻便、高效、有趣的旅行神器。",
       "start": "2026-09-28",
       "end": "2026-10-11",
-      "status": "upcoming",
+      "status": "ongoing",
       "url": "https://m.crealitycloud.cn/contest/Travel-Essentials",
-      "acStatus": 1,
+      "acStatus": 2,
       "site": "creality-cn"
     },
     {
@@ -119,6 +236,16 @@
       "status": "ongoing",
       "url": "https://m.crealitycloud.cn/contest/SwitchDecorations-3Dmodels",
       "acStatus": 2,
+      "site": "creality-cn"
+    },
+    {
+      "name": "中秋灯饰·模型设计大赛",
+      "desc": "中秋，点亮一盏月光，打印一份团圆。这个中秋，不妨用3D打印亲手打造一盏属于自己的节日灯饰，将传统文化与创意设计巧妙融合，让月光与灯光交相辉映。",
+      "start": "2026-09-14",
+      "end": "2026-09-27",
+      "status": "judging",
+      "url": "https://m.crealitycloud.cn/contest/Mid-Autumn-Festival-Lanterns",
+      "acStatus": 6,
       "site": "creality-cn"
     },
     {
@@ -170,6 +297,15 @@
       "site": "creality-intl"
     },
     {
+      "name": "Vortex Stack Challenge",
+      "desc": "Print the designated model, stack the spiral pieces, and press the spring mechanism at the base to send the ball fly high.",
+      "start": "2026-09-24",
+      "end": "2026-10-25",
+      "status": "ongoing",
+      "url": "https://www.crealitycloud.com/contest/vortexstack-challenge",
+      "site": "creality-intl"
+    },
+    {
       "name": "Hot Air Balloon Design Contest",
       "desc": "Inspired by the Albuquerque International Balloon Fiesta, we're inviting creators to design 3D models inspired by hot air balloons. Win $2350 Credits & 50K Points & 100K Featured Exposure",
       "start": "2026-09-18",
@@ -192,7 +328,7 @@
       "desc": "With Oktoberfest just around the corner, we're inviting creators to design creative, practical, and fun 3D-printable bottle and can openers for our Bottle & Can Opener Flash Contest.",
       "start": "2026-09-10",
       "end": "2026-09-24",
-      "status": "ongoing",
+      "status": "judging",
       "url": "https://www.crealitycloud.com/contest/Bottle-Can-Opener",
       "site": "creality-intl"
     },
@@ -215,60 +351,6 @@
       "site": "creality-intl"
     },
     {
-      "name": "Plant-Inspired Homeware Design Contest",
-      "desc": "Plants aren't just beautiful—they can inspire the way we live.",
-      "start": "2026-08-20",
-      "end": "2026-09-20",
-      "status": "judging",
-      "url": "https://www.crealitycloud.com/contest/Plant-Inspired-Homeware",
-      "site": "creality-intl"
-    },
-    {
-      "name": "2026 万圣节设计大赛",
-      "desc": "召唤惊魂创意，赢取丰厚大奖！",
-      "start": "2026-09-18",
-      "end": "2026-10-30",
-      "status": "ongoing",
-      "url": "https://www.makeronline.com/zh/contest/2026-%E4%B8%87%E5%9C%A3%E8%8A%82%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/203.html",
-      "site": "makeronline"
-    },
-    {
-      "name": "钱利淮｜竹编新生",
-      "desc": "From Patterns to Everyday Design",
-      "start": "2026-09-16",
-      "end": "2026-10-14",
-      "status": "ongoing",
-      "url": "https://www.makeronline.com/zh/contest/%E9%92%B1%E5%88%A9%E6%B7%AE%EF%BD%9C%E7%AB%B9%E7%BC%96%E6%96%B0%E7%94%9F-/202.html",
-      "site": "makeronline"
-    },
-    {
-      "name": "军事模型设计大赛",
-      "desc": "国之重器，智造未来！",
-      "start": "2026-09-11",
-      "end": "2026-10-22",
-      "status": "ongoing",
-      "url": "https://www.makeronline.com/zh/contest/%E5%86%9B%E4%BA%8B%E6%A8%A1%E5%9E%8B%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/201.html",
-      "site": "makeronline"
-    },
-    {
-      "name": "太空探索设计大赛",
-      "desc": "探索未知,创造未来。赢取最高 $350 奖励！",
-      "start": "2026-09-04",
-      "end": "2026-10-10",
-      "status": "ongoing",
-      "url": "https://www.makeronline.com/zh/contest/%E5%A4%AA%E7%A9%BA%E6%8E%A2%E7%B4%A2%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/200.html",
-      "site": "makeronline"
-    },
-    {
-      "name": "拼装套卡设计大赛",
-      "desc": "将创意设计变成拼装卡片，赢取最高 $350 奖励！",
-      "start": "2026-08-21",
-      "end": "2026-09-20",
-      "status": "judging",
-      "url": "https://www.makeronline.com/zh/contest/%E6%8B%BC%E8%A3%85%E5%A5%97%E5%8D%A1%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/199.html",
-      "site": "makeronline"
-    },
-    {
       "name": "大师挑战赛：车饰模型",
       "desc": "S级座舱 由你定义",
       "start": "2026-09-16",
@@ -287,7 +369,7 @@
       "site": "makerworld-cn"
     },
     {
-      "name": "动物世界之昆虫王国 模型设计大赛",
+      "name": "动物世界之昆虫王国 模型设计竞赛",
       "desc": "捉虫大会！速来！",
       "start": "2026-09-03",
       "end": "2026-10-11",
@@ -306,11 +388,11 @@
     },
     {
       "name": "Let's Make It：拓竹MakerWorld × 王者荣耀世界 游戏主题模型设计竞赛",
-      "desc": "竞赛预告，即将开始。",
+      "desc": "世界万物，一起造物",
       "start": "2026-09-24",
-      "end": "",
-      "status": "upcoming",
-      "url": "https://makerworld.com.cn/zh/contests",
+      "end": "2026-10-20",
+      "status": "ongoing",
+      "url": "https://makerworld.com.cn/zh/contests/90",
       "site": "makerworld-cn"
     },
     {
@@ -395,84 +477,21 @@
       "site": "makerworld-intl"
     },
     {
-      "name": "Halloween Party: 3D Design Contest 🎃",
-      "desc": "万圣节主题 3D 设计比赛，分三条赛道：万圣节穿戴品、万圣节遥控模型、万圣节展示与装饰。",
-      "start": "2026-09-23",
-      "end": "2026-11-02",
-      "status": "ongoing",
-      "url": "https://www.makeroad.com/contests/57",
-      "site": "makeroad"
+      "name": "Master Challenge: Rocket Revolution",
+      "desc": "竞赛预告，即将开始。",
+      "start": "2026-09-30",
+      "end": "",
+      "status": "upcoming",
+      "url": "https://makerworld.com/en/contests",
+      "site": "makerworld-intl"
     },
     {
-      "name": "秋行山径🍂",
-      "desc": "优秀参与奖：105元*30人",
-      "start": "2026-09-23",
-      "end": "2026-10-08",
-      "status": "ongoing",
-      "url": "https://www.nexprint.com/zh/contests",
-      "site": "nexprint"
-    },
-    {
-      "name": "一把手🫴",
-      "desc": "优秀参与奖: $15*30人",
-      "start": "2026-09-22",
-      "end": "2026-10-07",
-      "status": "ongoing",
-      "url": "https://www.nexprint.com/zh/contests",
-      "site": "nexprint"
-    },
-    {
-      "name": "开瓶有招🍾",
-      "desc": "优秀参与奖: $15*30人",
-      "start": "2026-09-05",
-      "end": "2026-09-20",
-      "status": "judging",
-      "url": "https://www.nexprint.com/zh/contests",
-      "site": "nexprint"
-    },
-    {
-      "name": "😉捣蛋时刻",
-      "desc": "万圣节捣蛋主题趣味创作。",
-      "start": "2026-09-20",
-      "end": "2026-10-30",
-      "status": "ongoing",
-      "url": "https://www.nexprint.com/zh/contests",
-      "site": "nexprint"
-    },
-    {
-      "name": "所想即所造",
-      "desc": "MakeItReal",
-      "start": "2026-09-10",
-      "end": "2026-10-30",
-      "status": "ongoing",
-      "url": "https://www.nexprint.com/zh/contests",
-      "site": "nexprint"
-    },
-    {
-      "name": "开学必备",
-      "desc": "用 3D 打印，搞定新学期的小需求。",
-      "start": "2026-08-13",
-      "end": "2026-09-15",
-      "status": "judging",
-      "url": "https://www.nexprint.com/zh/contests",
-      "site": "nexprint"
-    },
-    {
-      "name": "料盘改造计划",
-      "desc": "给空料盘第二次生命。Elegoo赞助：一等奖$300礼品卡。",
-      "start": "2026-08-08",
-      "end": "2026-09-20",
-      "status": "judging",
-      "url": "https://www.nexprint.com/zh/contests",
-      "site": "nexprint"
-    },
-    {
-      "name": "“树”造万物·印你所想 浙江树人学院3D设计创意设计大赛",
+      "name": "“树”造万物·印你所想 浙江树人学院3D打印创意设计大赛",
       "desc": "",
       "start": "2026-09-22",
       "end": "2026-10-26",
       "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/42",
+      "url": "https://www.joykings3d.com/activitys/detail/42",
       "miniStatus": "in_progress",
       "competitionId": 42,
       "site": "joykings3d"
@@ -483,7 +502,7 @@
       "start": "2026-09-10",
       "end": "2026-10-07",
       "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/32",
+      "url": "https://www.joykings3d.com/activitys/detail/32",
       "miniStatus": "in_progress",
       "competitionId": 32,
       "site": "joykings3d"
@@ -493,8 +512,8 @@
       "desc": "",
       "start": "2026-09-03",
       "end": "2026-09-24",
-      "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/25",
+      "status": "judging",
+      "url": "https://www.joykings3d.com/activitys/detail/25",
       "miniStatus": "in_progress",
       "competitionId": 25,
       "site": "joykings3d"
@@ -505,7 +524,7 @@
       "start": "2026-09-04",
       "end": "2026-10-07",
       "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/27",
+      "url": "https://www.joykings3d.com/activitys/detail/27",
       "miniStatus": "in_progress",
       "competitionId": 27,
       "site": "joykings3d"
@@ -515,8 +534,8 @@
       "desc": "",
       "start": "2026-09-05",
       "end": "2026-09-25",
-      "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/26",
+      "status": "judging",
+      "url": "https://www.joykings3d.com/activitys/detail/26",
       "miniStatus": "in_progress",
       "competitionId": 26,
       "site": "joykings3d"
@@ -526,8 +545,8 @@
       "desc": "",
       "start": "2026-09-08",
       "end": "2026-09-27",
-      "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/29",
+      "status": "judging",
+      "url": "https://www.joykings3d.com/activitys/detail/29",
       "miniStatus": "in_progress",
       "competitionId": 29,
       "site": "joykings3d"
@@ -538,7 +557,7 @@
       "start": "2026-09-15",
       "end": "2026-10-09",
       "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/36",
+      "url": "https://www.joykings3d.com/activitys/detail/36",
       "miniStatus": "in_progress",
       "competitionId": 36,
       "site": "joykings3d"
@@ -549,7 +568,7 @@
       "start": "2026-09-16",
       "end": "2026-10-16",
       "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/37",
+      "url": "https://www.joykings3d.com/activitys/detail/37",
       "miniStatus": "in_progress",
       "competitionId": 37,
       "site": "joykings3d"
@@ -560,7 +579,7 @@
       "start": "2026-09-11",
       "end": "2026-10-07",
       "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/33",
+      "url": "https://www.joykings3d.com/activitys/detail/33",
       "miniStatus": "in_progress",
       "competitionId": 33,
       "site": "joykings3d"
@@ -571,7 +590,7 @@
       "start": "2026-09-14",
       "end": "2026-10-07",
       "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/34",
+      "url": "https://www.joykings3d.com/activitys/detail/34",
       "miniStatus": "in_progress",
       "competitionId": 34,
       "site": "joykings3d"
@@ -582,7 +601,7 @@
       "start": "2026-09-09",
       "end": "2026-10-07",
       "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/31",
+      "url": "https://www.joykings3d.com/activitys/detail/31",
       "miniStatus": "in_progress",
       "competitionId": 31,
       "site": "joykings3d"
@@ -593,7 +612,7 @@
       "start": "2026-09-07",
       "end": "2026-09-30",
       "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/30",
+      "url": "https://www.joykings3d.com/activitys/detail/30",
       "miniStatus": "in_progress",
       "competitionId": 30,
       "site": "joykings3d"
@@ -604,7 +623,7 @@
       "start": "2026-08-31",
       "end": "2026-09-30",
       "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/23",
+      "url": "https://www.joykings3d.com/activitys/detail/23",
       "miniStatus": "in_progress",
       "competitionId": 23,
       "site": "joykings3d"
@@ -615,7 +634,7 @@
       "start": "2026-09-24",
       "end": "2026-10-13",
       "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/45",
+      "url": "https://www.joykings3d.com/activitys/detail/45",
       "miniStatus": "in_progress",
       "competitionId": 45,
       "site": "joykings3d"
@@ -626,7 +645,7 @@
       "start": "2026-09-23",
       "end": "2026-10-14",
       "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/44",
+      "url": "https://www.joykings3d.com/activitys/detail/44",
       "miniStatus": "in_progress",
       "competitionId": 44,
       "site": "joykings3d"
@@ -637,7 +656,7 @@
       "start": "2026-09-22",
       "end": "2026-11-01",
       "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/43",
+      "url": "https://www.joykings3d.com/activitys/detail/43",
       "miniStatus": "in_progress",
       "competitionId": 43,
       "site": "joykings3d"
@@ -648,7 +667,7 @@
       "start": "2026-09-21",
       "end": "2026-10-31",
       "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/41",
+      "url": "https://www.joykings3d.com/activitys/detail/41",
       "miniStatus": "in_progress",
       "competitionId": 41,
       "site": "joykings3d"
@@ -659,7 +678,7 @@
       "start": "2026-09-18",
       "end": "2026-10-18",
       "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/39",
+      "url": "https://www.joykings3d.com/activitys/detail/39",
       "miniStatus": "in_progress",
       "competitionId": 39,
       "site": "joykings3d"
@@ -670,7 +689,7 @@
       "start": "2026-09-17",
       "end": "2026-10-11",
       "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/40",
+      "url": "https://www.joykings3d.com/activitys/detail/40",
       "miniStatus": "in_progress",
       "competitionId": 40,
       "site": "joykings3d"
@@ -681,7 +700,7 @@
       "start": "2026-09-16",
       "end": "2026-10-18",
       "status": "ongoing",
-      "url": "https://www.jhx3d.com/activitys/detail/38",
+      "url": "https://www.joykings3d.com/activitys/detail/38",
       "miniStatus": "in_progress",
       "competitionId": 38,
       "site": "joykings3d"
@@ -692,7 +711,7 @@
       "start": "2026-08-27",
       "end": "2026-09-17",
       "status": "judging",
-      "url": "https://www.jhx3d.com/activitys/detail/22",
+      "url": "https://www.joykings3d.com/activitys/detail/22",
       "miniStatus": "in_progress",
       "competitionId": 22,
       "site": "joykings3d"
@@ -703,7 +722,7 @@
       "start": "2026-08-01",
       "end": "2026-09-15",
       "status": "judging",
-      "url": "https://www.jhx3d.com/activitys/detail/19",
+      "url": "https://www.joykings3d.com/activitys/detail/19",
       "miniStatus": "in_progress",
       "competitionId": 19,
       "site": "joykings3d"
