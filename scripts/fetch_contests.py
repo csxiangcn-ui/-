@@ -369,80 +369,76 @@ def fetch_makeronline():
         _makeronline_parse)
 
 
-def _snapmaker_name_lookup(pid):
-    """snapmaker 比赛对象无独立 name 字段（contestTitle 恒为 'Contests'），
-    改为从现有 contests.json 按 /contest/{pid} 匹配 URL 找回名称。"""
-    try:
-        data = json.loads(CONTESTS.read_text(encoding="utf-8"))
-    except Exception:
-        return ""
-    for c in data.get("contests", []):
-        if c.get("site") == "snapmaker" and f"/contest/{pid}" in (c.get("url") or ""):
-            return c.get("name") or ""
-    return ""
-
-
-def fetch_snapmaker_page(pid):
-    html = http_get(f"https://models.snapmaker.com/contest/{pid}")
-    i = html.find("contestStartAt")
-    if i < 0:
-        return None
-    window = html[max(0, i - 4000): i + 400]
-    pairs = dict(re.findall(r'\\"([a-zA-Z]+)\\":\\"([^\\"\\]+)\\"', window))
-    # snapmaker 比赛对象无独立 name 字段，contestTitle 恒为 "Contests"，
-    # 改为从现有 contests.json 按 /contest/{pid} 匹配 URL 找回名称。
-    name = _snapmaker_name_lookup(pid) or f"Snapmaker Contest {pid}"
-    start = str_date(pairs.get("contestStartAt"))
-    end = str_date(pairs.get("contestEndAt"))
-    # 状态优先用页面时间线判断：比赛提交已截止但处于评审期 → judging
-    st = _snapmaker_status(html, start, end)
-    return [{
-        "name": name,
-        "desc": strip_html(pairs.get("contestDesc", "")),
-        "start": start,
-        "end": end,
-        "status": st,
-        "url": f"https://models.snapmaker.com/contest/{pid}",
-    }]
-
-
-def _snapmaker_status(html, sub_start, sub_end):
-    """按页面 Timeline 文本判断快造比赛状态：
-    Submission 截止后进入 Review 期(judging)，Winners 公布后才是 ended。
-    返回 ongoing / judging / upcoming / ended 之一。"""
-    def to_date(mon, day, year):
+def _snapmaker_status_api(c):
+    """按官方接口时间字段判定快造比赛状态（不再依赖详情页 HTML 文本）。
+    结果已公布(announcementAt 已过) → ended；评审窗口内或提交已截止但未公布 → judging；
+    未开始 → upcoming；其余 → ongoing。"""
+    def to_date(v):
+        s = str_date(v)
         try:
-            return datetime.datetime.strptime(f"{mon} {day} {year}", "%b %d %Y").date()
+            return datetime.date.fromisoformat(s) if s else None
         except ValueError:
             return None
 
     today = datetime.date.today()
-    win_date = None
-    m_win = re.search(r"Winners Announced:\s*([A-Z][a-z]{2})\s+(\d{1,2})"
-                      r"(?:st|nd|rd|th)?,?\s+(\d{4})", html)
-    if m_win:
-        win_date = to_date(m_win.group(1), m_win.group(2), m_win.group(3))
-        if win_date and today > win_date:
-            return "ended"  # 已公布结果 → 已结束
-    # 评审窗口判定：找到 Review 段起止
-    m_rev = re.search(r"Review:\s*([A-Z][a-z]{2})\s+(\d{1,2})"
-                      r"(?:st|nd|rd|th)?\s+to\s+([A-Z][a-z]{2})\s+(\d{1,2}),?\s+(\d{4})", html)
-    if m_rev:
-        d1 = to_date(m_rev.group(1), m_rev.group(2), m_rev.group(5))
-        d2 = to_date(m_rev.group(3), m_rev.group(4), m_rev.group(5))
-        if d1 and d2 and d1 <= today <= d2:
-            return "judging"
-    # 提交已截止且结果未公布 → 评审中
-    try:
-        e = datetime.date.fromisoformat(sub_end) if sub_end else None
-        s = datetime.date.fromisoformat(sub_start) if sub_start else None
-    except ValueError:
-        e = s = None
-    if e and today > e and not (win_date and today > win_date):
-        return "judging"
+    s = to_date(c.get("contestStartAt"))
+    e = to_date(c.get("contestEndAt"))
+    announce = to_date(c.get("announcementAt")) or to_date(c.get("finishAt"))
+    j_start = to_date(c.get("judgeStartAt"))
+    j_end = to_date(c.get("judgeEndAt"))
+
+    if announce and today > announce:
+        return "ended"                      # 已公布结果 → 已结束
+    if j_start and j_end and j_start <= today <= j_end:
+        return "judging"                    # 评审窗口内
+    if e and today > e:
+        return "judging"                    # 提交已截止、结果未公布 → 评审中
     if s and today < s:
         return "upcoming"
     return "ongoing"
+
+
+def fetch_snapmaker():
+    """快造 Snapmaker 比赛：官方 JSON 接口（替代旧版逐 pid 抓详情页 HTML）。
+    接口：https://api-models.snapmaker.com/api/contest?page=N&pageSize=50
+    返回 id/title/subtitle/status/contestStartAt/contestEndAt/judgeStartAt/
+    judgeEndAt/announcementAt 等完整字段，分页一次覆盖全部比赛。
+    旧版问题：硬编码只抓 pid 1/2 且名称依赖旧数据回填，会漏掉新比赛。"""
+    out = []
+    seen = 0
+    total = None
+    page = 1
+    while page <= 10:
+        url = ("https://api-models.snapmaker.com/api/contest"
+               f"?page={page}&pageSize=50")
+        d = json.loads(http_get(url, headers={"Accept": "application/json"}))
+        if d.get("code") not in (200, None):
+            raise RuntimeError(d.get("msg") or "snapmaker api code != 200")
+        data = d.get("data")
+        if isinstance(data, dict):
+            lst = data.get("list") or []
+            total = data.get("total", 0)
+        elif isinstance(data, list):
+            lst = data
+        else:
+            lst = []
+        for c in lst:
+            name = (c.get("title") or "").strip()
+            if not name:
+                continue
+            out.append({
+                "name": name,
+                "desc": strip_html(c.get("subtitle") or ""),
+                "start": str_date(c.get("contestStartAt")),
+                "end": str_date(c.get("contestEndAt")),
+                "status": _snapmaker_status_api(c),
+                "url": f"https://space.snapmaker.com/zh/contest/{c.get('id')}",
+            })
+        seen += len(lst)
+        if not lst or (total is not None and seen >= total):
+            break
+        page += 1
+    return out
 
 
 # ---- Playwright 组（需浏览器） ----
@@ -717,7 +713,7 @@ def main():
         "makeroad": fetch_makeroad,
         "joykings3d": fetch_joykings3d,
         "makeronline": fetch_makeronline,
-        "snapmaker": lambda: _combine_snapmaker(),
+        "snapmaker": fetch_snapmaker,
         "makerworld-cn": lambda: _playwright_run(
             "makerworld-cn", "https://makerworld.com.cn/zh/contests", _mw_parse),
         "makerworld-intl": lambda: _playwright_run(
@@ -762,33 +758,6 @@ def main():
     total = len(merged)
     active = sum(1 for c in merged if c.get("status") != "ended")
     print(f"完成：总计 {total} 条，活跃 {active} 条，last_update={data['last_update']}")
-
-
-def _combine_snapmaker():
-    # 逐 pid 抓取；单个 pid 失败则保留该 pid 的旧数据，不整体丢弃平台。
-    existing = []
-    try:
-        existing = json.loads(CONTESTS.read_text(encoding="utf-8")).get("contests", [])
-    except Exception:
-        existing = []
-    by_pid = {}
-    for c in existing:
-        if c.get("site") == "snapmaker":
-            m = re.search(r"/contest/(\d+)", c.get("url", ""))
-            if m:
-                by_pid[int(m.group(1))] = c
-    out = []
-    any_ok = False
-    for pid in (1, 2):
-        r = fetch_snapmaker_page(pid)
-        entry = r[0] if (r and len(r) > 0) else None
-        if entry and entry.get("name") and entry["name"] != f"Snapmaker Contest {pid}":
-            out.append(entry)
-            any_ok = True
-        elif pid in by_pid:
-            out.append(by_pid[pid])
-            any_ok = True
-    return out if any_ok else None
 
 
 if __name__ == "__main__":
