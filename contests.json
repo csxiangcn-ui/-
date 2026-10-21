@@ -1,6 +1,6 @@
 {
   "_comment": "3D模型网站比赛数据 - 自动抓取更新。status: ongoing|upcoming|judging|ended",
-  "last_update": "2026-10-20 18:59",
+  "last_update": "2026-10-21 18:41",
   "contests": [
     {
       "name": "打印你的「出彩」时刻|全彩3D模型设计比赛",
@@ -237,69 +237,6 @@
       "site": "makerworld-cn"
     },
     {
-      "name": "2026 Halloween Design Contest",
-      "desc": "2026 Halloween Season invites creators around the world to design and share original 3D models inspired by everything Halloween.",
-      "start": "2026-09-20",
-      "end": "2026-10-31",
-      "status": "ongoing",
-      "url": "https://www.crealitycloud.com/contest/2026-Halloween",
-      "site": "creality-intl"
-    },
-    {
-      "name": "Thermoformed Model Design Contest",
-      "desc": "What happens when 3D printing meets thermoforming? The Thermoformed Model Design Contest invites you to explore a new way of creating with your 3D printer. Design a model that can be printed flat, heated, and shaped with a mold into a three-dimensional creation.",
-      "start": "2026-09-23",
-      "end": "2026-10-25",
-      "status": "ongoing",
-      "url": "https://www.crealitycloud.com/contest/Thermoformed-Model",
-      "site": "creality-intl"
-    },
-    {
-      "name": "Vortex Stack Challenge",
-      "desc": "Print the designated model, stack the spiral pieces, and press the spring mechanism at the base to send the ball fly high.",
-      "start": "2026-09-23",
-      "end": "2026-10-25",
-      "status": "ongoing",
-      "url": "https://www.crealitycloud.com/contest/vortexstack-challenge",
-      "site": "creality-intl"
-    },
-    {
-      "name": "Hot Air Balloon Design Contest",
-      "desc": "Inspired by the Albuquerque International Balloon Fiesta, we’re inviting creators to design 3D models inspired by hot air balloons.",
-      "start": "2026-09-17",
-      "end": "2026-10-18",
-      "status": "judging",
-      "url": "https://www.crealitycloud.com/contest/Hot-Air-Balloon",
-      "site": "creality-intl"
-    },
-    {
-      "name": "Mechanical Motion Elite Design Challenge",
-      "desc": "A brand-new flagship competition. We invite creators to push the possibilities of 3D-printed mechanical design and create high-quality models that combine creative mechanisms, functional movement, engineering ingenuity, and printability.",
-      "start": "2026-08-27",
-      "end": "2026-10-11",
-      "status": "judging",
-      "url": "https://www.crealitycloud.com/contest/Mechanical-Motion",
-      "site": "creality-intl"
-    },
-    {
-      "name": "Multicolor 3D Model Design Contest",
-      "desc": "With SPARKX i8, multicolor creation becomes simpler and more efficient. Now, we're inviting creators around the world to join the Multicolor 3D Model Design Contest and explore what's possible when color and 3D design come together.",
-      "start": "2026-09-30",
-      "end": "2026-11-08",
-      "status": "ongoing",
-      "url": "https://www.crealitycloud.com/contest/Multicolor-3DModel",
-      "site": "creality-intl"
-    },
-    {
-      "name": "Food-Inspired Fidget Toy Design Contest",
-      "desc": "Turn everyday foods into fun, satisfying fidget toys! Whether it clicks, flexes, spins, slides, or moves with articulated parts, bring your food-inspired ideas to life and create something people can’t resist playing with.",
-      "start": "2026-10-19",
-      "end": "2026-11-22",
-      "status": "upcoming",
-      "url": "https://www.crealitycloud.com/contest/Food-Inspired-Fidget-Toy",
-      "site": "creality-intl"
-    },
-    {
       "name": "平板3D创意周边&电竞生态设计大赛",
       "desc": "我们期待的不只是一个好看的3D模型， 而是一个真正有机会从创意走向产品的设计。 联想无界，创想有形。",
       "start": "2026-09-01",
@@ -418,6 +355,96 @@
       "url": "https://m.crealitycloud.cn/contest/Storage-3Dmodels",
       "acStatus": 2,
       "site": "creality-cn"
+    },
+    {
+      "name": "创想三维 × 赛尔号启航 宇宙创想模型设计大赛",
+      "desc": "K3 、SPARKX i8 3D打印机免费拿！还有索尼耳机、大疆 Pocket 4、耗材干燥盒、打印耗材等丰厚好礼",
+      "start": "2026-10-21",
+      "end": "2026-11-30",
+      "status": "ongoing",
+      "url": "https://m.crealitycloud.cn/contest/seer-3Dmodels",
+      "site": "creality-cn"
+    },
+    {
+      "name": "2026 Halloween Design Contest",
+      "desc": "2026 Halloween Season invites creators around the world to design and share original 3D models inspired by everything Halloween.",
+      "start": "2026-09-20",
+      "end": "2026-10-31",
+      "status": "ongoing",
+      "url": "https://www.crealitycloud.com/contest/2026-Halloween",
+      "site": "creality-intl"
+    },
+    {
+      "name": "Thermoformed Model Design Contest",
+      "desc": "What happens when 3D printing meets thermoforming? The Thermoformed Model Design Contest invites you to explore a new way of creating with your 3D printer. Design a model that can be printed flat, heated, and shaped with a mold into a three-dimensional creation.",
+      "start": "2026-09-23",
+      "end": "2026-10-25",
+      "status": "ongoing",
+      "url": "https://www.crealitycloud.com/contest/Thermoformed-Model",
+      "site": "creality-intl"
+    },
+    {
+      "name": "Vortex Stack Challenge",
+      "desc": "Print the designated model, stack the spiral pieces, and press the spring mechanism at the base to send the ball fly high.",
+      "start": "2026-09-23",
+      "end": "2026-10-25",
+      "status": "ongoing",
+      "url": "https://www.crealitycloud.com/contest/vortexstack-challenge",
+      "site": "creality-intl"
+    },
+    {
+      "name": "Hot Air Balloon Design Contest",
+      "desc": "Inspired by the Albuquerque International Balloon Fiesta, we’re inviting creators to design 3D models inspired by hot air balloons.",
+      "start": "2026-09-17",
+      "end": "2026-10-18",
+      "status": "judging",
+      "url": "https://www.crealitycloud.com/contest/Hot-Air-Balloon",
+      "site": "creality-intl"
+    },
+    {
+      "name": "Mechanical Motion Elite Design Challenge",
+      "desc": "A brand-new flagship competition. We invite creators to push the possibilities of 3D-printed mechanical design and create high-quality models that combine creative mechanisms, functional movement, engineering ingenuity, and printability.",
+      "start": "2026-08-27",
+      "end": "2026-10-11",
+      "status": "judging",
+      "url": "https://www.crealitycloud.com/contest/Mechanical-Motion",
+      "site": "creality-intl"
+    },
+    {
+      "name": "Multicolor 3D Model Design Contest",
+      "desc": "With SPARKX i8, multicolor creation becomes simpler and more efficient. Now, we're inviting creators around the world to join the Multicolor 3D Model Design Contest and explore what's possible when color and 3D design come together.",
+      "start": "2026-09-30",
+      "end": "2026-11-08",
+      "status": "ongoing",
+      "url": "https://www.crealitycloud.com/contest/Multicolor-3DModel",
+      "site": "creality-intl"
+    },
+    {
+      "name": "Food-Inspired Fidget Toy Design Contest",
+      "desc": "Turn everyday foods into fun, satisfying fidget toys! Whether it clicks, flexes, spins, slides, or moves with articulated parts, bring your food-inspired ideas to life and create something people can’t resist playing with.",
+      "start": "2026-10-19",
+      "end": "2026-11-22",
+      "status": "ongoing",
+      "url": "https://www.crealitycloud.com/contest/Food-Inspired-Fidget-Toy",
+      "site": "creality-intl"
+    },
+    {
+      "name": "Retro Revival Design Contest",
+      "desc": "Give retro style a fresh spin with 3D printing! Create designs inspired by classic aesthetics, nostalgic objects, vintage colors, and iconic shapes. Bring your own twist to retro design and turn your ideas into printable creations.",
+      "start": "2026-10-23",
+      "end": "2026-11-30",
+      "status": "upcoming",
+      "url": "https://www.crealitycloud.com/contest/Retro-Revival",
+      "site": "creality-intl"
+    },
+    {
+      "name": "Animal-Inspired Homeware Design Contest",
+      "desc": "Bring the charm of the animal kingdom into your home! Let animals spark your imagination and inspire creative homeware designs.",
+      "start": "2026-10-23",
+      "end": "2026-11-29",
+      "status": "upcoming",
+      "url": "https://www.crealitycloud.com/contest/Animal-Inspired-Homeware",
+      "site": "creality-intl"
     },
     {
       "name": "Halloween Party: 3D Design Contest 🎃",
