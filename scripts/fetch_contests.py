@@ -6,8 +6,8 @@
 
 抓取策略：
 - 纯 HTTP/API（无需浏览器）：creality-cn, creality-intl, makeroad, joykings3d(jhx3d),
-  snapmaker(Next.js RSC 转义JSON正则提取)
-- 需 Playwright 无头浏览器：makerworld-cn, makerworld-intl, jlc, nexprint, makeronline(客户端水合)
+  snapmaker(Next.js RSC 转义JSON正则提取), nexprint(官方 gateway activity-cards 接口)
+- 需 Playwright 无头浏览器：makerworld-cn, makerworld-intl, jlc, makeronline(客户端水合)
 
 合并原则（增量、逐平台、不删旧数据）：
 - 抓取失败(返回 None)的平台：该平台旧条目原样保留，绝不删除。
@@ -35,6 +35,7 @@ import argparse
 import subprocess
 import datetime
 from pathlib import Path
+from urllib.parse import urlsplit, urlunsplit, parse_qs, quote, unquote
 
 ROOT = Path(__file__).resolve().parent
 PROJECT = ROOT.parent
@@ -47,6 +48,11 @@ NODE_BIN = os.environ.get("NODE_BIN") or "node"
 
 def now_str():
     return datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+
+
+# 多数站点会对默认 UA 返回 403 或空白页，统一用一个完整浏览器 UA
+UA_FULL = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
+           "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
 
 
 def http_get(url, headers=None, timeout=25):
@@ -127,6 +133,16 @@ def str_date(s):
     s = s.strip().replace("T", " ").replace("Z", "")
     m = re.match(r"(\d{4}-\d{2}-\d{2})", s)
     return m.group(1) if m else ""
+
+
+def _norm_date(s):
+    """把 2026/10/2、2026-10-2 等统一成补零的 YYYY-MM-DD。"""
+    if not s:
+        return ""
+    m = re.match(r"(\d{4})[-/](\d{1,2})[-/](\d{1,2})", s)
+    if not m:
+        return ""
+    return "%s-%02d-%02d" % (m.group(1), int(m.group(2)), int(m.group(3)))
 
 
 def minus1(dstr):
@@ -361,12 +377,57 @@ def fetch_joykings3d():
 
 
 def fetch_makeronline():
-    # makeronline 的 SSR 数据使用 Nuxt devalue 变量引用，无法纯正则/求值解析，
-    # 改用 Playwright 渲染后读取 DOM 卡片。
-    return _playwright_run(
-        "makeronline",
-        "https://www.makeronline.com/zh/contestList",
-        _makeronline_parse)
+    """纵维立方 Makeronline：列表页 + 详情页纯 HTTP 抓取（无需浏览器）。
+
+    旧版两个问题：
+    1) 卡片链接带 ?trackContestType=3，旧判断 url.endswith(".html") 把全部卡片判负
+       → 整站只剩 4 条旧数据；
+    2) 列表页卡片文本不含日期，DOM 解析出来 start/end 恒为空。
+    现改为：列表页 HTML 直接正则出 /zh/contest/<名称>/<id>.html，
+    再逐个取详情页 —— <title> 是正式名称，前两个 YYYY-MM-DD HH:MM:SS 是活动起止。
+    注意：站点标注截止时间为「次日 00:00:00」，最后可参赛日需 -1 天。
+    """
+    base = "https://www.makeronline.com"
+    h = {"User-Agent": UA_FULL, "Accept": "text/html,application/xhtml+xml"}
+    html = http_get(base + "/zh/contestList", headers=h)
+
+    order = []
+    slug = {}
+    for m in re.finditer(r'/zh/contest/([^/"\\\s]+)/(\d+)\.html', html):
+        seg, cid = m.group(1), m.group(2)
+        if cid in slug:
+            continue
+        slug[cid] = seg
+        order.append(cid)
+
+    out = []
+    for cid in order:
+        url = f"{base}/zh/contest/{slug[cid]}/{cid}.html"
+        try:
+            detail = http_get(url, headers=h)
+        except Exception:
+            continue
+        mt = re.search(r"<title>(.*?)</title>", detail, re.S)
+        name = unquote(slug[cid])
+        if mt:
+            # 形如 "2026 万圣节设计大赛 - 203 - Makeronline - More Than Fun"
+            t = re.sub(r"\s*-\s*%s\s*-\s*Makeronline.*$" % cid, "", mt.group(1).strip(),
+                       flags=re.I | re.S)
+            if t.strip():
+                name = " ".join(t.split())
+        dts = re.findall(r"\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}", detail)
+        start = str_date(dts[0]) if dts else ""
+        end = minus1(str_date(dts[1])) if len(dts) > 1 else ""
+        st = status_by_date(start, end) if (start and end) else "ongoing"
+        out.append({
+            "name": name,
+            "desc": "",
+            "start": start,
+            "end": end,
+            "status": st,
+            "url": url,
+        })
+    return out
 
 
 def _snapmaker_status_api(c):
@@ -441,9 +502,50 @@ def fetch_snapmaker():
     return out
 
 
+def fetch_nexprint():
+    """Nexprint 比赛：官方网关 JSON 接口（纯 HTTP，无需浏览器）。
+    旧版失效原因：站点已升级 Nuxt3，不再暴露 window.__NUXT__，旧解析恒为空
+    → 长期只有旧数据。改用 activity-cards 接口：
+      status=0 未开始 / status=1 进行中 / status=3 已结束
+    只取 0 和 1（已结束不展示），时间字段为毫秒时间戳。"""
+    out = []
+    seen = set()
+    for status in (0, 1):
+        url = ("https://www.nexprint.com/gateway/api/v1/activity-server/model/"
+               f"activity/center/activity-cards?status={status}&pageNo=1&pageSize=100")
+        d = json.loads(http_get(url, headers={"Accept": "application/json"}))
+        lst = (d.get("data") or {}).get("list") or []
+        for a in lst:
+            path = (a.get("pathName") or "").strip()
+            name = (a.get("title") or "").strip()
+            if not name or not path:
+                continue
+            u = "https://www.nexprint.com/contests/" + path
+            if u in seen:
+                continue
+            seen.add(u)
+            start = ts_date(a.get("availableStartTime"), "ms")
+            end = ts_date(a.get("availableEndTime"), "ms")
+            st = status_by_date(start, end)
+            if a.get("status") == 0:
+                st = "upcoming"
+            out.append({
+                "name": name,
+                "desc": strip_html(a.get("subtitle") or ""),
+                "start": start,
+                "end": end,
+                "status": st,
+                "url": u,
+            })
+    return out
+
+
 # ---- Playwright 组（需浏览器） ----
 
-def _playwright_run(site, url, parse_fn):
+def _playwright_run(site, url, parse_fn, ready_sel=None, settle_ms=6000):
+    """渲染抓取。注意：不要用 wait_until="networkidle" —— makerworld 等站有长连接
+    埋点，页面永不进入 networkidle，会稳定 60s 超时（曾导致中/英两站长期漏抓）。
+    改为 domcontentloaded + 固定等待，再等关键选择器出现，容错更强。"""
     try:
         from playwright.sync_api import sync_playwright
     except Exception:
@@ -452,9 +554,24 @@ def _playwright_run(site, url, parse_fn):
     try:
         with sync_playwright() as p:
             browser = p.chromium.launch(args=["--no-sandbox"])
-            page = browser.new_page(locale="zh-CN")
-            page.goto(url, wait_until="networkidle", timeout=60000)
-            page.wait_for_timeout(3500)
+            ctx = browser.new_context(
+                locale="zh-CN",
+                user_agent=("Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+                            "AppleWebKit/537.36 (KHTML, like Gecko) "
+                            "Chrome/131.0.0.0 Safari/537.36"))
+            page = ctx.new_page()
+            try:
+                page.goto(url, wait_until="domcontentloaded", timeout=60000)
+            except Exception:
+                # domcontentloaded 仍超时也继续尝试解析已渲染内容
+                pass
+            page.wait_for_timeout(settle_ms)
+            if ready_sel:
+                try:
+                    page.wait_for_selector(ready_sel, timeout=20000)
+                except Exception:
+                    pass
+                page.wait_for_timeout(1500)
             data = parse_fn(page)
             browser.close()
             return data
@@ -464,71 +581,112 @@ def _playwright_run(site, url, parse_fn):
 
 
 def _mw_parse(page):
+    """MakerWorld 中/英 列表解析。
+
+    旧版三个坑：
+    1) 日期正则只认 YYYY-MM-DD，而站点渲染的是 2026/10/22 - 2026/11/22 → 日期全空；
+    2) 名称取 text.split("  ")[0]，但 JS 里已把空白压成单空格 → 名称变成整段卡片文本；
+    3) 同一比赛有多个 <a>（外层标题链接 + 内层数据条），外层常常没有日期，
+       内层才有 —— 逐个锚点独立解析必然丢日期。
+    现按 /contests/<id> 归并同组锚点：名称取 URL 的 ?name= 参数（最干净），
+    日期取组内所有行里出现的第一个日期区间。
+    """
     page.wait_for_selector('a[href*="/contests/"]', timeout=30000)
     cards = page.eval_on_selector_all(
         'a[href*="/contests/"]',
-        "els => els.map(e => {"
-        "  const t = (e.innerText || '').replace(/\\s+/g, ' ').trim();"
-        "  const dates = (t.match(/\\d{4}-\\d{2}-\\d{2}/g) || []);"
-        "  return {url: e.href, text: t, dates};"
-        "})")
-    seen = set()
-    out = []
+        "els => els.map(e => ({url: e.href,"
+        "  lines: (e.innerText || '').split('\\n').map(s => s.trim()).filter(s => s)}))")
+
+    groups = {}
+    order = []
     for c in cards:
-        url = c.get("url", "")
-        if not url or url in seen:
+        raw = c.get("url") or ""
+        m = re.search(r"/contests/(\d+)", raw)
+        if not m:
             continue
-        seen.add(url)
-        text = c.get("text", "")
-        dates = c.get("dates") or []
-        name = text.split("  ")[0].strip() or text.strip()[:40]
-        start = dates[0] if dates else ""
-        end = dates[1] if len(dates) > 1 else (dates[0] if dates else "")
-        st = status_from_text(text)
-        if st == "ongoing" and start and end:
+        cid = m.group(1)
+        parts = urlsplit(raw)
+        g = groups.get(cid)
+        if g is None:
+            g = {"name": "", "lines": [], "url": urlunsplit(
+                (parts.scheme, parts.netloc, parts.path, "", ""))}
+            groups[cid] = g
+            order.append(cid)
+        qs = parse_qs(parts.query)
+        nm = (qs.get("name") or [""])[0].strip()
+        if nm and not g["name"]:
+            g["name"] = nm
+        g["lines"].extend(c.get("lines") or [])
+
+    out = []
+    for cid in order:
+        g = groups[cid]
+        lines = g["lines"]
+        joined = " ".join(lines)
+        name = g["name"]
+        if not name:
+            cand = [l for l in lines if len(l) > 3 and l.upper() != "3D"]
+            name = cand[0] if cand else ""
+        dates = re.findall(r"\d{4}[-/]\d{1,2}[-/]\d{1,2}", joined)
+        start = _norm_date(dates[0]) if dates else ""
+        end = _norm_date(dates[1]) if len(dates) > 1 else start
+        st = status_from_text(joined)
+        if start and end and st == "ongoing":
             st = status_by_date(start, end)
         out.append({
-            "name": name,
+            "name": " ".join(name.split()),
             "desc": "",
             "start": start,
             "end": end,
             "status": st,
-            "url": url,
+            "url": g["url"],
         })
     return out
 
 
 def _jlc_parse(page):
+    """嘉立创 3D 打印比赛列表。
+
+    卡片 innerText 行结构：[状态, 标题, 副标题, "投稿时间: A - B", 浏览数, 作品数]
+    旧版按整段文本 split 取名称，会把「36天后结束」和浏览/作品数字混进标题
+    → 改为逐行过滤后取干净的标题与副标题；顺带丢掉没有日期导航卡片。
+    """
     page.wait_for_selector(".main-race, .race-card, a[href*='/race']", timeout=30000)
     cards = page.eval_on_selector_all(
         "a[href*='/race']",
-        "els => els.map(e => {"
-        "  const t = (e.innerText || '').replace(/\\s+/g, ' ').trim();"
-        "  const dates = (t.match(/\\d{4}[-/]\\d{2}[-/]\\d{2}/g) || []);"
-        "  return {url: e.href, text: t, dates};"
-        "})")
+        "els => els.map(e => ({url: e.href,"
+        "  lines: (e.innerText || '').split('\\n').map(s => s.trim()).filter(s => s)}))")
+
+    noise = re.compile(r"(已结束|^\d+\s*天[后前]?.*结束$|剩余\s*\d+\s*天|投稿时间)")
     seen = set()
     out = []
     for c in cards:
-        url = c.get("url", "")
-        if not url or url in seen:
+        m = re.search(r"id=([0-9a-zA-Z]+)", c.get("url") or "")
+        if not m:
             continue
-        seen.add(url)
-        text = c.get("text", "")
-        dates = c.get("dates") or []
-        name = text.split("  ")[0].strip() or text.strip()[:40]
-        start = dates[0] if dates else ""
-        end = dates[1] if len(dates) > 1 else (dates[0] if dates else "")
-        st = status_from_text(text)
-        if st == "ongoing" and start and end:
-            st = status_by_date(start, end)
+        rid = m.group(1)
+        if rid in seen:
+            continue
+        lines = c.get("lines") or []
+        joined = " ".join(lines)
+        dates = re.findall(r"\d{4}[-/]\d{1,2}[-/]\d{1,2}", joined)
+        if len(dates) < 2:
+            continue  # 无活动时间的导航卡片，跳过
+        seen.add(rid)
+        usable = [l for l in lines
+                  if not noise.search(l) and not re.fullmatch(r"[\d\s]+", l)]
+        name = usable[0] if usable else ""
+        desc = usable[1] if len(usable) > 1 else ""
+        start = _norm_date(dates[0])
+        end = _norm_date(dates[1])
+        st = status_by_date(start, end)
         out.append({
             "name": name,
-            "desc": "",
-            "start": str_date(start),
-            "end": str_date(end),
+            "desc": desc,
+            "start": start,
+            "end": end,
             "status": st,
-            "url": url,
+            "url": f"https://model.jlc-3dp.cn/raceDetail?id={rid}",
         })
     return out
 
@@ -571,39 +729,6 @@ def _nexprint_parse(page):
             "end": end,
             "status": st,
             "url": "https://www.nexprint.com/contests/" + str(a.get("pathName", "")),
-        })
-    return out
-
-
-def _makeronline_parse(page):
-    page.wait_for_selector('a[href*="/contest/"]', timeout=30000)
-    cards = page.eval_on_selector_all(
-        'a[href*="/contest/"]',
-        "els => els.map(e => ({url: e.href, text: (e.innerText || '').trim()}))")
-    seen = set()
-    out = []
-    for c in cards:
-        url = c.get("url", "")
-        if not url or url in seen or "contestList" in url or not url.endswith(".html"):
-            continue
-        seen.add(url)
-        text = c.get("text", "")
-        lines = [l.strip() for l in text.split("\n") if l.strip()]
-        name = lines[0] if lines else ""
-        dates = re.findall(r"\d{4}-\d{2}-\d{2}", text)
-        start = dates[0] if dates else ""
-        raw_end = dates[1] if len(dates) > 1 else (dates[0] if dates else "")
-        end = minus1(raw_end)  # 纵维立方规则：end -1 天
-        st = status_from_text(text)
-        if st == "ongoing" and start and end:
-            st = status_by_date(start, end)
-        out.append({
-            "name": name,
-            "desc": "",
-            "start": start,
-            "end": end,
-            "status": st,
-            "url": url,
         })
     return out
 
@@ -676,7 +801,7 @@ def merge(existing, fresh_blocks, today=None):
                         if matched_by == "name" and v and oc.get("url") != v:
                             oc[k] = v
                         continue
-                    if v is not None and oc.get(k) != v:
+                    if v is not None and v != "" and oc.get(k) != v:
                         oc[k] = v
                 site_out.append(oc)
             else:
@@ -715,13 +840,15 @@ def main():
         "makeronline": fetch_makeronline,
         "snapmaker": fetch_snapmaker,
         "makerworld-cn": lambda: _playwright_run(
-            "makerworld-cn", "https://makerworld.com.cn/zh/contests", _mw_parse),
+            "makerworld-cn", "https://makerworld.com.cn/zh/contests", _mw_parse,
+            ready_sel='a[href*="/contests/"]'),
         "makerworld-intl": lambda: _playwright_run(
-            "makerworld-intl", "https://makerworld.com/zh/contests", _mw_parse),
+            "makerworld-intl", "https://makerworld.com/zh/contests", _mw_parse,
+            ready_sel='a[href*="/contests/"]'),
         "jlc": lambda: _playwright_run(
-            "jlc", "https://model.jlc-3dp.cn/race", _jlc_parse),
-        "nexprint": lambda: _playwright_run(
-            "nexprint", "https://www.nexprint.com/zh/contests", _nexprint_parse),
+            "jlc", "https://model.jlc-3dp.cn/race", _jlc_parse,
+            ready_sel=".main-race, .race-card, a[href*='/race']"),
+        "nexprint": fetch_nexprint,
     }
 
     data = json.loads(CONTESTS.read_text(encoding="utf-8"))
