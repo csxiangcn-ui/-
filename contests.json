@@ -1,6 +1,6 @@
 {
   "_comment": "3D模型网站比赛数据 - 自动抓取更新。status: ongoing|upcoming|judging|ended",
-  "last_update": "2026-10-26 09:57",
+  "last_update": "2026-10-26 10:42",
   "contests": [
     {
       "name": "平板3D创意周边&电竞生态设计大赛",
@@ -190,7 +190,7 @@
       "desc": "",
       "start": "2026-09-16",
       "end": "2026-10-16",
-      "status": "ongoing",
+      "status": "ended",
       "url": "https://www.jhx3d.com/activitys/detail/37",
       "miniStatus": "in_progress",
       "competitionId": 37,
