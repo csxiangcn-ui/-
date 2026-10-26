@@ -25,3 +25,5 @@ update.log
 # 本机部署辅助文件（不入库）
 README.md
 install_task.bat
+setup_env.bat
+uninstall_task.bat
