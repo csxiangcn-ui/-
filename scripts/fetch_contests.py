@@ -771,6 +771,44 @@ def _match_and_consume(oc, fresh, used):
     return None, None
 
 
+def normalize_status(items, today=None):
+    """按截止日期校正状态。
+
+    站点自身的状态文本经常滞后：几何芯(jhx3d) 就把 10-16 已截止的比赛
+    仍挂在「进行中」。页面生成阶段虽然也会按日期过滤，但 JSON 里的状态
+    不一致会让统计口径虚高，也让后续排查误判，所以在这里统一校正。
+
+    - judging 不动：评审期本就跨过提交截止日
+    - ongoing/upcoming 且 end < today → ended
+    - upcoming 但 start <= today <= end → ongoing
+    """
+    if today is None:
+        today = datetime.date.today()
+    out = []
+    for c in items:
+        st = c.get("status") or "ongoing"
+        if st == "judging":
+            out.append(c)
+            continue
+        try:
+            start = datetime.date.fromisoformat(c.get("start") or "")
+            end = datetime.date.fromisoformat(c.get("end") or "")
+        except ValueError:
+            out.append(c)
+            continue
+        if end < today:
+            new_st = "ended"
+        elif start > today:
+            new_st = "upcoming"
+        else:
+            new_st = "ongoing"
+        if new_st != st:
+            c = dict(c)
+            c["status"] = new_st
+        out.append(c)
+    return out
+
+
 def merge(existing, fresh_blocks, today=None):
     """
     逐平台增量合并（与 WorkBuddy AI 版 update_contests_*.py 语义一致）：
@@ -879,7 +917,7 @@ def main():
         print(f"[ok] {site}: 抓到 {len(items)} 条（活跃 {active}）")
         fresh_blocks[site] = items
 
-    merged = merge(existing, fresh_blocks)
+    merged = normalize_status(merge(existing, fresh_blocks))
     data["contests"] = merged
     data["last_update"] = now_str()
     CONTESTS.write_text(json.dumps(data, ensure_ascii=False, indent=2),

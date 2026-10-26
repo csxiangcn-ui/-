@@ -16,8 +16,18 @@ rem Always prefer .venv. Playwright installed into WorkBuddy's bundled temp
 rem python disappears between sessions, which silently loses the
 rem browser-rendered platforms (makerworld / jlc / makeronline).
 set "PY=%~dp0.venv\Scripts\python.exe"
-if not exist "%PY%" set "PY=python"
+rem A missing .venv used to silently fall back to system python, which has no
+rem Playwright and quietly loses the browser-rendered platforms. Fail loudly.
+if exist "%PY%" goto :pyok
+echo [FATAL] missing interpreter: %PY%
+echo [FATAL] rebuild it: run setup_env.bat, then retry
+if /i "%~1"=="auto" (
+  >> update.log echo [FATAL] missing interpreter: %PY%
+  >> update.log echo [FATAL] rebuild it: run setup_env.bat, then retry
+)
+exit /b 9
 
+:pyok
 if /i "%~1"=="auto" goto :auto
 
 echo.
@@ -45,12 +55,14 @@ exit /b 0
 set PYTHONIOENCODING=utf-8
 set PYTHONUTF8=1
 (
-  echo ===== %date% %time% =====
+  rem %date% is locale-dependent (Chinese weekday) and turns into mojibake in
+  rem the UTF-8 log, so let python stamp the log instead.
+  "%PY%" -c "import datetime;print('===== '+datetime.datetime.now().isoformat(' ','seconds')+' =====')"
   "%PY%" scripts\git_push.py pull
   "%PY%" scripts\fetch_contests.py
   git add contests.json 3d-contests.html
   git commit -m "Daily update"
   "%PY%" scripts\git_push.py push
-  echo ===== end %date% %time% =====
+  "%PY%" -c "import datetime;print('===== end '+datetime.datetime.now().isoformat(' ','seconds')+' =====')"
 ) >> update.log 2>&1
 exit /b 0
