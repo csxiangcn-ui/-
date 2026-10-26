@@ -40,7 +40,8 @@ SITES = {
     "makerworld-intl":  {"name": "拓竹国际",            "url": "https://makerworld.com/zh/contests",          "color": "#E55B5B"},
     "jlc":              {"name": "嘉立创",              "url": "https://model.jlc-3dp.cn/race",               "color": "#5B9BD5"},
     "makeroad":         {"name": "三绿 (MakerRoad)",    "url": "https://www.makeroad.com/zh/contests",         "color": "#52C41A"},
-    "snapmaker":        {"name": "快造 (Snapmaker)",    "url": "https://models.snapmaker.com/contest",         "color": "#722ED1"},
+    "snapmaker":        {"name": "快造国际",            "url": "https://space.snapmaker.com/zh/contest",      "color": "#722ED1"},
+    "snapmaker-cn":     {"name": "快造国内",            "url": "https://space.snapmaker.cn/zh/contest",       "color": "#9254DE"},
     "nexprint":         {"name": "爱乐酷 (Nexprint)",   "url": "https://www.nexprint.com/zh/contests",        "color": "#EB2F96"},
     "joykings3d":       {"name": "几何芯 (JoyKings3D)", "url": "https://www.jhx3d.com/activitys/list",   "color": "#00B8A9"},
 }

@@ -4,9 +4,10 @@
 3D 打印比赛聚合 - 家庭/云端独立更新脚本（不依赖 WorkBuddy，可无人值守）
 替代 WorkBuddy WebFetch 依赖，在家用电脑 / GitHub Actions(无头环境) 中独立运行。
 
-抓取策略：
+抓取策略（11 个平台）：
 - 纯 HTTP/API（无需浏览器）：creality-cn, creality-intl, makeroad, joykings3d(jhx3d),
-  snapmaker(Next.js RSC 转义JSON正则提取), nexprint(官方 gateway activity-cards 接口)
+  snapmaker(国际站 api-models.snapmaker.com), snapmaker-cn(中国站 api-models.snapmaker.cn),
+  nexprint(官方 gateway activity-cards 接口)
 - 需 Playwright 无头浏览器：makerworld-cn, makerworld-intl, jlc, makeronline(客户端水合)
 
 合并原则（增量、逐平台、不删旧数据）：
@@ -470,9 +471,9 @@ def _snapmaker_status_api(c):
     return "ongoing"
 
 
-def fetch_snapmaker():
-    """快造 Snapmaker 比赛：官方 JSON 接口（替代旧版逐 pid 抓详情页 HTML）。
-    接口：https://api-models.snapmaker.com/api/contest?page=N&pageSize=50
+def _fetch_snapmaker(api_host, web_base):
+    """快造 Snapmaker 比赛：官方 JSON 接口（国际站与中国站字段完全一致）。
+    接口：https://{api_host}/api/contest?page=N&pageSize=50
     返回 id/title/subtitle/status/contestStartAt/contestEndAt/judgeStartAt/
     judgeEndAt/announcementAt 等完整字段，分页一次覆盖全部比赛。
     旧版问题：硬编码只抓 pid 1/2 且名称依赖旧数据回填，会漏掉新比赛。"""
@@ -481,7 +482,7 @@ def fetch_snapmaker():
     total = None
     page = 1
     while page <= 10:
-        url = ("https://api-models.snapmaker.com/api/contest"
+        url = (f"https://{api_host}/api/contest"
                f"?page={page}&pageSize=50")
         d = json.loads(http_get(url, headers={"Accept": "application/json"}))
         if d.get("code") not in (200, None):
@@ -504,13 +505,31 @@ def fetch_snapmaker():
                 "start": str_date(c.get("contestStartAt")),
                 "end": str_date(c.get("contestEndAt")),
                 "status": _snapmaker_status_api(c),
-                "url": f"https://space.snapmaker.com/zh/contest/{c.get('id')}",
+                # 详情页真实格式是 /zh/contest/detail?id=N；
+                # 旧写法 /zh/contest/{id} 在国内外两站都是 HTTP 500 死链。
+                "url": f"{web_base}/zh/contest/detail?id={c.get('id')}",
             })
         seen += len(lst)
         if not lst or (total is not None and seen >= total):
             break
         page += 1
     return out
+
+
+def fetch_snapmaker():
+    """快造国际站：space.snapmaker.com（接口 api-models.snapmaker.com）。"""
+    return _fetch_snapmaker("api-models.snapmaker.com",
+                            "https://space.snapmaker.com")
+
+
+def fetch_snapmaker_cn():
+    """快造中国站：space.snapmaker.cn（接口 api-models.snapmaker.cn）。
+
+    与国际站是两套独立域名 + 独立数据，比赛内容互不相同（中国站 2026-10 首办），
+    因此必须单独作为一路抓取，不能共用国际站结果。
+    """
+    return _fetch_snapmaker("api-models.snapmaker.cn",
+                            "https://space.snapmaker.cn")
 
 
 def fetch_nexprint():
@@ -888,6 +907,7 @@ def main():
         "joykings3d": fetch_joykings3d,
         "makeronline": fetch_makeronline,
         "snapmaker": fetch_snapmaker,
+        "snapmaker-cn": fetch_snapmaker_cn,
         "makerworld-cn": lambda: _playwright_run(
             "makerworld-cn", "https://makerworld.com.cn/zh/contests", _mw_parse,
             ready_sel='a[href*="/contests/"]'),
