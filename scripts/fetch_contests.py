@@ -31,6 +31,7 @@ import json
 import re
 import sys
 import os
+import time
 import argparse
 import subprocess
 import datetime
@@ -55,14 +56,24 @@ UA_FULL = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
            "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
 
 
-def http_get(url, headers=None, timeout=25):
+def http_get(url, headers=None, timeout=25, retries=2):
+    """GET 文本。默认重试一次：家庭宽带偶发抖动会让单站整轮失败（曾出现
+    creality-intl read timeout 导致该站整天不更新），重试可显著降低漏抓率。"""
     import urllib.request
-    h = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
+    h = {"User-Agent": UA_FULL}
     if headers:
         h.update(headers)
-    req = urllib.request.Request(url, headers=h)
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return r.read().decode("utf-8", "ignore")
+    last = None
+    for attempt in range(retries + 1):
+        try:
+            req = urllib.request.Request(url, headers=h)
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return r.read().decode("utf-8", "ignore")
+        except Exception as e:
+            last = e
+            if attempt < retries:
+                time.sleep(2)
+    raise last
 
 
 def http_post(url, body, headers=None, timeout=25):

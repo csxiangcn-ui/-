@@ -1,53 +1,57 @@
 @echo off
-chcp 65001 >nul
 rem ============================================================
-rem  3D 比赛追踪 - 一键更新（抓取10平台 → 增量合并 → 生成HTML → 推送GitHub）
-rem  用法:
-rem    双击运行（手动，结束后停留等待查看）
-rem    run_update.bat auto  （自动模式：供计划任务调用，输出到 update.log）
+rem  3D Contests - daily update
+rem    run_update.bat       : manual run (pauses at the end)
+rem    run_update.bat auto  : unattended run, output -> update.log
+rem  Pipeline: git pull -> fetch 10 platforms -> merge -> HTML -> push
+rem  NOTE: keep this file ASCII-only. Non-ASCII text after "chcp 65001"
+rem  makes cmd.exe mis-seek lines and execute garbage (seen: 'yongfa'
+rem  being run as a command). Python used for output encoding instead.
 rem ============================================================
 cd /d "%~dp0"
 
-rem ---- Python 解释器选择 ----
-rem 必须优先使用本目录的 .venv：WorkBuddy 自带的临时 Python 里装的 playwright
-rem 会随会话消失，用它抓 makerworld/jlc/makeronline 会静默失败（表现为"抓不全"）。
+rem ---- Python interpreter ----
+rem Always prefer .venv. Playwright installed into WorkBuddy's bundled temp
+rem python disappears between sessions, which silently loses the
+rem browser-rendered platforms (makerworld / jlc / makeronline).
 set "PY=%~dp0.venv\Scripts\python.exe"
-if not exist "%PY%" (
-  echo [!] 未找到 .venv，回退到系统 python
-  set PY=python
-)
+if not exist "%PY%" set "PY=python"
 
 if /i "%~1"=="auto" goto :auto
 
 echo.
-echo [1/4] 拉取远端最新数据 (git pull) ...
+echo [1/4] git pull ...
 git pull --rebase
 if errorlevel 1 (
-  echo [!] pull 失败，尝试普通 pull ...
+  echo [!] pull --rebase failed, retry plain pull ...
   git pull
 )
 
 echo.
-echo [2/4] 抓取各平台并增量合并 contests.json ...
+echo [2/4] fetch platforms and merge contests.json ...
+set PYTHONIOENCODING=utf-8
+set PYTHONUTF8=1
 "%PY%" scripts\fetch_contests.py
 
 echo.
-echo [3/4] 提交并推送到 GitHub ...
+echo [3/4] commit and push ...
 git add contests.json 3d-contests.html
 git commit -m "Daily update"
 git push
 if errorlevel 1 (
-  echo [!] push 失败，先 pull 再重试 push ...
+  echo [!] push failed, pull then retry ...
   git pull --rebase
   git push
 )
 
 echo.
-echo [4/4] 完成！已推送到 GitHub（页面地址见仓库 Pages 设置）。
+echo [4/4] done. GitHub Pages refreshes in 1-2 minutes.
 pause
 exit /b 0
 
 :auto
+set PYTHONIOENCODING=utf-8
+set PYTHONUTF8=1
 (
   echo ===== %date% %time% =====
   git pull --rebase
@@ -59,6 +63,6 @@ exit /b 0
     git pull --rebase
     git push
   )
-  echo ===== done %time% =====
+  echo ===== end %date% %time% =====
 ) >> update.log 2>&1
 exit /b 0
