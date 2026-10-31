@@ -1,16 +1,7 @@
 {
   "_comment": "3D模型网站比赛数据 - 自动抓取更新。status: ongoing|upcoming|judging|ended",
-  "last_update": "2026-10-31 08:49",
+  "last_update": "2026-10-31 08:53",
   "contests": [
-    {
-      "name": "Halloween Party: 3D Design Contest 🎃",
-      "desc": "Print Your Dark Gear and Bring Your Creativity to Life This Halloween! This Halloween, let’s skip the boring specs and talk about making a stunning entrance in the dark! Whether you want to roll through the streets with a ghostly ride you built yourself, or light up your windows with a glowing jack-o'-lantern, MAKEROAD is giving you the ultimate stage to shine. ✨ Three Tracks to Unleash Your Inner Monster 1. 🎭 Halloween Wearables &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ● Horror Aesthetics: Masks, headdresses, and shoulder armor inspired by skeletons, vampires, witches, and zombies. Focus on visual impact and the ritual of wearing them—these are more than just accessories; they are your VIP pass to the spookiest party of the year. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ● Interactive &amp; Articulated: Wearable accessories with movable joints, such as wings, tails, and claw gloves. Designed to work with basic hardware, so you can \"wear it, move it, and spook everyone!\" We want prints that are wearable, posable, and undeniably scary. 2. 🚤 Halloween RC Builds &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ● Ghost Rides: Halloween-themed mod shells compatible with MAKEROAD’s official RC car kits. Think skeleton chariots, pumpkin battle cars, or ghost school buses. Bring the chassis to life with shells that boast smart part-splitting, easy assembly, and high visibility for your nighttime cruising. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ● Pumpkin Boats: Halloween-themed hulls compatible with MAKEROAD’s official RC boat kits. Ghost pirate ships, jack-o'-lantern floats, swamp monster vessels... These designs must balance sailing stability with festive styling for a terrifying splash on the water! 3. 🎃 Halloween Display &amp; Decor &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ● Dark Ambiance: Festive decorations like jack-o'-lanterns, tombstones, bat swarms, and spider webs to set the mood. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ● Collectibles &amp; Toys: Articulated Halloween-themed figurines, miniature dioramas, and desktop landscaping kits. Balancing playability with display quality, so the Halloween spirit lasts all year round as the ultimate dark aesthetic collection. 🛠 Contest Requirements &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ● Functionality First: Designs must fit the Halloween use case. Wearables need size specs; RC mods require assembly instructions for our official kits; decor should include recommended print settings (layer height, supports, filament type). &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ● Bonus for Creativity: Share your design inspiration, structural ingenuity, or a fun Halloween backstory in your description! &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ● File Requirements: Complex designs must include clear assembly instructions (PDF or GIF) to ensure the community can recreate your dark masterpiece. Let the dark, the candlelight, and your 3D prints awaken this Halloween! Fire up your printers and start creating now!",
-      "start": "2026-09-23",
-      "end": "2026-11-02",
-      "status": "ongoing",
-      "url": "https://www.makeroad.com/contests/57",
-      "site": "makeroad"
-    },
     {
       "name": "指尖疗愈·弹走焦虑 3D打印解压玩具设计大赛",
       "desc": "",
@@ -59,60 +50,6 @@
       "status": "ended",
       "url": "https://www.jhx3d.com/activitys/detail/38",
       "site": "joykings3d"
-    },
-    {
-      "name": "Make for Good: Accessibility Design Contest",
-      "desc": "Design for Needs. Print for Change.",
-      "start": "2026-09-16",
-      "end": "2026-11-15",
-      "status": "ongoing",
-      "url": "https://makerworld.com/zh/contests/164",
-      "site": "makerworld-intl"
-    },
-    {
-      "name": "Biomimicry Design Contest",
-      "desc": "",
-      "start": "2026-10-23",
-      "end": "2026-11-30",
-      "status": "ongoing",
-      "url": "https://makerworld.com/zh/contests/170",
-      "site": "makerworld-intl"
-    },
-    {
-      "name": "Let's Make It: MakerWorld × Nothing Headphone Accessory Design Challenge",
-      "desc": "",
-      "start": "2026-10-19",
-      "end": "2026-11-22",
-      "status": "ongoing",
-      "url": "https://makerworld.com/zh/contests/169",
-      "site": "makerworld-intl"
-    },
-    {
-      "name": "Incense Design Contest",
-      "desc": "",
-      "start": "2026-10-12",
-      "end": "2026-11-16",
-      "status": "ongoing",
-      "url": "https://makerworld.com/zh/contests/168",
-      "site": "makerworld-intl"
-    },
-    {
-      "name": "Master Challenge: Rocket Revolution Design Contest",
-      "desc": "",
-      "start": "2026-09-30",
-      "end": "2026-10-31",
-      "status": "ongoing",
-      "url": "https://makerworld.com/zh/contests/167",
-      "site": "makerworld-intl"
-    },
-    {
-      "name": "Hosted By Creator: @Valeria Momo",
-      "desc": "",
-      "start": "2026-10-29",
-      "end": "2026-12-02",
-      "status": "ongoing",
-      "url": "https://makerworld.com/zh/contests/171",
-      "site": "makerworld-intl"
     },
     {
       "name": "平板3D创意周边&电竞生态设计大赛",
@@ -248,6 +185,15 @@
       "site": "creality-intl"
     },
     {
+      "name": "Halloween Party: 3D Design Contest 🎃",
+      "desc": "Print Your Dark Gear and Bring Your Creativity to Life This Halloween! This Halloween, let’s skip the boring specs and talk about making a stunning entrance in the dark! Whether you want to roll through the streets with a ghostly ride you built yourself, or light up your windows with a glowing jack-o'-lantern, MAKEROAD is giving you the ultimate stage to shine. ✨ Three Tracks to Unleash Your Inner Monster 1. 🎭 Halloween Wearables &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ● Horror Aesthetics: Masks, headdresses, and shoulder armor inspired by skeletons, vampires, witches, and zombies. Focus on visual impact and the ritual of wearing them—these are more than just accessories; they are your VIP pass to the spookiest party of the year. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ● Interactive &amp; Articulated: Wearable accessories with movable joints, such as wings, tails, and claw gloves. Designed to work with basic hardware, so you can \"wear it, move it, and spook everyone!\" We want prints that are wearable, posable, and undeniably scary. 2. 🚤 Halloween RC Builds &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ● Ghost Rides: Halloween-themed mod shells compatible with MAKEROAD’s official RC car kits. Think skeleton chariots, pumpkin battle cars, or ghost school buses. Bring the chassis to life with shells that boast smart part-splitting, easy assembly, and high visibility for your nighttime cruising. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ● Pumpkin Boats: Halloween-themed hulls compatible with MAKEROAD’s official RC boat kits. Ghost pirate ships, jack-o'-lantern floats, swamp monster vessels... These designs must balance sailing stability with festive styling for a terrifying splash on the water! 3. 🎃 Halloween Display &amp; Decor &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ● Dark Ambiance: Festive decorations like jack-o'-lanterns, tombstones, bat swarms, and spider webs to set the mood. &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ● Collectibles &amp; Toys: Articulated Halloween-themed figurines, miniature dioramas, and desktop landscaping kits. Balancing playability with display quality, so the Halloween spirit lasts all year round as the ultimate dark aesthetic collection. 🛠 Contest Requirements &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ● Functionality First: Designs must fit the Halloween use case. Wearables need size specs; RC mods require assembly instructions for our official kits; decor should include recommended print settings (layer height, supports, filament type). &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ● Bonus for Creativity: Share your design inspiration, structural ingenuity, or a fun Halloween backstory in your description! &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ● File Requirements: Complex designs must include clear assembly instructions (PDF or GIF) to ensure the community can recreate your dark masterpiece. Let the dark, the candlelight, and your 3D prints awaken this Halloween! Fire up your printers and start creating now!",
+      "start": "2026-09-23",
+      "end": "2026-11-02",
+      "status": "ongoing",
+      "url": "https://www.makeroad.com/contests/57",
+      "site": "makeroad"
+    },
+    {
       "name": "桌游设计大赛",
       "desc": "",
       "start": "2026-10-16",
@@ -345,6 +291,60 @@
       "status": "ongoing",
       "url": "https://makerworld.com.cn/zh/contests/95",
       "site": "makerworld-cn"
+    },
+    {
+      "name": "Make for Good: Accessibility Design Contest",
+      "desc": "Design for Needs. Print for Change.",
+      "start": "2026-09-16",
+      "end": "2026-11-15",
+      "status": "ongoing",
+      "url": "https://makerworld.com/zh/contests/164",
+      "site": "makerworld-intl"
+    },
+    {
+      "name": "Biomimicry Design Contest",
+      "desc": "",
+      "start": "2026-10-23",
+      "end": "2026-11-30",
+      "status": "ongoing",
+      "url": "https://makerworld.com/zh/contests/170",
+      "site": "makerworld-intl"
+    },
+    {
+      "name": "Let's Make It: MakerWorld × Nothing Headphone Accessory Design Challenge",
+      "desc": "",
+      "start": "2026-10-19",
+      "end": "2026-11-22",
+      "status": "ongoing",
+      "url": "https://makerworld.com/zh/contests/169",
+      "site": "makerworld-intl"
+    },
+    {
+      "name": "Incense Design Contest",
+      "desc": "",
+      "start": "2026-10-12",
+      "end": "2026-11-16",
+      "status": "ongoing",
+      "url": "https://makerworld.com/zh/contests/168",
+      "site": "makerworld-intl"
+    },
+    {
+      "name": "Master Challenge: Rocket Revolution Design Contest",
+      "desc": "",
+      "start": "2026-09-30",
+      "end": "2026-10-31",
+      "status": "ongoing",
+      "url": "https://makerworld.com/zh/contests/167",
+      "site": "makerworld-intl"
+    },
+    {
+      "name": "Hosted By Creator: @Valeria Momo",
+      "desc": "",
+      "start": "2026-10-29",
+      "end": "2026-12-02",
+      "status": "ongoing",
+      "url": "https://makerworld.com/zh/contests/171",
+      "site": "makerworld-intl"
     },
     {
       "name": "打印你的「出彩」时刻|全彩3D模型设计比赛",
