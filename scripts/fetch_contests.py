@@ -44,6 +44,9 @@ PROJECT = ROOT.parent
 CONTESTS = PROJECT / "contests.json"
 NODE_BIN = os.environ.get("NODE_BIN") or "node"
 
+# 单个平台的抓取总时长上限（秒）；超时则该平台按 [err] 处理并保留旧数据
+SITE_DEADLINE = 180
+
 # ----------------------------------------------------------------------------
 # 基础工具
 # ----------------------------------------------------------------------------
@@ -55,6 +58,32 @@ def now_str():
 # 多数站点会对默认 UA 返回 403 或空白页，统一用一个完整浏览器 UA
 UA_FULL = ("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
            "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36")
+
+
+def call_with_deadline(fn, seconds, label=""):
+    """在子线程中执行 fn，超过 seconds 秒仍未返回则抛 TimeoutError。
+
+    必要性：urllib 的 timeout 只约束单次 socket 读，若服务端「慢速滴流」
+    （几秒吐一个字节）则读超时永不触发，整轮抓取会无限挂死。
+    2026-11-02 makeronline 的「2026 万圣节设计大赛」详情页即此种情况，
+    导致 fetch 进程 13 分钟零进展、当日无任何平台结果。"""
+    import threading
+    box = {}
+
+    def _run():
+        try:
+            box["value"] = fn()
+        except Exception as e:  # noqa: BLE001 - 原样转抛给调用方
+            box["error"] = e
+
+    t = threading.Thread(target=_run, daemon=True)
+    t.start()
+    t.join(seconds)
+    if t.is_alive():
+        raise TimeoutError(f"超过 {seconds}s 未返回（疑似站点慢速滴流），已放弃 {label or ''}".strip())
+    if "error" in box:
+        raise box["error"]
+    return box.get("value")
 
 
 def http_get(url, headers=None, timeout=25, retries=2):
@@ -416,7 +445,8 @@ def fetch_makeronline():
     for cid in order:
         url = f"{base}/zh/contest/{slug[cid]}/{cid}.html"
         try:
-            detail = http_get(url, headers=h)
+            # 单详情页 30s 硬上限：站点偶有详情页慢速滴流，不能让一页废掉整站
+            detail = call_with_deadline(lambda: http_get(url, headers=h), 30, url)
         except Exception:
             continue
         mt = re.search(r"<title>(.*?)</title>", detail, re.S)
@@ -926,7 +956,8 @@ def main():
     fresh_blocks = {}
     for site, fn in SITES.items():
         try:
-            items = fn()
+            # 单平台总时长上限：任一平台挂死不应拖垮其余平台
+            items = call_with_deadline(fn, SITE_DEADLINE, site)
         except Exception as e:
             print(f"[err] {site}: {e}")
             items = None

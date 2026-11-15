@@ -1,6 +1,6 @@
 {
   "_comment": "3D模型网站比赛数据 - 自动抓取更新。status: ongoing|upcoming|judging|ended",
-  "last_update": "2026-11-14 08:24",
+  "last_update": "2026-11-15 09:14",
   "contests": [
     {
       "name": "Halloween Party: 3D Design Contest 🎃",
@@ -73,6 +73,60 @@
       "status": "ongoing",
       "url": "https://makerworld.com/zh/contests/173",
       "site": "makerworld-intl"
+    },
+    {
+      "name": "拉链改造模型设计竞赛",
+      "desc": "",
+      "start": "2026-10-22",
+      "end": "2026-11-22",
+      "status": "ongoing",
+      "url": "https://makerworld.com.cn/zh/contests/94",
+      "site": "makerworld-cn"
+    },
+    {
+      "name": "Let's Make It: 拓竹 MakerWorld × ROG 玩家国度 玩家快乐屋模型设计竞赛",
+      "desc": "",
+      "start": "2026-10-15",
+      "end": "2026-11-15",
+      "status": "ongoing",
+      "url": "https://makerworld.com.cn/zh/contests/93",
+      "site": "makerworld-cn"
+    },
+    {
+      "name": "创作者挑战赛：@theebob 卷纸支架设计竞赛",
+      "desc": "",
+      "start": "2026-10-27",
+      "end": "2026-11-29",
+      "status": "ongoing",
+      "url": "https://makerworld.com.cn/zh/contests/95",
+      "site": "makerworld-cn"
+    },
+    {
+      "name": "大师挑战赛：3D打印机改造",
+      "desc": "",
+      "start": "2026-11-05",
+      "end": "2026-12-06",
+      "status": "ongoing",
+      "url": "https://makerworld.com.cn/zh/contests/96",
+      "site": "makerworld-cn"
+    },
+    {
+      "name": "不倒翁模型设计竞赛",
+      "desc": "",
+      "start": "2026-11-13",
+      "end": "2026-12-13",
+      "status": "ongoing",
+      "url": "https://makerworld.com.cn/zh/contests/97",
+      "site": "makerworld-cn"
+    },
+    {
+      "name": "打印你的「出彩」时刻|全彩3D模型设计比赛",
+      "desc": "打印你的「出彩」时刻",
+      "start": "2026-09-09",
+      "end": "2026-11-30",
+      "status": "ongoing",
+      "url": "https://model.jlc-3dp.cn/raceDetail?id=2280bf5d6a9c4ca786cc48c91d69d8ae",
+      "site": "jlc"
     },
     {
       "name": "趣味卡套 · 模型设计大赛",
@@ -174,7 +228,7 @@
       "desc": "Bring the magic of Christmas and New Year to life with your creativity! Design festive models inspired by the holiday season and share them with the Creality Cloud community.",
       "start": "2026-11-15",
       "end": "2027-01-07",
-      "status": "upcoming",
+      "status": "ongoing",
       "url": "https://www.crealitycloud.com/contest/2026Christmas",
       "site": "creality-intl"
     },
@@ -205,15 +259,6 @@
       "end": "2026-12-30",
       "status": "ongoing",
       "url": "https://www.makeronline.com/zh/contest/2026-%E5%9C%A3%E8%AF%9E%E8%8A%82%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/208.html",
-      "site": "makeronline"
-    },
-    {
-      "name": "机甲与机器人设计大赛",
-      "desc": "",
-      "start": "2026-10-09",
-      "end": "2026-11-14",
-      "status": "ongoing",
-      "url": "https://www.makeronline.com/zh/contest/%E6%9C%BA%E7%94%B2%E4%B8%8E%E6%9C%BA%E5%99%A8%E4%BA%BA%E8%AE%BE%E8%AE%A1%E5%A4%A7%E8%B5%9B/205.html",
       "site": "makeronline"
     },
     {
@@ -251,60 +296,6 @@
       "status": "ongoing",
       "url": "https://space.snapmaker.cn/zh/contest/detail?id=1",
       "site": "snapmaker-cn"
-    },
-    {
-      "name": "拉链改造模型设计竞赛",
-      "desc": "",
-      "start": "2026-10-22",
-      "end": "2026-11-22",
-      "status": "ongoing",
-      "url": "https://makerworld.com.cn/zh/contests/94",
-      "site": "makerworld-cn"
-    },
-    {
-      "name": "Let's Make It: 拓竹 MakerWorld × ROG 玩家国度 玩家快乐屋模型设计竞赛",
-      "desc": "",
-      "start": "2026-10-15",
-      "end": "2026-11-15",
-      "status": "ongoing",
-      "url": "https://makerworld.com.cn/zh/contests/93",
-      "site": "makerworld-cn"
-    },
-    {
-      "name": "创作者挑战赛：@theebob 卷纸支架设计竞赛",
-      "desc": "",
-      "start": "2026-10-27",
-      "end": "2026-11-29",
-      "status": "ongoing",
-      "url": "https://makerworld.com.cn/zh/contests/95",
-      "site": "makerworld-cn"
-    },
-    {
-      "name": "大师挑战赛：3D打印机改造",
-      "desc": "",
-      "start": "2026-11-05",
-      "end": "2026-12-06",
-      "status": "ongoing",
-      "url": "https://makerworld.com.cn/zh/contests/96",
-      "site": "makerworld-cn"
-    },
-    {
-      "name": "不倒翁模型设计竞赛",
-      "desc": "",
-      "start": "2026-11-13",
-      "end": "2026-12-13",
-      "status": "ongoing",
-      "url": "https://makerworld.com.cn/zh/contests/97",
-      "site": "makerworld-cn"
-    },
-    {
-      "name": "打印你的「出彩」时刻|全彩3D模型设计比赛",
-      "desc": "打印你的「出彩」时刻",
-      "start": "2026-09-09",
-      "end": "2026-11-30",
-      "status": "ongoing",
-      "url": "https://model.jlc-3dp.cn/raceDetail?id=2280bf5d6a9c4ca786cc48c91d69d8ae",
-      "site": "jlc"
     },
     {
       "name": "Knit Wit🪡",
