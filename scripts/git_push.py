@@ -80,7 +80,9 @@ def _env_without_proxy():
 
 def _run_git_via(proxy, args, timeout=180):
     cmd = ["git"]
-    if proxy:
+    # proxy=None  -> 保持当前环境（含仓库级 http.proxy 配置）
+    # proxy=""    -> 显式清空代理（仓库级配置也一并覆盖），实现真正直连
+    if proxy is not None:
         cmd += ["-c", f"http.proxy={proxy}", "-c", f"https.proxy={proxy}"]
     cmd += args
     try:
