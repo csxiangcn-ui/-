@@ -11,6 +11,23 @@ rem  to a working local proxy when the injected proxy env var is dead.
 rem ============================================================
 cd /d "%~dp0"
 
+rem ---- git must be on PATH ----
+rem A shell without Git (plain PowerShell, for instance) makes every git call
+rem fail with WinError 2 / "not recognized": data still refreshes but nothing
+rem is ever committed or pushed. Inject Git explicitly when it is missing.
+where git >nul 2>&1
+if not errorlevel 1 goto :gitready
+for %%D in ("%ProgramFiles%\Git\cmd" "%ProgramFiles(x86)%\Git\cmd" "%ProgramW6432%\Git\cmd" "%LocalAppData%\Programs\Git\cmd") do (
+  if exist "%%~D\git.exe" set "PATH=%%~D;%PATH%"
+)
+:gitready
+where git >nul 2>&1
+if errorlevel 1 (
+  echo [FATAL] git not found on PATH
+  if /i "%~1"=="auto" >> update.log echo [FATAL] git not found on PATH
+  exit /b 9
+)
+
 rem ---- Python interpreter ----
 rem Always prefer .venv. Playwright installed into WorkBuddy's bundled temp
 rem python disappears between sessions, which silently loses the
